@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AureonLabs</title>
+    
+    <!-- Tailwind CSS pour les styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Babel pour compiler le code React/JSX dans le navigateur -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Import Map pour permettre les imports style "import React from 'react'" -->
+    <script type="importmap">
+    {
+        "imports": {
+            "react": "https://esm.sh/react@18.2.0",
+            "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+            "lucide-react": "https://esm.sh/lucide-react@0.292.0?deps=react@18.2.0"
+        }
+    }
+    </script>
+</head>
+<body class="bg-[#0a0d14] text-white">
+    <!-- C'est ici que l'application React va s'injecter -->
+    <div id="root"></div>
+
+    <!-- Script principal React (exactement votre code) -->
+    <script type="text/babel" data-type="module">
+        import { createRoot } from 'react-dom/client';
+        
+// ==========================================
+// VOTRE CODE EXACT CI-DESSOUS (SANS CHANGEMENTS)
+// ==========================================
+
+import React, { useState, useEffect, useRef } from 'react';
+
+import { 
+  LayoutDashboard, BookOpen, CheckSquare, PenTool, Settings, LogOut, 
+  Search, Bell, Plus, MoreVertical, Calendar as CalendarIcon, 
+  FileText, ChevronRight, ChevronLeft, Play, Pause, RotateCcw, 
+  Download, Clock, Target, Zap, BookMarked, GraduationCap,
+  Activity, ArrowUpRight, CheckCircle2, Circle, AlertCircle,
+  FolderOpen, Link as LinkIcon, Video, Trash2, Edit2, X,
+  User, Shield, ToggleLeft, ToggleRight, RefreshCw, DownloadCloud,
+  ImagePlus, CalendarPlus, CornerDownRight, Eye, ExternalLink, Rocket,
+  LayoutGrid, Mail, Lock, ArrowRight
+} from 'lucide-react';
+
+// --- DONNÉES SIMULÉES DÉMONSTRATION ---
+const DEMO_COURSES = [
+  { id: 1, name: 'Mathématiques Avancées', code: 'MAT-401', progress: 50, grade: '16.5', professor: 'Dr. Turing', color: 'bg-emerald-500', modules: [{ id: 101, title: 'Algèbre Linéaire', completed: true, subparts: [{id: 1011, title: 'Espaces vectoriels', completed: true}, {id: 1012, title: 'Matrices et déterminants', completed: true}] }, { id: 102, title: 'Probabilités', completed: false, subparts: [{id: 1021, title: 'Variables aléatoires', completed: false}] }], documents: [{ id: 201, name: 'TD_Algebre_04.pdf', size: '2.4 MB', type: 'pdf', isSimulated: true, url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' }] },
+  { id: 2, name: 'Développement Web', code: 'DEV-202', progress: 100, grade: '18.0', professor: 'Mme. Lovelace', color: 'bg-teal-500', modules: [{ id: 103, title: 'React Hooks', completed: true, subparts: [] }, { id: 104, title: 'API REST', completed: true, subparts: [] }], documents: [{ id: 202, name: 'Cheatsheet_React.pdf', size: '1.1 MB', type: 'pdf', isSimulated: true, url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' }] },
+  { id: 3, name: 'Économie Globale', code: 'ECO-305', progress: 0, grade: '12.0', professor: 'Pr. Nash', color: 'bg-cyan-500', modules: [{ id: 105, title: 'Microéconomie', completed: false }], documents: [{ id: 203, name: 'Etude_Cas.pdf', size: '3.2 MB', type: 'pdf', isSimulated: true, url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' }] },
+];
+
+const PRESET_COLORS = [
+  { name: 'Emerald', class: 'bg-emerald-500' }, { name: 'Teal', class: 'bg-teal-500' }, { name: 'Cyan', class: 'bg-cyan-500' },
+  { name: 'Blue', class: 'bg-blue-500' }, { name: 'Indigo', class: 'bg-indigo-500' }, { name: 'Purple', class: 'bg-purple-500' },
+];
+
+const generateDemoTasks = () => {
+  const t = new Date(); const d1 = new Date(t); d1.setDate(t.getDate() + 1); const d3 = new Date(t); d3.setDate(t.getDate() + 3);
+  return [
+    { id: 1, title: 'Rendre le projet React', date: t, type: 'Projet', status: 'in_progress', course: 'Développement Web', priority: 'high' },
+    { id: 2, title: 'Réviser Chapitre 4', date: d1, type: 'Révision', status: 'todo', course: 'Mathématiques Avancées', priority: 'medium' },
+  ];
+};
+
+const generateDemoEvents = (currentYear, currentMonth) => {
+  const today = new Date(); const isCurrentMonth = today.getFullYear() === currentYear && today.getMonth() === currentMonth;
+  const baseDay = isCurrentMonth ? today.getDate() : 15; const safeDay = (d) => { const maxDays = new Date(currentYear, currentMonth + 1, 0).getDate(); return d < 1 ? 1 : d > maxDays ? maxDays : d; };
+  return [
+    { id: 'evt_1', title: 'Examen Final Math', day: safeDay(baseDay + 5), type: 'exam', color: 'bg-red-500/10 text-red-400 border-red-500/20' },
+    { id: 'evt_2', title: 'Rendu Projet Web', day: safeDay(baseDay), type: 'deadline', color: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' },
+  ];
+};
+
+const DEMO_TOPICS = [
+  { id: 1, title: "Comprendre les React Hooks", course: "Développement Web", date: "Il y a 2h" },
+  { id: 2, title: "Loi des grands nombres", course: "Mathématiques Avancées", date: "Hier" },
+];
+
+const PRODUCTIVITY_TIPS = [
+  { id: 1, title: "La Règle des 2 minutes", desc: "Si une tâche prend moins de deux minutes, faites-la immédiatement.", icon: Zap, color: "text-yellow-400" },
+  { id: 2, title: "Technique Pomodoro", desc: "Travaillez 25 min, faites une pause de 5 min. Utilisez le widget timer !", icon: Clock, color: "text-emerald-400" },
+  { id: 3, title: "Mangez la grenouille", desc: "Commencez votre journée par la tâche la plus difficile ou la plus importante.", icon: Target, color: "text-red-400" },
+  { id: 4, title: "Révision Espacée", desc: "Espacez vos sessions de révision dans le temps pour une meilleure mémorisation.", icon: Activity, color: "text-blue-400" }
+];
+
+const TUTORIAL_STEPS = [
+  { tab: 'dashboard', title: 'Bienvenue sur AureonLabs ! 🚀', desc: 'Découvrons ensemble votre nouvel espace académique premium. Suivez le guide pour maîtriser la plateforme en 1 minute.', icon: Rocket },
+  { tab: 'dashboard', title: 'Votre Tableau de Bord', desc: 'Ici, vous pouvez surveiller votre moyenne générale, utiliser le Pomodoro pour réviser, et prendre des notes rapides.', icon: LayoutDashboard },
+  { tab: 'courses', title: 'Cours & Ressources', desc: 'Créez vos matières, ajoutez des chapitres avec des sous-parties, et importez vos fichiers locaux pour les lire directement ici.', icon: BookOpen },
+  { tab: 'tasks', title: 'Le Kanban des Tâches', desc: 'Gérez vos devoirs visuellement. Déplacez-les entre "Planifié" et "Terminé". Le compte à rebours vous alerte automatiquement !', icon: LayoutGrid },
+  { tab: 'calendar', title: 'Emploi du temps', desc: 'Ajoutez vos examens sur le calendrier. Vous pourrez l\'exporter vers Google Agenda ou Apple Calendar (.ics).', icon: CalendarIcon },
+  { tab: 'dashboard', title: 'Votre espace est prêt !', desc: 'Souhaitez-vous explorer la plateforme avec des données de démonstration ou commencer immédiatement avec un espace vierge ?', icon: Zap }
+];
+
+// --- HELPERS DATES ---
+const parseDates = (arr) => arr.map(item => ({ ...item, date: item.date ? new Date(item.date) : null }));
+
+
+// ==========================================
+// ECRAN D'AUTHENTIFICATION
+// ==========================================
+const AuthScreen = ({ onLogin }) => {
+  const [isRegistering, setIsRegistering] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setError('');
+    
+    if (!email || !password) {
+      setError("Veuillez remplir tous les champs.");
+      return;
+    }
+    
+    if (isRegistering) {
+      // Sauvegarder les identifiants
+      localStorage.setItem('au_account', JSON.stringify({ email, password }));
+      localStorage.setItem('au_current_user', email);
+      
+      // On génère un profil par défaut basé sur l'email
+      const namePart = email.split('@')[0];
+      const firstName = namePart.charAt(0).toUpperCase() + namePart.slice(1).replace(/[^a-zA-Z]/g, '');
+      const defaultProfile = { firstName: firstName, lastName: '', program: 'Nouvel Étudiant', avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${namePart}`, notifsEmail: true, notifsPush: false };
+      localStorage.setItem('au_profile', JSON.stringify(defaultProfile));
+      
+      onLogin();
+    } else {
+      // Vérifier les identifiants
+      const savedAccount = JSON.parse(localStorage.getItem('au_account'));
+      if (savedAccount && savedAccount.email === email && savedAccount.password === password) {
+        localStorage.setItem('au_current_user', email);
+        onLogin();
+      } else {
+        setError("Identifiants incorrects ou compte inexistant.");
+      }
+    }
+  };
+  
+  return (
+    <div className="min-h-screen bg-[#0a0d14] flex items-center justify-center p-4 relative overflow-hidden font-sans selection:bg-emerald-500/30">
+      {/* Background Glows */}
+      <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[100%] h-[600px] bg-emerald-500/10 blur-[150px] rounded-full mix-blend-screen pointer-events-none"></div>
+      <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }}></div>
+      
+      <div className="relative z-10 w-full max-w-md">
+        <div className="flex flex-col items-center mb-8 animation-fade-in">
+          <img src="https://i.postimg.cc/ZYvjYXDg/Logo_carre_Aureon_Blanc.png" alt="AureonLabs" className="w-16 h-16 object-contain mb-4 drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]" />
+          <h1 className="text-2xl font-bold text-white tracking-tight">AureonLabs</h1>
+          <p className="text-emerald-500 text-sm font-medium tracking-widest uppercase mt-1">Student Premium</p>
+        </div>
+        
+        <div className="bg-[#11151e]/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl animation-fade-in">
+          <h2 className="text-xl font-semibold text-white mb-2">{isRegistering ? "Créer votre espace" : "Bon retour parmi nous"}</h2>
+          <p className="text-zinc-400 text-sm mb-6 leading-relaxed">
+            {isRegistering 
+              ? "Merci pour votre confiance. Créez un compte pour configurer et accéder à votre espace étudiant 100% privé." 
+              : "Connectez-vous pour retrouver vos cours, vos notes et votre planning synchronisé."}
+          </p>
+          
+          {error && (
+            <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-xl text-sm font-medium mb-6 flex items-center gap-2">
+              <AlertCircle size={16}/> {error}
+            </div>
+          )}
+          
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-xs font-bold text-zinc-500 uppercase mb-1.5 ml-1">Adresse Email</label>
+              <div className="relative">
+                <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" />
+                <input 
+                  type="email" 
+                  value={email} 
+                  onChange={(e) => setEmail(e.target.value)} 
+                  className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 pr-4 text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500/50 transition-colors"
+                  placeholder="etudiant@universite.com"
+                />
+              </div>
+            </div>
+            
+            <div>
+              <label className="block text-xs font-bold text-zinc-500 uppercase mb-1.5 ml-1">Mot de passe</label>
+              <div className="relative">
+                <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" />
+                <input 
+                  type="password" 
+                  value={password} 
+                  onChange={(e) => setPassword(e.target.value)} 
+                  className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 pr-4 text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500/50 transition-colors"
+                  placeholder="••••••••"
+                />
+              </div>
+            </div>
+            
+            <button type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold py-3.5 rounded-xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.2)] hover:shadow-[0_0_25px_rgba(16,185,129,0.4)] flex items-center justify-center gap-2 mt-4">
+              {isRegistering ? "Accéder à mon espace" : "Se Connecter"} <ArrowRight size={18}/>
+            </button>
+          </form>
+          
+          <div className="mt-6 pt-6 border-t border-white/5 text-center">
+            <p className="text-zinc-500 text-sm">
+              {isRegistering ? "Déjà un compte ?" : "Première visite ?"} 
+              <button onClick={() => {setIsRegistering(!isRegistering); setError('');}} className="text-emerald-400 hover:text-emerald-300 font-medium ml-2 transition-colors">
+                {isRegistering ? "Se connecter" : "Créer un espace"}
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
+// --- WIDGETS COMPLEXES ---
+const LiveClock = () => {
+  const [time, setTime] = useState(new Date());
+  useEffect(() => { const timer = setInterval(() => setTime(new Date()), 1000); return () => clearInterval(timer); }, []);
+  return (
+    <div className="flex flex-col items-center justify-center p-4 h-full">
+      <div className="text-4xl md:text-5xl font-light tracking-tight text-white tabular-nums">
+        {time.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
+        <span className="text-xl md:text-2xl text-emerald-500 ml-1">{time.getSeconds().toString().padStart(2, '0')}</span>
+      </div>
+      <div className="text-xs font-semibold text-zinc-500 uppercase tracking-[0.2em] mt-2">
+        {time.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
+      </div>
+    </div>
+  );
+};
+
+const PomodoroWidget = () => {
+  const [timeLeft, setTimeLeft] = useState(25 * 60); const [isActive, setIsActive] = useState(false); const [mode, setMode] = useState('Focus');
+  const totalTime = mode === 'Focus' ? 25 * 60 : 5 * 60; const progress = ((totalTime - timeLeft) / totalTime) * 100;
+  
+  useEffect(() => {
+    let interval = null;
+    if (isActive && timeLeft > 0) interval = setInterval(() => setTimeLeft(timeLeft - 1), 1000);
+    else if (timeLeft === 0) { setIsActive(false); setMode(prev => prev === 'Focus' ? 'Pause' : 'Focus'); setTimeLeft(mode === 'Focus' ? 5 * 60 : 25 * 60); }
+    return () => clearInterval(interval);
+  }, [isActive, timeLeft, mode]);
+  
+  const formatTime = (s) => `${Math.floor(s / 60).toString().padStart(2, '0')}:${(s % 60).toString().padStart(2, '0')}`;
+  
+  return (
+    <div className="flex flex-col items-center justify-center h-full relative">
+      <div className="flex gap-2 mb-4">
+        <button onClick={() => {setMode('Focus'); setTimeLeft(25*60); setIsActive(false);}} className={`text-xs font-medium px-3 py-1 rounded-full transition-colors ${mode === 'Focus' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'text-zinc-500 hover:text-zinc-300'}`}>Focus</button>
+        <button onClick={() => {setMode('Pause'); setTimeLeft(5*60); setIsActive(false);}} className={`text-xs font-medium px-3 py-1 rounded-full transition-colors ${mode === 'Pause' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'text-zinc-500 hover:text-zinc-300'}`}>Pause</button>
+      </div>
+      <div className="text-4xl font-light tabular-nums tracking-tight text-white mb-4">{formatTime(timeLeft)}</div>
+      <div className="w-full h-1 bg-zinc-800 rounded-full overflow-hidden mb-6"><div className="h-full bg-emerald-500 transition-all duration-1000 ease-linear shadow-[0_0_10px_rgba(16,185,129,0.8)]" style={{ width: `${100 - progress}%` }}></div></div>
+      <div className="flex space-x-3">
+        <button onClick={() => setIsActive(!isActive)} className="w-10 h-10 flex items-center justify-center rounded-full bg-zinc-800 text-white hover:bg-emerald-500 hover:text-black transition-all border border-white/5">{isActive ? <Pause size={16} fill="currentColor" /> : <Play size={16} fill="currentColor" className="ml-1" />}</button>
+        <button onClick={() => { setIsActive(false); setTimeLeft(mode === 'Focus' ? 25 * 60 : 5 * 60); }} className="w-10 h-10 flex items-center justify-center rounded-full bg-zinc-800 text-zinc-400 hover:text-white transition-all border border-white/5"><RotateCcw size={16} /></button>
+      </div>
+    </div>
+  );
+};
+
+const Whiteboard = () => {
+  const canvasRef = useRef(null); const containerRef = useRef(null);
+  const [isDrawing, setIsDrawing] = useState(false); const [color, setColor] = useState('#10b981'); const [brushSize, setBrushSize] = useState(3);
+  
+  useEffect(() => {
+    const canvas = canvasRef.current; const container = containerRef.current; const ctx = canvas.getContext('2d');
+    const resizeCanvas = () => {
+      const rect = container.getBoundingClientRect(); if (rect.width === 0 || rect.height === 0) return;
+      const dpr = window.devicePixelRatio || 1; const oldWidth = canvas.width; const oldHeight = canvas.height;
+      let tempCanvas = null;
+      if (oldWidth > 0 && oldHeight > 0) { tempCanvas = document.createElement('canvas'); tempCanvas.width = oldWidth; tempCanvas.height = oldHeight; const tempCtx = tempCanvas.getContext('2d'); if (tempCtx) tempCtx.drawImage(canvas, 0, 0); }
+      canvas.width = rect.width * dpr; canvas.height = rect.height * dpr; canvas.style.width = `${rect.width}px`; canvas.style.height = `${rect.height}px`;
+      ctx.scale(dpr, dpr); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      if (tempCanvas && tempCanvas.width > 0 && tempCanvas.height > 0) ctx.drawImage(tempCanvas, 0, 0, oldWidth / dpr, oldHeight / dpr);
+    };
+    resizeCanvas(); window.addEventListener('resize', resizeCanvas); setTimeout(resizeCanvas, 100); return () => window.removeEventListener('resize', resizeCanvas);
+  }, []);
+  
+  const getCoordinates = (e) => { const rect = canvasRef.current.getBoundingClientRect(); const clientX = e.clientX || (e.touches && e.touches[0].clientX); const clientY = e.clientY || (e.touches && e.touches[0].clientY); return { x: clientX - rect.left, y: clientY - rect.top }; };
+  const startDrawing = (e) => { const coords = getCoordinates(e.nativeEvent || e); const ctx = canvasRef.current.getContext('2d'); ctx.beginPath(); ctx.moveTo(coords.x, coords.y); setIsDrawing(true); };
+  const draw = (e) => { if (!isDrawing) return; const coords = getCoordinates(e.nativeEvent || e); const ctx = canvasRef.current.getContext('2d'); ctx.strokeStyle = color; ctx.lineWidth = brushSize; ctx.lineTo(coords.x, coords.y); ctx.stroke(); };
+  const stopDrawing = () => { if (isDrawing) { canvasRef.current.getContext('2d').closePath(); setIsDrawing(false); } };
+  const clearCanvas = () => { const canvas = canvasRef.current; const ctx = canvas.getContext('2d'); const dpr = window.devicePixelRatio || 1; ctx.clearRect(0, 0, canvas.width / dpr, canvas.height / dpr); };
+  
+  const downloadCanvas = () => {
+    const canvas = canvasRef.current; const tempCanvas = document.createElement('canvas'); tempCanvas.width = canvas.width; tempCanvas.height = canvas.height;
+    const ctx = tempCanvas.getContext('2d'); ctx.fillStyle = '#0b0f19'; ctx.fillRect(0, 0, tempCanvas.width, tempCanvas.height); ctx.drawImage(canvas, 0, 0);
+    const link = document.createElement('a'); link.download = 'aureon-whiteboard.png'; link.href = tempCanvas.toDataURL('image/png'); link.click();
+  };
+  
+  const colors = [{ value: '#10b981', name: 'Emerald' }, { value: '#3b82f6', name: 'Blue' }, { value: '#ef4444', name: 'Red' }, { value: '#f59e0b', name: 'Yellow' }, { value: '#fafafa', name: 'White' }];
+  
+  return (
+    <div className="h-full flex flex-col bg-[#11151e] rounded-2xl border border-white/5 overflow-hidden shadow-2xl relative">
+      <div className="flex flex-wrap items-center justify-between p-3 border-b border-white/5 bg-[#0b0f19]/50 gap-4">
+        <h3 className="font-medium text-sm flex items-center gap-2 text-white"><PenTool size={16} className="text-emerald-500"/> Studio Créatif</h3>
+        <div className="flex items-center gap-3">
+          <div className="flex gap-2 bg-black/30 p-1.5 rounded-lg border border-white/5">{colors.map(c => (<button key={c.value} onClick={() => setColor(c.value)} className={`w-5 h-5 rounded-full transition-transform ${color === c.value ? 'ring-2 ring-offset-2 ring-offset-[#11151e] ring-emerald-500 scale-110' : 'hover:scale-110 opacity-70 hover:opacity-100'}`} style={{ backgroundColor: c.value }} title={c.name} />))}</div>
+          <div className="flex gap-2">
+            <button onClick={clearCanvas} className="p-2 bg-white/5 text-zinc-400 rounded-lg hover:bg-white/10 transition border border-white/5" title="Effacer"><RotateCcw size={16}/></button>
+            <button onClick={downloadCanvas} className="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg hover:bg-emerald-500 hover:text-black transition border border-emerald-500/20" title="Exporter PNG"><Download size={16}/></button>
+          </div>
+        </div>
+      </div>
+      <div className="flex-1 w-full relative cursor-crosshair overflow-hidden" ref={containerRef}><canvas ref={canvasRef} onMouseDown={startDrawing} onMouseMove={draw} onMouseUp={stopDrawing} onMouseLeave={stopDrawing} onTouchStart={(e) => { e.preventDefault(); startDrawing(e); }} onTouchMove={(e) => { e.preventDefault(); draw(e); }} onTouchEnd={stopDrawing} className="absolute top-0 left-0 touch-none" /></div>
+    </div>
+  );
+};
+
+// ==========================================
+// MAIN APP COMPONENT
+// ==========================================
+const MainApp = ({ onLogout }) => {
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentMonthDate, setCurrentMonthDate] = useState(new Date());
+  const [randomTips] = useState(() => [...PRODUCTIVITY_TIPS].sort(() => 0.5 - Math.random()).slice(0, 2));
+  
+  // UI STATES
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  
+  // ONBOARDING TUTORIAL STATE
+  const [showTutorial, setShowTutorial] = useState(() => {
+    try { return localStorage.getItem('au_tutorial_done') !== 'true'; } catch (e) { return true; }
+  });
+  const [tutorialStep, setTutorialStep] = useState(0);
+  
+  // STATES GLOBAUX & PERSISTANCE (Démarre Vierge par défaut)
+  const [courses, setCourses] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('au_courses')) || []; } catch (e) { return []; }
+  });
+  const [tasks, setTasks] = useState(() => { 
+    try { const saved = localStorage.getItem('au_tasks'); return saved ? parseDates(JSON.parse(saved)) : []; } catch (e) { return []; }
+  });
+  const [thoughts, setThoughts] = useState(() => {
+    try { return localStorage.getItem('au_thoughts') || ""; } catch (e) { return ""; }
+  });
+  const [events, setEvents] = useState(() => { 
+    try { const saved = localStorage.getItem('au_events'); return saved ? parseDates(JSON.parse(saved)) : []; } catch (e) { return []; }
+  });
+  const [recentTopics, setRecentTopics] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('au_topics')) || []; } catch (e) { return []; }
+  });
+  const [userProfile, setUserProfile] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('au_profile')) || { firstName: 'Alexandre', lastName: '', program: 'Nouvel Étudiant', avatar: 'https://i.pravatar.cc/150?u=alex', notifsEmail: true, notifsPush: false } } catch (e) { return { firstName: 'Alexandre', lastName: '', program: 'Nouvel Étudiant', avatar: 'https://i.pravatar.cc/150?u=alex', notifsEmail: true, notifsPush: false }; }
+  });
+  const [notifications, setNotifications] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('au_notifs')) || [] } catch (e) { return []; }
+  });
+  
+  useEffect(() => localStorage.setItem('au_courses', JSON.stringify(courses)), [courses]);
+  useEffect(() => localStorage.setItem('au_tasks', JSON.stringify(tasks)), [tasks]);
+  useEffect(() => localStorage.setItem('au_thoughts', thoughts), [thoughts]);
+  useEffect(() => localStorage.setItem('au_events', JSON.stringify(events)), [events]);
+  useEffect(() => localStorage.setItem('au_topics', JSON.stringify(recentTopics)), [recentTopics]);
+  useEffect(() => localStorage.setItem('au_profile', JSON.stringify(userProfile)), [userProfile]);
+  useEffect(() => localStorage.setItem('au_notifs', JSON.stringify(notifications)), [notifications]);
+
+  // STATES COURS & MODALES
+  const [selectedCourseId, setSelectedCourseId] = useState(null);
+  const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
+  const [courseForm, setCourseForm] = useState({ id: null, name: '', code: '', professor: '', grade: '', color: 'bg-emerald-500' });
+  const [isModuleModalOpen, setIsModuleModalOpen] = useState(false);
+  const [moduleForm, setModuleForm] = useState({ title: '', hasSubparts: false, subparts: [''] });
+  const [addingSubpartTo, setAddingSubpartTo] = useState(null);
+  const [subpartTitle, setSubpartTitle] = useState('');
+  const [isResourceModalOpen, setIsResourceModalOpen] = useState(false);
+  const [resourceForm, setResourceForm] = useState({ name: '', type: 'link', url: '' });
+  const [resourceFile, setResourceFile] = useState(null);
+  const [resourceUploadType, setResourceUploadType] = useState('file');
+  const [previewDoc, setPreviewDoc] = useState(null);
+  const [taskModal, setTaskModal] = useState({ isOpen: false, task: null });
+  const [taskForm, setTaskForm] = useState({ title: '', course: '', type: 'Devoir', status: 'todo', priority: 'medium', date: new Date().toISOString().split('T')[0] });
+  const [eventModal, setEventModal] = useState({ isOpen: false, day: null });
+  const [eventForm, setEventForm] = useState({ title: '', type: 'study' });
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [settingsTab, setSettingsTab] = useState('acc');
+  const [isNotifOpen, setIsNotifOpen] = useState(false);
+  
+  // --- LOGIQUE NOTIFICATIONS ---
+  const pushNotification = (message, actionTab = null, actionId = null) => {
+    const newNotif = { id: Date.now(), message, time: new Date().toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'}), actionTab, actionId };
+    setNotifications(prev => [newNotif, ...prev].slice(0, 8));
+  };
+  const clearNotifications = () => setNotifications([]);
+  
+  const handleNotificationClick = (notif) => {
+    if (notif.actionTab === 'settings') { setIsSettingsOpen(true); } 
+    else if (notif.actionTab) {
+      setActiveTab(notif.actionTab);
+      if (notif.actionTab === 'courses' && notif.actionId) setSelectedCourseId(notif.actionId);
+      else if (notif.actionTab === 'courses') setSelectedCourseId(null);
+    }
+    setIsNotifOpen(false);
+  };
+  
+  // --- LOGIQUE TUTORIEL ---
+  const nextTutorialStep = () => {
+    if (tutorialStep < TUTORIAL_STEPS.length - 1) {
+      const nextStep = tutorialStep + 1;
+      setTutorialStep(nextStep);
+      setActiveTab(TUTORIAL_STEPS[nextStep].tab);
+      setSelectedCourseId(null);
+    }
+  };
+  
+  const handleTutorialChoice = (loadDemo) => {
+    if (loadDemo) {
+      setCourses(DEMO_COURSES);
+      setTasks(generateDemoTasks());
+      setThoughts("• Analyser le marché et les cours.\n• Finaliser la maquette Figma.");
+      setEvents(generateDemoEvents(currentMonthDate.getFullYear(), currentMonthDate.getMonth()));
+      setRecentTopics(DEMO_TOPICS);
+      pushNotification("Données de démonstration chargées.", "dashboard");
+    } else {
+      setCourses([]); setTasks([]); setThoughts(""); setEvents([]); setRecentTopics([]);
+      pushNotification("Espace vierge créé. À vous de jouer !", "dashboard");
+    }
+    setShowTutorial(false);
+    localStorage.setItem('au_tutorial_done', 'true');
+    setActiveTab('dashboard');
+  };
+  
+  const replayTutorial = () => {
+    setIsSettingsOpen(false);
+    setTutorialStep(0);
+    setActiveTab(TUTORIAL_STEPS[0].tab);
+    setSelectedCourseId(null);
+    setShowTutorial(true);
+  };
+  
+  // --- LOGIQUE TÂCHES ---
+  const moveTask = (id, newStatus) => setTasks(tasks.map(t => t.id === id ? { ...t, status: newStatus } : t));
+  const deleteTask = (id) => { setTasks(tasks.filter(t => t.id !== id)); setTaskModal({ isOpen: false, task: null }); pushNotification("Tâche supprimée.", "tasks"); };
+  const openTaskModal = (task = null) => {
+    setTaskForm(task ? { ...task, date: task.date ? task.date.toISOString().split('T')[0] : '' } : { title: '', course: courses[0]?.name || 'Général', type: 'Devoir', status: 'todo', priority: 'medium', date: new Date().toISOString().split('T')[0] });
+    setTaskModal({ isOpen: true, task });
+  };
+  const saveTask = (e) => {
+    e.preventDefault();
+    const newTaskData = { ...taskForm, date: new Date(taskForm.date) };
+    if (taskModal.task) {
+      setTasks(tasks.map(t => t.id === taskModal.task.id ? { ...newTaskData, id: t.id } : t));
+      pushNotification(`${userProfile.firstName} a modifié la tâche "${newTaskData.title}".`, "tasks");
+    } else {
+      setTasks([...tasks, { ...newTaskData, id: Date.now() }]);
+      pushNotification(`${userProfile.firstName} a ajouté la tâche "${newTaskData.title}".`, "tasks");
+    }
+    setTaskModal({ isOpen: false, task: null });
+  };
+  
+  // --- LOGIQUE COURS ---
+  const handleCourseNameChange = (e) => {
+    const name = e.target.value; let code = courseForm.code;
+    if (!courseForm.id) code = name.substring(0, 3).toUpperCase() + '-' + (Math.floor(Math.random() * 900) + 100);
+    setCourseForm({...courseForm, name, code});
+  };
+  const handleOpenCourseModal = (course = null) => {
+    if (course) setCourseForm(course); else setCourseForm({ id: null, name: '', code: '', professor: '', grade: '', color: 'bg-emerald-500' });
+    setIsCourseModalOpen(true);
+  };
+  const handleSaveCourse = (e) => {
+    e.preventDefault();
+    if (courseForm.id) {
+      setCourses(courses.map(c => c.id === courseForm.id ? { ...c, ...courseForm } : c));
+      pushNotification(`Le cours "${courseForm.name}" a été mis à jour.`, "courses", courseForm.id);
+    } else {
+      const newId = Date.now();
+      setCourses([...courses, { ...courseForm, id: newId, progress: 0, modules: [], documents: [] }]);
+      pushNotification(`Nouveau cours "${courseForm.name}" ajouté.`, "courses", newId);
+    }
+    setIsCourseModalOpen(false);
+  };
+  const handleDeleteCourse = (id) => { 
+    setCourses(courses.filter(c => c.id !== id)); 
+    if (selectedCourseId === id) setSelectedCourseId(null); 
+    pushNotification("Un cours a été supprimé.", "courses"); 
+  };
+  
+  const calculateProgress = (modules) => {
+    if (!modules || modules.length === 0) return 0;
+    let totalItems = 0; let completedItems = 0;
+    modules.forEach(m => {
+      if (m.subparts && m.subparts.length > 0) {
+        totalItems += m.subparts.length;
+        completedItems += m.subparts.filter(s => s.completed).length;
+      } else {
+        totalItems += 1;
+        if (m.completed) completedItems += 1;
+      }
+    });
+    return totalItems === 0 ? 0 : Math.round((completedItems / totalItems) * 100);
+  };
+  
+  const handleSaveModule = (e) => {
+    e.preventDefault();
+    const newSubparts = moduleForm.hasSubparts 
+      ? moduleForm.subparts.filter(s => s.trim() !== '').map((s, i) => ({ id: Date.now() + i, title: s, completed: false }))
+      : [];
+    
+    setCourses(courses.map(c => {
+      if (c.id === selectedCourseId) { 
+        const updatedModules = [...(c.modules||[]), { id: Date.now(), title: moduleForm.title, completed: false, subparts: newSubparts }]; 
+        return { ...c, modules: updatedModules, progress: calculateProgress(updatedModules) }; 
+      }
+      return c;
+    }));
+    
+    setRecentTopics(prev => [{ id: Date.now(), title: moduleForm.title, course: courses.find(c=>c.id===selectedCourseId)?.name, date: "À l'instant" }, ...prev].slice(0,5));
+    setIsModuleModalOpen(false); 
+    setModuleForm({ title: '', hasSubparts: false, subparts: [''] });
+    pushNotification(`Chapitre "${moduleForm.title}" ajouté.`, "courses", selectedCourseId);
+  };
+  
+  const handleSaveSubpart = (courseId, moduleId) => {
+    if (!subpartTitle.trim()) return;
+    setCourses(courses.map(c => {
+      if (c.id === courseId) {
+        const updatedModules = c.modules.map(m => {
+          if (m.id === moduleId) {
+            const newSub = { id: Date.now(), title: subpartTitle, completed: false };
+            return { ...m, subparts: [...(m.subparts||[]), newSub], completed: false }; 
+          }
+          return m;
+        });
+        return { ...c, modules: updatedModules, progress: calculateProgress(updatedModules) };
+      }
+      return c;
+    }));
+    setSubpartTitle('');
+    setAddingSubpartTo(null);
+  };
+  
+  const toggleModuleComplete = (courseId, moduleId, subpartId = null) => {
+    setCourses(courses.map(c => {
+      if (c.id === courseId) {
+        const updatedModules = c.modules.map(m => {
+          if (m.id === moduleId) {
+            if (subpartId) {
+              const updatedSubparts = m.subparts.map(s => s.id === subpartId ? { ...s, completed: !s.completed } : s);
+              const allCompleted = updatedSubparts.every(s => s.completed);
+              return { ...m, subparts: updatedSubparts, completed: allCompleted };
+            } else {
+              const newCompletedState = !m.completed;
+              const updatedSubparts = (m.subparts || []).map(s => ({ ...s, completed: newCompletedState }));
+              return { ...m, completed: newCompletedState, subparts: updatedSubparts };
+            }
+          }
+          return m;
+        });
+        return { ...c, modules: updatedModules, progress: calculateProgress(updatedModules) };
+      }
+      return c;
+    }));
+  };
+  
+  const handleDeleteModule = (courseId, moduleId, subpartId = null) => {
+    setCourses(courses.map(c => {
+      if (c.id === courseId) {
+        let updatedModules = [...c.modules];
+        if (subpartId) {
+          updatedModules = updatedModules.map(m => m.id === moduleId ? { ...m, subparts: m.subparts.filter(s => s.id !== subpartId) } : m);
+        } else {
+          updatedModules = updatedModules.filter(m => m.id !== moduleId);
+        }
+        return { ...c, modules: updatedModules, progress: calculateProgress(updatedModules) };
+      }
+      return c;
+    }));
+  };
+  
+  const handleSaveResource = (e) => {
+    e.preventDefault();
+    if (resourceUploadType === 'file' && !resourceFile) return;
+    if (resourceUploadType === 'link' && (!resourceForm.name || !resourceForm.url)) return;
+    
+    let fileName = resourceForm.name; let fileType = resourceForm.type; let fileSizeStr = 'Lien Web'; let fileUrl = resourceForm.url;
+    
+    if (resourceUploadType === 'file' && resourceFile) {
+      fileName = resourceFile.name; const sizeInBytes = resourceFile.size;
+      fileSizeStr = sizeInBytes > 1024 * 1024 ? (sizeInBytes / (1024 * 1024)).toFixed(1) + ' MB' : (sizeInBytes / 1024).toFixed(1) + ' KB';
+      
+      if (resourceFile.type.includes('pdf')) fileType = 'pdf';
+      else if (resourceFile.type.includes('video') || resourceFile.name.endsWith('.mp4')) fileType = 'video';
+      else if (resourceFile.type.includes('image')) fileType = 'image';
+      else fileType = 'file';
+      
+      if (sizeInBytes < 3 * 1024 * 1024) { 
+        const reader = new FileReader();
+        reader.onloadend = () => finalizeResourceSave(fileName, fileType, fileSizeStr, reader.result, false);
+        reader.readAsDataURL(resourceFile);
+        return; 
+      } else {
+        pushNotification("Fichier volumineux ajouté en tant que lien de téléchargement.", "courses", selectedCourseId);
+        const objectUrl = URL.createObjectURL(resourceFile);
+        finalizeResourceSave(fileName, fileType, fileSizeStr, objectUrl, true);
+        return;
+      }
+    } else {
+      finalizeResourceSave(fileName, fileType, fileSizeStr, fileUrl, false);
+    }
+  };
+  
+  const finalizeResourceSave = (name, type, size, url, isSimulated) => {
+    setCourses(courses.map(c => {
+      if (c.id === selectedCourseId) { 
+        const newDoc = { id: Date.now(), name, type, size, url, isSimulated }; 
+        return { ...c, documents: [...(c.documents||[]), newDoc] }; 
+      }
+      return c;
+    }));
+    setIsResourceModalOpen(false); setResourceForm({ name: '', type: 'link', url: '' }); setResourceFile(null);
+    pushNotification(`Ressource "${name}" ajoutée.`, "courses", selectedCourseId);
+  };
+  
+  const handleDeleteResource = (courseId, docId) => {
+    setCourses(courses.map(c => { if (c.id === courseId) return { ...c, documents: c.documents.filter(d => d.id !== docId) }; return c; }));
+    pushNotification("Ressource supprimée.", "courses", courseId);
+  };
+  
+  const handleResourceClick = (doc) => {
+    if (doc.type === 'link' || doc.type === 'video') {
+       if (doc.url) window.open(doc.url, '_blank');
+       else pushNotification("Lien non défini pour cette ressource.", "courses", selectedCourseId);
+    } else if (doc.type === 'pdf') {
+       if (doc.url && doc.url.startsWith('data:application/pdf;base64,')) {
+           const link = document.createElement('a'); link.href = doc.url; link.download = doc.name; link.click();
+           pushNotification(`Téléchargement de "${doc.name}" lancé.`, "courses", selectedCourseId);
+       } else if (doc.url && (doc.url.startsWith('http') || doc.url.startsWith('blob:'))) {
+           window.open(doc.url, '_blank');
+       } else if (doc.isSimulated) {
+           pushNotification("Ceci est un fichier de démonstration simulé.", "courses", selectedCourseId);
+       } else {
+           pushNotification("Impossible de charger ce document.", "courses", selectedCourseId);
+       }
+    } else {
+       if (doc.url) setPreviewDoc(doc);
+       else pushNotification("Aperçu non disponible.", "courses", selectedCourseId);
+    }
+  };
+  
+  const getResourceIcon = (type, color) => {
+    if (type === 'video') return <Video size={16} className={`text-${color.split('-')[1]}-500`} />;
+    if (type === 'link') return <LinkIcon size={16} className={`text-${color.split('-')[1]}-500`} />;
+    return <FileText size={16} className={`text-${color.split('-')[1]}-500`} />;
+  };
+  
+  // --- LOGIQUE THOUGHTS ---
+  const handleThoughtsKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const cursor = e.target.selectionStart;
+      const text = thoughts;
+      const newText = text.slice(0, cursor) + '\n• ' + text.slice(cursor);
+      setThoughts(newText);
+      setTimeout(() => { e.target.selectionStart = e.target.selectionEnd = cursor + 3; }, 0);
+    }
+  };
+  
+  // --- LOGIQUE CALENDRIER ---
+  const handleAddEvent = (e) => {
+    e.preventDefault();
+    const newEventDate = new Date(currentMonthDate.getFullYear(), currentMonthDate.getMonth(), eventModal.day);
+    const colorClass = eventForm.type === 'exam' ? 'bg-red-500/10 text-red-400 border-red-500/20' : 
+                       eventForm.type === 'deadline' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 
+                       'bg-blue-500/10 text-blue-400 border-blue-500/20';
+    
+    setEvents([...events, { id: Date.now(), title: eventForm.title, date: newEventDate, type: eventForm.type, color: colorClass }]);
+    setEventModal({ isOpen: false, day: null });
+    setEventForm({ title: '', type: 'study' });
+    pushNotification(`Événement "${eventForm.title}" ajouté au calendrier.`, "calendar");
+  };
+  
+  const exportICS = () => {
+    let icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//AureonLabs//StudentAccess//FR\n";
+    events.forEach(ev => {
+      let d = ev.date;
+      if (!d && ev.day) d = new Date(currentMonthDate.getFullYear(), currentMonthDate.getMonth(), ev.day);
+      if(!d) return;
+      const dateStr = `${d.getFullYear()}${(d.getMonth()+1).toString().padStart(2,'0')}${d.getDate().toString().padStart(2,'0')}`;
+      icsContent += `BEGIN:VEVENT\nDTSTART:${dateStr}T090000Z\nDTEND:${dateStr}T100000Z\nSUMMARY:${ev.title}\nEND:VEVENT\n`;
+    });
+    icsContent += "END:VCALENDAR";
+    
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const link = document.createElement('a'); link.href = window.URL.createObjectURL(blob); link.download = "aureon-planning.ics"; link.click();
+    pushNotification("Calendrier exporté avec succès.", "calendar");
+  };
+  
+  // --- PARAMÈTRES (Upload) ---
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => { setUserProfile({...userProfile, avatar: reader.result}); pushNotification("Photo de profil mise à jour.", "settings"); };
+      reader.readAsDataURL(file);
+    }
+  };
+  
+  // --- RENDU CONTENU ---
+  const filteredCourses = courses.filter(c => c.name.toLowerCase().includes(searchQuery.toLowerCase()) || c.code.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredTasks = tasks.filter(t => t.title.toLowerCase().includes(searchQuery.toLowerCase()) || t.course.toLowerCase().includes(searchQuery.toLowerCase()));
+  const averageGrade = courses.length ? (courses.reduce((acc, c) => acc + parseFloat(c.grade || 0), 0) / courses.length).toFixed(2) : '-.--';
+  
+  const generateDynamicSVGPath = () => {
+    // Si aucun cours, on affiche une ligne plate stylisée pour ne pas casser le design
+    const data = courses.length >= 2 ? courses.map(c => parseFloat(c.grade || 0)) : [10, 10, 10, 10, 10, 10];
+    const maxVal = 20; const width = 1000; const height = 200; const paddingY = 30;
+    const usableHeight = height - paddingY * 2; const stepX = width / (data.length - 1);
+    const getY = (val) => height - paddingY - (val / maxVal) * usableHeight;
+    let path = `M0,${getY(data[0])}`;
+    for (let i = 1; i < data.length; i++) {
+       const x = i * stepX; const y = getY(data[i]); const prevX = (i - 1) * stepX; const prevY = getY(data[i - 1]); const cpX = prevX + (x - prevX) / 2;
+       path += ` C${cpX},${prevY} ${cpX},${y} ${x},${y}`;
+    }
+    return { line: path, fill: `${path} L${width},${height} L0,${height} Z` };
+  };
+  const dynamicSvgPaths = generateDynamicSVGPath();
+  
+  const getCountdown = (date) => {
+    if (!date) return <span className="text-zinc-500">Pas de date</span>;
+    const d = date instanceof Date ? date : new Date(date);
+    if (isNaN(d.getTime())) return <span className="text-zinc-500">Date invalide</span>;
+    const today = new Date(); today.setHours(0,0,0,0); d.setHours(0,0,0,0);
+    const diffDays = Math.round((d.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    if (diffDays < 0) return <span className="text-zinc-500">Passé</span>;
+    if (diffDays === 0) return <span className="text-red-400 font-bold flex items-center gap-1"><AlertCircle size={12}/> Aujourd'hui</span>;
+    if (diffDays === 1) return <span className="text-orange-400 font-bold">Demain</span>;
+    return <span className="text-emerald-500 font-medium">Dans {diffDays} jours</span>;
+  };
+  
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'dashboard':
+        return (
+          <div className="flex flex-col gap-6 pb-10 animation-fade-in">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2 bg-[#11151e] border border-white/5 rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between min-h-[280px]">
+                <svg className="absolute bottom-0 left-0 w-full h-[70%] opacity-40 pointer-events-none" viewBox="0 0 1000 200" preserveAspectRatio="none"><path d={dynamicSvgPaths.fill} fill="url(#grad)" opacity="0.2"/><path d={dynamicSvgPaths.line} fill="none" stroke={courses.length ? "#10b981" : "#3f3f46"} strokeWidth="4" vectorEffect="non-scaling-stroke" strokeDasharray={courses.length ? "none" : "10,10"}/><defs><linearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#10b981"/><stop offset="100%" stopColor="transparent"/></linearGradient></defs></svg>
+                <div className="relative z-10 flex justify-between items-start">
+                  <div><p className="text-zinc-400 text-sm mb-1 font-medium">Moyenne Globale / Semestre</p><div className="flex items-baseline gap-3"><h1 className={`text-5xl md:text-6xl font-light tabular-nums tracking-tight ${courses.length ? 'text-white' : 'text-zinc-600'}`}>{averageGrade}</h1></div></div>
+                </div>
+                <div className="relative z-10 grid grid-cols-3 gap-4 mt-12">
+                   <div className="bg-black/20 p-4 rounded-xl border border-white/5 backdrop-blur-sm"><p className="text-zinc-500 text-xs uppercase tracking-wider mb-1">Cours Actifs</p><p className="text-xl text-white font-medium">{courses.length}</p></div>
+                   <div className="bg-black/20 p-4 rounded-xl border border-white/5 backdrop-blur-sm"><p className="text-zinc-500 text-xs uppercase tracking-wider mb-1">Tâches Finies</p><p className="text-xl text-white font-medium">{tasks.filter(t=>t.status==='done').length} <span className="text-zinc-500 text-sm">/ {tasks.length}</span></p></div>
+                   <div className="bg-black/20 p-4 rounded-xl border border-white/5 backdrop-blur-sm"><p className="text-zinc-500 text-xs uppercase tracking-wider mb-1">Heures d'Étude</p><p className="text-xl text-emerald-400 font-medium flex items-center gap-2"><Activity size={18}/> {Math.round(tasks.filter(t=>t.status==='done').length * 1.5)}h</p></div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-6">
+                <div className="bg-[#11151e] border border-white/5 rounded-2xl p-6 flex-1">
+                  <h3 className="text-white font-medium mb-4 flex items-center gap-2"><Zap size={18} className="text-emerald-500"/> Actions Rapides</h3>
+                  <div className="space-y-3">
+                    <button onClick={()=>openTaskModal()} className="w-full flex items-center justify-between p-3 rounded-xl bg-[#1a1f2e] border border-white/5 hover:border-emerald-500/50 transition-colors group"><div className="flex items-center gap-3"><div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-black transition-colors"><Plus size={16}/></div><span className="text-sm text-zinc-300 font-medium">Nouvelle Tâche</span></div></button>
+                    <button onClick={()=>setActiveTab('whiteboard')} className="w-full flex items-center justify-between p-3 rounded-xl bg-[#1a1f2e] border border-white/5 hover:border-blue-500/50 transition-colors group"><div className="flex items-center gap-3"><div className="p-2 rounded-lg bg-blue-500/10 text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-colors"><PenTool size={16}/></div><span className="text-sm text-zinc-300 font-medium">Ouvrir Studio</span></div></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Ligne 2: Cours & Tâches (Raccourci) */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="bg-[#11151e] border border-white/5 rounded-2xl p-6 flex flex-col">
+                <div className="flex justify-between items-center mb-6"><h3 className="text-lg text-white font-medium flex items-center gap-2"><GraduationCap size={20} className="text-emerald-500"/> Vue d'ensemble des cours</h3><button onClick={() => setActiveTab('courses')} className="text-xs font-medium text-zinc-500 hover:text-white transition">Voir tout &rsaquo;</button></div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead><tr className="border-b border-white/5 text-zinc-500 text-xs uppercase tracking-wider"><th className="pb-3 font-medium">Matière</th><th className="pb-3 font-medium">Progression</th><th className="pb-3 font-medium text-right">Moyenne</th></tr></thead>
+                    <tbody className="divide-y divide-white/5">
+                      {filteredCourses.length === 0 && <tr><td colSpan="3" className="py-8 text-center text-sm text-zinc-500">Aucun cours actif. Ajoutez-en un.</td></tr>}
+                      {filteredCourses.slice(0, 4).map(c => (
+                        <tr key={c.id} className="hover:bg-white/[0.02] transition-colors cursor-pointer" onClick={() => { setSelectedCourseId(c.id); setActiveTab('courses'); }}>
+                          <td className="py-4 flex items-center gap-3"><div className={`w-8 h-8 rounded-full ${c.color} bg-opacity-20 flex items-center justify-center border border-${c.color.split('-')[1]}-500/30`}><BookOpen size={14} className={c.color.replace('bg-', 'text-')} /></div><div><p className="text-sm font-medium text-white transition-colors">{c.name}</p></div></td>
+                          <td className="py-4"><div className="flex items-center gap-2"><div className="w-24 bg-zinc-800 rounded-full h-1.5"><div className={`h-1.5 rounded-full ${c.color}`} style={{ width: `${c.progress}%` }}></div></div><span className="text-xs text-zinc-500 font-medium">{c.progress}%</span></div></td>
+                          <td className="py-4 text-right text-sm font-medium text-white">{c.grade}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div className="bg-[#11151e] border border-white/5 rounded-2xl p-6 flex flex-col">
+                <div className="flex justify-between items-center mb-6"><h3 className="text-lg text-white font-medium flex items-center gap-2"><CheckSquare size={20} className="text-emerald-500"/> Devoirs de la semaine</h3><button onClick={() => setActiveTab('tasks')} className="text-xs font-medium text-zinc-500 hover:text-white transition">Voir le Kanban &rsaquo;</button></div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead><tr className="border-b border-white/5 text-zinc-500 text-xs uppercase tracking-wider"><th className="pb-3 font-medium w-8"></th><th className="pb-3 font-medium">Tâche</th><th className="pb-3 font-medium">Échéance</th></tr></thead>
+                    <tbody className="divide-y divide-white/5">
+                      {filteredTasks.length === 0 && <tr><td colSpan="3" className="py-8 text-center text-sm text-zinc-500">Aucune tâche prévue.</td></tr>}
+                      {filteredTasks.slice(0, 4).map(t => (
+                        <tr key={t.id} className="hover:bg-white/[0.02] transition-colors cursor-pointer" onClick={() => setActiveTab('tasks')}>
+                          <td className="py-4">{t.status==='done'?<CheckCircle2 size={16} className="text-emerald-500"/>:<Circle size={16} className="text-zinc-600"/>}</td>
+                          <td className="py-4"><p className="text-sm font-medium text-white truncate max-w-[150px]">{t.title}</p><p className="text-[10px] text-zinc-500 truncate max-w-[150px]">{t.course}</p></td>
+                          <td className="py-4 text-sm">{getCountdown(t.date)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            
+            {/* Ligne 3: Widgets annexes */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="lg:col-span-2 bg-[#11151e] border border-white/5 rounded-2xl p-5 flex flex-col">
+                <div className="flex items-center gap-2 mb-3 text-white"><BookMarked size={18} className="text-emerald-500"/> <h3 className="font-medium">Pensées & Notes Rapides</h3></div>
+                <textarea className="w-full flex-1 min-h-[120px] bg-black/20 border border-white/5 rounded-xl resize-none outline-none text-zinc-300 placeholder-zinc-600 p-4 text-sm leading-relaxed focus:border-emerald-500/30 transition-colors custom-scrollbar" placeholder="Tapez vos idées ici... (Appuyez sur Entrée pour un bullet point)" value={thoughts} onChange={(e) => setThoughts(e.target.value)} onKeyDown={handleThoughtsKeyDown} />
+              </div>
+              <div className="bg-[#11151e] border border-white/5 rounded-2xl p-5 min-h-[180px]"><PomodoroWidget /></div>
+              
+              <div className="bg-[#11151e] border border-white/5 rounded-2xl p-5 flex flex-col">
+                <h3 className="text-white font-medium mb-4 flex items-center gap-2"><Target size={18} className="text-emerald-500"/> Conseils & Astuces</h3>
+                <div className="space-y-3 flex-1 overflow-y-auto custom-scrollbar">
+                  {randomTips.map(tip => {
+                    const TipIcon = tip.icon;
+                    return (
+                    <div key={tip.id} className="flex gap-3 p-3 bg-black/20 rounded-xl border border-white/5 hover:border-white/10 transition cursor-default">
+                      <div className="mt-0.5"><TipIcon size={16} className={tip.color} /></div>
+                      <div>
+                        <p className="text-sm text-zinc-200 font-medium mb-1">{tip.title}</p>
+                        <p className="text-xs text-zinc-500 leading-relaxed">{tip.desc}</p>
+                      </div>
+                    </div>
+                  )})}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+        
+      // ==========================================
+      // VUE : COURS DÉTAILLÉ / LISTE
+      // ==========================================
+      case 'courses':
+        if (selectedCourseId) {
+           const course = courses.find(c => c.id === selectedCourseId);
+           if (!course) { setSelectedCourseId(null); return null; }
+           return (
+             <div className="pb-10 animation-fade-in">
+               <div className="flex items-center justify-between mb-6">
+                 <button onClick={() => setSelectedCourseId(null)} className="flex items-center gap-2 text-sm font-medium text-zinc-400 hover:text-white transition bg-white/5 px-3 py-1.5 rounded-lg border border-white/5"><ChevronLeft size={16}/> Retour aux cours</button>
+                 <div className="flex gap-2"><button onClick={() => handleOpenCourseModal(course)} className="px-3 py-1.5 bg-white/5 text-zinc-300 rounded-lg hover:bg-white/10 transition border border-white/5 flex items-center gap-2 text-sm"><Edit2 size={14}/> Modifier</button></div>
+               </div>
+               
+               <div className={`w-full rounded-2xl p-8 mb-6 relative overflow-hidden bg-[#11151e] border border-white/5`}>
+                 <div className={`absolute top-0 right-0 w-[500px] h-[500px] ${course.color} opacity-10 blur-[100px] rounded-full pointer-events-none`}></div>
+                 <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                   <div>
+                     <div className="flex items-center gap-3 mb-3"><span className={`px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${course.color} bg-opacity-20 text-${course.color.split('-')[1]}-400 border border-${course.color.split('-')[1]}-500/30`}>{course.code}</span><span className="text-sm text-zinc-400 font-medium">Pr. {course.professor}</span></div>
+                     <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">{course.name}</h2>
+                     <div className="flex items-center gap-4 mt-2"><div className="w-48 bg-zinc-800 rounded-full h-2 overflow-hidden border border-white/5"><div className={`h-full ${course.color} transition-all duration-500`} style={{ width: `${course.progress}%` }}></div></div><span className="text-sm text-zinc-400 font-medium">{course.progress}% Complété</span></div>
+                   </div>
+                   <div className="flex flex-col items-end"><p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-1">Moyenne Actuelle</p><div className="bg-black/30 backdrop-blur-md px-6 py-3 rounded-xl border border-white/5"><p className={`text-3xl font-light tabular-nums text-${course.color.split('-')[1]}-400`}>{course.grade} <span className="text-lg text-zinc-600">/20</span></p></div></div>
+                 </div>
+               </div>
+               
+             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                 {/* MODULES & SOUS-PARTIES */}
+                 <div className="lg:col-span-2 flex flex-col gap-4">
+                    <div className="flex items-center justify-between"><h3 className="text-lg text-white font-medium flex items-center gap-2"><BookOpen size={18} className={`text-${course.color.split('-')[1]}-500`}/> Syllabus & Modules</h3><button onClick={() => { setModuleForm({ title: '', hasSubparts: false, subparts: [''] }); setIsModuleModalOpen(true); }} className="text-sm text-zinc-400 hover:text-white flex items-center gap-1"><Plus size={16}/> Ajouter</button></div>
+                    
+                    <div className="flex flex-col gap-3">
+                       {course.modules && course.modules.length > 0 ? course.modules.map((mod, idx) => (
+                         <div key={mod.id} className="flex flex-col gap-2">
+                           {/* Main Module */}
+                           <div className="p-4 flex items-center justify-between bg-[#11151e] rounded-xl border border-white/5 hover:border-white/10 transition group">
+                             <div className="flex items-center gap-4 cursor-pointer" onClick={() => toggleModuleComplete(course.id, mod.id)}>
+                               <button className={`w-6 h-6 rounded-md border flex items-center justify-center transition-colors ${mod.completed ? `${course.color} border-transparent text-black` : 'border-zinc-600 hover:border-zinc-400 text-transparent'}`}><CheckSquare size={14} className={mod.completed ? 'opacity-100' : 'opacity-0'} fill="currentColor"/></button>
+                               <span className={`font-medium transition-colors ${mod.completed ? 'text-zinc-500 line-through' : 'text-zinc-200'}`}>Chapitre {idx + 1} : {mod.title}</span>
+                             </div>
+                             <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
+                               <button onClick={() => setAddingSubpartTo(mod.id)} className="p-1.5 text-zinc-400 hover:text-emerald-400 transition" title="Ajouter une sous-partie"><Plus size={16}/></button>
+                               <button onClick={() => handleDeleteModule(course.id, mod.id)} className="p-1.5 text-zinc-400 hover:text-red-500 transition"><Trash2 size={16}/></button>
+                             </div>
+                           </div>
+                           
+                           {/* Subparts */}
+                           {(mod.subparts?.length > 0 || addingSubpartTo === mod.id) && (
+                             <div className="ml-6 pl-4 border-l-2 border-white/5 flex flex-col gap-2 relative">
+                               {/* Connection visual lines */}
+                               <div className="absolute top-0 left-[-2px] w-[2px] h-full bg-gradient-to-b from-white/10 to-transparent"></div>
+                               
+                               {mod.subparts?.map(sub => (
+                                 <div key={sub.id} className="p-3 flex items-center justify-between bg-[#1a1f2e] rounded-xl border border-white/5 group/sub">
+                                   <div className="flex items-center gap-3 cursor-pointer" onClick={() => toggleModuleComplete(course.id, mod.id, sub.id)}>
+                                     <CornerDownRight size={14} className="text-zinc-600" />
+                                     <button className={`w-5 h-5 rounded-md border flex items-center justify-center transition-colors ${sub.completed ? `${course.color} border-transparent text-black` : 'border-zinc-600 text-transparent'}`}><CheckSquare size={12} className={sub.completed ? 'opacity-100' : 'opacity-0'} fill="currentColor"/></button>
+                                     <span className={`text-sm transition-colors ${sub.completed ? 'text-zinc-500 line-through' : 'text-zinc-300'}`}>{sub.title}</span>
+                                   </div>
+                                   <button onClick={() => handleDeleteModule(course.id, mod.id, sub.id)} className="opacity-0 group-hover/sub:opacity-100 text-zinc-500 hover:text-red-400 p-1"><X size={14}/></button>
+                                 </div>
+                               ))}
+                               
+                               {/* Add Subpart Inline Input */}
+                               {addingSubpartTo === mod.id && (
+                                 <div className="flex items-center gap-2 p-2 bg-black/30 rounded-xl border border-emerald-500/30 shadow-[0_0_10px_rgba(16,185,129,0.1)]">
+                                    <CornerDownRight size={14} className="text-emerald-500 ml-2" />
+                                    <input autoFocus type="text" value={subpartTitle} onChange={e=>setSubpartTitle(e.target.value)} onKeyDown={(e) => { if(e.key==='Enter') handleSaveSubpart(course.id, mod.id); if(e.key==='Escape') setAddingSubpartTo(null); }} className="bg-transparent border-none outline-none text-sm text-white flex-1 placeholder-zinc-600" placeholder="Nom de la sous-partie..." />
+                                    <button onClick={() => handleSaveSubpart(course.id, mod.id)} className="text-emerald-500 p-1 hover:bg-emerald-500/20 rounded"><CheckCircle2 size={16}/></button>
+                                    <button onClick={() => setAddingSubpartTo(null)} className="text-zinc-500 p-1 hover:bg-white/10 rounded"><X size={16}/></button>
+                                 </div>
+                               )}
+                             </div>
+                           )}
+                         </div>
+                       )) : (<div className="p-8 text-center text-zinc-500 text-sm bg-[#11151e] rounded-xl border border-white/5">Aucun module pour le moment.</div>)}
+                    </div>
+                 </div>
+                 
+               {/* RESSOURCES */}
+                 <div className="flex flex-col gap-4">
+                    <div className="flex items-center justify-between"><h3 className="text-lg text-white font-medium flex items-center gap-2"><FolderOpen size={18} className={`text-${course.color.split('-')[1]}-500`}/> Ressources</h3><button onClick={() => setIsResourceModalOpen(true)} className="text-sm text-zinc-400 hover:text-white flex items-center gap-1"><Plus size={16}/> Ajouter</button></div>
+                    <div className="bg-[#11151e] border border-white/5 rounded-2xl p-2 flex flex-col gap-1">
+                      {course.documents && course.documents.length > 0 ? course.documents.map((doc) => (
+                        <div key={doc.id} onClick={() => handleResourceClick(doc)} className="flex items-center justify-between p-3 rounded-xl hover:bg-white/[0.03] transition group cursor-pointer">
+                          <div className="flex items-center gap-3 overflow-hidden">
+                            <div onClick={(e) => { e.stopPropagation(); handleResourceClick(doc); }} className={`p-2 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 transition cursor-pointer`} title="Visualiser le fichier">{getResourceIcon(doc.type, course.color)}</div>
+                            <div className="truncate">
+                              <p className="text-sm text-zinc-200 font-medium truncate group-hover:text-emerald-400 transition-colors">{doc.name}</p>
+                              <p className="text-[10px] text-zinc-500 uppercase tracking-wider">{doc.size}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
+                            <button onClick={(e) => { e.stopPropagation(); handleResourceClick(doc); }} className="p-1.5 text-zinc-400 hover:text-white rounded-md hover:bg-white/10" title="Ouvrir"><ExternalLink size={14}/></button>
+                            <button onClick={(e) => { e.stopPropagation(); handleDeleteResource(course.id, doc.id); }} className="p-1.5 text-zinc-400 hover:text-red-500 rounded-md hover:bg-white/10" title="Supprimer"><Trash2 size={14}/></button>
+                          </div>
+                        </div>
+                      )) : (<div className="p-6 text-center text-zinc-500 text-sm">Aucune ressource liée.</div>)}
+                    </div>
+                 </div>
+               </div>
+             </div>
+           );
+        }
+        
+      // Vue liste des cours
+        return (
+          <div className="pb-10 animation-fade-in">
+            <div className="flex justify-between items-end mb-8">
+              <div><h2 className="text-3xl font-light tracking-tight text-white mb-2">Cours & Ressources</h2><p className="text-zinc-500 text-sm">Gérez vos modules, notes et documents par matière.</p></div>
+              <button onClick={() => handleOpenCourseModal()} className="flex items-center gap-2 bg-emerald-500 text-black px-4 py-2.5 rounded-xl font-semibold text-sm hover:bg-emerald-400 transition shadow-[0_0_15px_rgba(16,185,129,0.2)]"><Plus size={18}/> Nouveau Cours</button>
+            </div>
+            
+            {filteredCourses.length === 0 ? (
+              <div className="flex flex-col items-center justify-center h-[40vh] bg-[#11151e]/50 border border-dashed border-white/10 rounded-2xl">
+                 <BookOpen size={48} className="text-zinc-600 mb-4" />
+                 <p className="text-zinc-400 mb-4">Aucun cours trouvé. Commencez par en créer un.</p>
+                 <button onClick={() => handleOpenCourseModal()} className="text-emerald-500 font-medium hover:underline flex items-center gap-2"><Plus size={16}/> Créer un cours</button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                {filteredCourses.map(course => (
+                  <div key={course.id} onClick={() => setSelectedCourseId(course.id)} className="bg-[#11151e] border border-white/5 rounded-2xl p-5 hover:border-white/10 transition-all cursor-pointer group relative overflow-hidden flex flex-col h-[200px]">
+                    <div className={`absolute top-0 left-0 w-full h-1 ${course.color}`}></div>
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="flex items-center gap-3">
+                        <div className={`w-10 h-10 rounded-xl ${course.color} bg-opacity-10 flex items-center justify-center border border-${course.color.split('-')[1]}-500/20`}><BookOpen size={18} className={`text-${course.color.split('-')[1]}-400`} /></div>
+                        <div><h3 className="font-semibold text-white group-hover:text-emerald-400 transition-colors line-clamp-1">{course.name}</h3><p className="text-xs text-zinc-500 font-mono mt-0.5">{course.code}</p></div>
+                      </div>
+                      <div className="flex gap-1" onClick={e => e.stopPropagation()}><button onClick={() => handleOpenCourseModal(course)} className="p-1.5 text-zinc-600 hover:text-white rounded-md hover:bg-white/5 transition"><Edit2 size={14}/></button><button onClick={() => handleDeleteCourse(course.id)} className="p-1.5 text-zinc-600 hover:text-red-500 rounded-md hover:bg-white/5 transition"><Trash2 size={14}/></button></div>
+                    </div>
+                    <div className="mt-auto">
+                      <div className="flex justify-between items-end mb-4">
+                        <div><p className="text-[10px] uppercase tracking-wider text-zinc-500 mb-1">Moyenne</p><p className="text-xl font-light text-white tabular-nums">{course.grade}</p></div>
+                        <div className="text-right"><p className="text-[10px] uppercase tracking-wider text-zinc-500 mb-1">Professeur</p><p className="text-sm text-zinc-300 font-medium">{course.professor}</p></div>
+                      </div>
+                      <div className="w-full bg-zinc-800 rounded-full h-1.5 overflow-hidden"><div className={`h-full ${course.color} transition-all duration-700`} style={{ width: `${course.progress}%` }}></div></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+        
+      // ==========================================
+      // VUE : TÂCHES (KANBAN)
+      // ==========================================
+      case 'tasks':
+        const columns = [
+          { id: 'todo', title: 'Planifié', color: 'border-zinc-800', headerText: 'text-zinc-300' }, 
+          { id: 'in_progress', title: 'En cours', color: 'border-orange-500/20', headerText: 'text-orange-400' }, 
+          { id: 'done', title: 'Terminé', color: 'border-emerald-500/20', headerText: 'text-emerald-400' }
+        ];
+        return (
+          <div className="flex flex-col h-full pb-10 animation-fade-in relative z-10">
+             <div className="flex justify-between items-end mb-8">
+              <div><h2 className="text-3xl font-light tracking-tight text-white mb-2">Devoirs & Tâches</h2><p className="text-zinc-500 text-sm">Gérez votre flux de travail de la semaine.</p></div>
+              <button onClick={() => openTaskModal()} className="flex items-center gap-2 bg-emerald-500 text-black px-4 py-2.5 rounded-xl font-semibold text-sm hover:bg-emerald-400 transition shadow-[0_0_15px_rgba(16,185,129,0.2)]"><Plus size={18}/> Nouvelle Tâche</button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1 items-start">
+               {columns.map(col => (
+                 <div key={col.id} className={`flex flex-col rounded-2xl p-4 border bg-[#11151e]/50 ${col.color} min-h-[50vh]`}>
+                    <div className="flex items-center justify-between mb-4 px-2">
+                       <h3 className={`font-semibold text-sm uppercase tracking-wider ${col.headerText}`}>{col.title} <span className="ml-2 px-2 py-0.5 rounded-md bg-black/50 border border-white/5 text-xs text-zinc-500">{filteredTasks.filter(t=>t.status === col.id).length}</span></h3>
+                    </div>
+                    <div className="flex-1 space-y-3">
+                       {filteredTasks.filter(t => t.status === col.id).length === 0 && <div className="text-center p-4 text-xs text-zinc-600">Aucune tâche.</div>}
+                       {filteredTasks.filter(t => t.status === col.id).map(task => (
+                         <div key={task.id} className="bg-[#1a1f2e] p-4 rounded-xl border border-white/5 group hover:border-emerald-500/30 transition-all cursor-pointer">
+                           <div className="flex justify-between items-start mb-3">
+                             <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded border ${task.priority === 'high' ? 'bg-red-500/10 text-red-400 border-red-500/20' : 'bg-white/5 text-zinc-400 border-white/10'}`}>{task.type}</span>
+                             <button onClick={() => openTaskModal(task)} className="opacity-0 group-hover:opacity-100 transition-opacity text-zinc-500 hover:text-white"><PenTool size={14}/></button>
+                           </div>
+                           <p className="font-medium text-zinc-200 mb-1 leading-snug">{task.title}</p>
+                           <p className="text-[11px] text-zinc-500 mb-4">{task.course}</p>
+                           <div className="flex items-center justify-between border-t border-white/5 pt-3">
+                             <div className="flex items-center gap-1.5 text-xs font-medium">{getCountdown(task.date)}</div>
+                             <div className="flex gap-1">
+                               {col.id !== 'todo' && <button onClick={(e)=>{e.stopPropagation(); moveTask(task.id, col.id === 'done' ? 'in_progress' : 'todo');}} className="p-1 rounded bg-black/30 hover:bg-white/10 text-zinc-400 border border-white/5"><ChevronLeft size={14}/></button>}
+                               {col.id !== 'done' && <button onClick={(e)=>{e.stopPropagation(); moveTask(task.id, col.id === 'todo' ? 'in_progress' : 'done');}} className="p-1 rounded bg-black/30 hover:bg-white/10 text-zinc-400 border border-white/5"><ChevronRight size={14}/></button>}
+                             </div>
+                           </div>
+                         </div>
+                       ))}
+                    </div>
+                 </div>
+               ))}
+            </div>
+          </div>
+        );
+        
+    case 'calendar':
+        const year = currentMonthDate.getFullYear(); const month = currentMonthDate.getMonth();
+        const daysCount = new Date(year, month + 1, 0).getDate();
+        const startOffset = (new Date(year, month, 1).getDay() + 6) % 7;
+        const monthName = currentMonthDate.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+        const todayReal = new Date();
+        
+      return (
+          <div className="flex flex-col h-full z-10 relative pb-10 animation-fade-in">
+            <div className="flex justify-between items-end mb-8">
+              <div><h2 className="text-3xl font-light tracking-tight text-white mb-2">Emploi du temps</h2><p className="text-zinc-500 text-sm">Gérez vos sessions et examens.</p></div>
+              <div className="flex gap-4 items-center">
+                 <button onClick={exportICS} className="hidden md:flex items-center gap-2 bg-black/30 border border-white/10 hover:border-emerald-500/50 text-white px-4 py-2.5 rounded-xl font-medium text-sm transition"><Download size={16}/> Exporter (.ics)</button>
+                 <div className="flex gap-2 bg-[#11151e] border border-white/5 p-1 rounded-xl">
+                    <button onClick={() => setCurrentMonthDate(new Date(year, month - 1, 1))} className="p-2 bg-transparent rounded-lg hover:bg-white/5 transition text-zinc-400 hover:text-white"><ChevronLeft size={20}/></button>
+                    <div className="px-4 py-2 font-semibold capitalize text-white flex items-center min-w-[120px] justify-center">{monthName}</div>
+                    <button onClick={() => setCurrentMonthDate(new Date(year, month + 1, 1))} className="p-2 bg-transparent rounded-lg hover:bg-white/5 transition text-zinc-400 hover:text-white"><ChevronRight size={20}/></button>
+                 </div>
+              </div>
+            </div>
+            <div className="bg-[#11151e] rounded-2xl border border-white/5 shadow-xl overflow-hidden flex-1 flex flex-col">
+               <div className="grid grid-cols-7 border-b border-white/5 bg-black/20">
+                 {['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map(day => (<div key={day} className="py-3 text-center text-xs font-bold uppercase tracking-widest text-zinc-500">{day}</div>))}
+               </div>
+               <div className="grid grid-cols-7 flex-1 auto-rows-fr">
+                 {Array.from({length: startOffset}, (_, i) => i).map(b => <div key={`blank-${b}`} className="border-r border-b border-white/5 bg-black/30"></div>)}
+                 {Array.from({length: daysCount}, (_, i) => i + 1).map(day => {
+                   const dayEvents = events.filter(e => {
+                      if(e.day) return e.day === day;
+                      if(e.date) return e.date.getDate() === day && e.date.getMonth() === month && e.date.getFullYear() === year;
+                      return false;
+                   });
+                   const isToday = day === todayReal.getDate() && month === todayReal.getMonth() && year === todayReal.getFullYear();
+                   return (
+                     <div key={day} onClick={() => setEventModal({isOpen: true, day})} className={`border-r border-b border-white/5 p-2 min-h-[100px] transition-colors hover:bg-white/[0.04] cursor-pointer group ${isToday ? 'bg-emerald-500/5' : ''}`}>
+                       <div className="flex justify-between items-start">
+                         <div className={`w-7 h-7 flex items-center justify-center rounded-full text-sm font-semibold mb-2 ${isToday ? 'bg-emerald-500 text-black shadow-[0_0_10px_rgba(16,185,129,0.5)]' : 'text-zinc-400 group-hover:text-white transition-colors'}`}>{day}</div>
+                         <Plus size={14} className="text-zinc-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+                       </div>
+                       <div className="space-y-1.5 overflow-hidden">{dayEvents.map(ev => (<div key={ev.id} className={`text-[10px] font-medium px-2 py-1 rounded-md border backdrop-blur-sm truncate ${ev.color}`}>{ev.title}</div>))}</div>
+                     </div>
+                   );
+                 })}
+               </div>
+            </div>
+          </div>
+        );
+        
+    case 'whiteboard': return <div className="h-[calc(100vh-160px)] w-full relative z-10"><Whiteboard /></div>;
+      default: return null;
+    }
+  };
+  
+  return (
+    <div className="min-h-screen bg-[#0a0d14] font-sans flex text-zinc-300 selection:bg-emerald-500/30 overflow-hidden relative">
+      
+      {/* GLOWS D'ARRIÈRE-PLAN */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+         <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[80%] h-[400px] bg-emerald-500/10 blur-[120px] rounded-full mix-blend-screen"></div>
+         <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }}></div>
+      </div>
+      
+    {/* BARRE LATÉRALE */}
+      <aside className={`relative flex-shrink-0 bg-[#0B0E14] border-r border-white/5 flex flex-col hidden md:flex z-20 transition-all duration-300 ${isSidebarCollapsed ? 'w-[88px]' : 'w-[260px]'}`}>
+        
+        {/* Toggle Button */}
+        <button 
+          onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+          className="absolute -right-3 top-8 w-6 h-6 bg-[#11151e] border border-white/10 rounded-full flex items-center justify-center text-zinc-400 hover:text-white hover:border-emerald-500/50 transition-colors z-50 cursor-pointer shadow-lg"
+        >
+          {isSidebarCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+        </button>
+      
+      {/* Logo */}
+        <div className={`h-24 flex items-center ${isSidebarCollapsed ? 'justify-center' : 'px-8'}`}>
+          <div className="flex items-center gap-3">
+            <img src="https://i.postimg.cc/ZYvjYXDg/Logo_carre_Aureon_Blanc.png" alt="AureonLabs" className="w-8 h-8 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)] flex-shrink-0" />
+            {!isSidebarCollapsed && <span className="text-white font-semibold text-lg tracking-tight whitespace-nowrap overflow-hidden">Aureon<span className="font-light">Labs</span></span>}
+          </div>
+        </div>
+        
+        {/* Menu Navigation */}
+        <nav className={`flex-1 py-6 ${isSidebarCollapsed ? 'px-3' : 'px-4'} flex flex-col gap-2 overflow-y-auto custom-scrollbar overflow-x-hidden`}>
+          {!isSidebarCollapsed && <p className="px-4 text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-2 whitespace-nowrap">Espace Étudiant</p>}
+          {[ { id: 'dashboard', icon: LayoutDashboard, label: 'Tableau de bord' }, { id: 'courses', icon: BookOpen, label: 'Cours & Ressources' }, { id: 'tasks', icon: CheckSquare, label: 'Devoirs & Tâches' }, { id: 'calendar', icon: CalendarIcon, label: 'Emploi du temps' }, { id: 'whiteboard', icon: PenTool, label: 'Studio Créatif' } ].map((item) => {
+            const isActive = activeTab === item.id;
+            const ItemIcon = item.icon;
+            return (
+              <button 
+                key={item.id} 
+                onClick={() => {setActiveTab(item.id); setSelectedCourseId(null); setSearchQuery('');}} 
+                title={isSidebarCollapsed ? item.label : undefined}
+                className={`flex items-center ${isSidebarCollapsed ? 'justify-center w-12 h-12 mx-auto p-0' : 'gap-3 px-4 py-3'} rounded-xl transition-all duration-200 text-sm font-medium relative group ${isActive ? 'text-emerald-400 bg-emerald-500/10' : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.02]'}`}
+              >
+                {isActive && !isSidebarCollapsed && <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-emerald-500 to-teal-500 rounded-r-full"></div>}
+                <ItemIcon size={isSidebarCollapsed ? 20 : 18} className={`${isActive ? 'text-emerald-400' : 'text-zinc-500'}`} /> 
+                {!isSidebarCollapsed && <span className="whitespace-nowrap">{item.label}</span>}
+              </button>
+            )
+          })}
+        </nav>
+      
+      {/* Profil Mini / Bottom */}
+        <div className={`p-4 border-t border-white/5 ${isSidebarCollapsed ? 'flex flex-col items-center' : 'space-y-2'}`}>
+          <button onClick={() => setIsSettingsOpen(true)} title={isSidebarCollapsed ? "Paramètres" : undefined} className={`flex items-center ${isSidebarCollapsed ? 'justify-center w-12 h-12 p-0' : 'gap-3 px-4 py-3 w-full'} text-zinc-500 hover:text-white hover:bg-white/[0.02] rounded-xl transition text-sm font-medium`}>
+            <Settings size={isSidebarCollapsed ? 20 : 18} /> 
+            {!isSidebarCollapsed && <span className="whitespace-nowrap">Paramètres</span>}
+          </button>
+          <button onClick={onLogout} title={isSidebarCollapsed ? "Déconnexion" : undefined} className={`flex items-center ${isSidebarCollapsed ? 'justify-center w-12 h-12 p-0' : 'gap-3 px-4 py-3 w-full'} text-red-500 hover:bg-red-500/10 rounded-xl transition text-sm font-medium mt-1`}>
+            <LogOut size={isSidebarCollapsed ? 20 : 18} /> 
+            {!isSidebarCollapsed && <span className="whitespace-nowrap">Déconnexion</span>}
+          </button>
+        </div>
+      </aside>
+      
+    {/* ZONE PRINCIPALE RELATIVE */}
+      <div className="flex-1 relative flex flex-col overflow-hidden z-10">
+        
+        {/* HEADER FLOTTANT */}
+        <header className="absolute top-4 left-6 right-6 h-16 bg-[#0B0E14]/80 backdrop-blur-xl border border-white/10 rounded-2xl flex items-center justify-between px-6 z-50 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+           <div className="flex items-center text-xs text-zinc-400 font-medium tracking-wide uppercase">
+              Espace Étudiant <ChevronRight size={12} className="mx-2 opacity-50"/> <span className="text-emerald-400">{activeTab}</span>
+           </div>
+           <div className="flex items-center gap-5">
+              <div className="hidden lg:flex relative group">
+                 <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+                 <input type="text" value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)} placeholder="Recherche rapide..." className="bg-black/30 border border-white/5 rounded-lg py-1.5 pl-9 pr-4 w-48 text-xs text-white outline-none focus:border-emerald-500/50 transition-colors" />
+              </div>
+              
+              {/* Notifs Dropdown */}
+              <div className="relative">
+                <button onClick={()=>setIsNotifOpen(!isNotifOpen)} className="relative text-zinc-400 hover:text-white transition">
+                  <Bell size={18} />
+                  {notifications.length > 0 && <span className="absolute top-0 right-0 w-2 h-2 bg-emerald-500 rounded-full"></span>}
+                </button>
+                {isNotifOpen && (
+                  <div className="absolute right-0 top-10 w-72 bg-[#11151e] border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50 animation-fade-in">
+                    <div className="flex justify-between items-center p-3 border-b border-white/5 bg-black/20">
+                       <h4 className="text-sm font-semibold text-white">Notifications</h4>
+                       {notifications.length > 0 && <button onClick={clearNotifications} className="text-xs text-emerald-500 hover:underline">Tout effacer</button>}
+                    </div>
+                    <div className="max-h-64 overflow-y-auto custom-scrollbar">
+                      {notifications.length > 0 ? notifications.map(n => (
+                        <div 
+                          key={n.id} 
+                          onClick={() => handleNotificationClick(n)}
+                          className="p-3 border-b border-white/5 hover:bg-white/5 transition flex justify-between items-start gap-2 cursor-pointer"
+                        >
+                          <p className="text-xs text-zinc-300">{n.message}</p>
+                          <span className="text-[9px] text-zinc-500 whitespace-nowrap">{n.time}</span>
+                        </div>
+                      )) : <div className="p-4 text-center text-xs text-zinc-500">Aucune nouvelle notification</div>}
+                    </div>
+                  </div>
+                )}
+              </div>
+              
+            <div className="w-8 h-8 rounded-full bg-zinc-800 border border-emerald-500/30 overflow-hidden cursor-pointer" onClick={() => setIsSettingsOpen(true)}><img src={userProfile.avatar} alt="User" className="w-full h-full object-cover" /></div>
+           </div>
+        </header>
+      
+      {/* CONTENU DÉFILANT */}
+        <main className="flex-1 overflow-y-auto pt-28 px-6 lg:px-10 scroll-smooth custom-scrollbar" onClick={()=>setIsNotifOpen(false)}>
+          <div className="max-w-[1400px] mx-auto h-full relative">
+            {renderContent()}
+          </div>
+        </main>
+      
+    </div>
+      
+    {/* --- MODALES MULTIPLES --- */}
+      
+    {/* ONBOARDING TUTORIAL */}
+      {showTutorial && (
+        <div className="fixed inset-0 z-[500] flex items-center justify-center p-4 animation-fade-in">
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+          <div className="relative w-full max-w-lg bg-[#11151e] border border-emerald-500/20 rounded-3xl p-8 shadow-[0_0_50px_rgba(16,185,129,0.1)] flex flex-col items-center text-center">
+             
+             {/* Progress Dots */}
+             <div className="flex gap-2 mb-8">
+               {TUTORIAL_STEPS.map((_, i) => (
+                 <div key={i} className={`w-2 h-2 rounded-full transition-colors ${i === tutorialStep ? 'bg-emerald-500' : 'bg-white/20'}`}></div>
+               ))}
+             </div>
+             
+             {/* Step Content */}
+             <div className="w-20 h-20 bg-emerald-500/10 rounded-full flex items-center justify-center mb-6 border border-emerald-500/20">
+               {React.createElement(TUTORIAL_STEPS[tutorialStep].icon, { size: 40, className: "text-emerald-500" })}
+             </div>
+             <h2 className="text-2xl font-bold text-white mb-3">{TUTORIAL_STEPS[tutorialStep].title}</h2>
+             <p className="text-zinc-400 mb-10 leading-relaxed px-4">{TUTORIAL_STEPS[tutorialStep].desc}</p>
+             
+             {/* Actions */}
+             {tutorialStep === TUTORIAL_STEPS.length - 1 ? (
+               <div className="w-full flex flex-col gap-3 mt-auto">
+                 <button onClick={() => handleTutorialChoice(true)} className="w-full py-3 bg-emerald-500 text-black font-semibold rounded-xl hover:bg-emerald-400 transition shadow-[0_0_15px_rgba(16,185,129,0.3)]">Charger les données d'exemple</button>
+                 <button onClick={() => handleTutorialChoice(false)} className="w-full py-3 bg-white/5 text-white font-medium rounded-xl hover:bg-white/10 transition border border-white/10">Commencer à zéro</button>
+               </div>
+             ) : (
+               <div className="w-full flex justify-between items-center mt-auto">
+                 <button onClick={() => handleTutorialChoice(false)} className="text-sm font-medium text-zinc-500 hover:text-white transition px-4 py-2">Passer le tuto</button>
+                 <button onClick={nextTutorialStep} className="px-6 py-3 bg-emerald-500 text-black font-semibold rounded-xl hover:bg-emerald-400 transition shadow-[0_0_15px_rgba(16,185,129,0.3)] flex items-center gap-2">
+                   Suivant <ChevronRight size={16}/>
+                 </button>
+               </div>
+             )}
+          </div>
+        </div>
+      )}
+      
+    {/* MODALE: Preview Fichier */}
+      {previewDoc && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setPreviewDoc(null)}></div>
+          <div className="relative w-full max-w-5xl h-[85vh] bg-[#11151e] border border-white/10 rounded-2xl flex flex-col shadow-2xl animation-fade-in">
+             <div className="p-4 border-b border-white/5 flex justify-between items-center bg-black/20">
+               <div className="flex items-center gap-3">
+                 {getResourceIcon(previewDoc.type, 'bg-emerald-500')}
+                 <h3 className="text-white font-medium">{previewDoc.name}</h3>
+               </div>
+               <div className="flex items-center gap-2">
+                 <a href={previewDoc.url} download={previewDoc.name} className="px-3 py-1.5 bg-white/5 text-zinc-300 rounded-lg hover:bg-white/10 transition border border-white/5 flex items-center gap-2 text-sm"><Download size={14}/> Télécharger</a>
+                 <button onClick={()=>setPreviewDoc(null)} className="p-2 bg-white/5 text-zinc-400 rounded-full hover:bg-white/10 transition"><X size={18}/></button>
+               </div>
+             </div>
+             <div className="flex-1 overflow-hidden p-4 flex items-center justify-center bg-black/10">
+               {/* Pour éviter les erreurs de type "Not allowed to load local resource" on force le comportement via iframe ou window.open si Chrome bloque */}
+               {previewDoc.type === 'pdf' ? (
+                 <iframe src={previewDoc.url} className="w-full h-full rounded-xl bg-white border-none" title="PDF Preview" />
+               ) : previewDoc.type === 'image' ? (
+                 <img src={previewDoc.url} alt="Aperçu" className="max-w-full max-h-full object-contain rounded-xl" />
+               ) : (
+                 <div className="text-zinc-500">Aperçu non disponible pour ce format.</div>
+               )}
+             </div>
+          </div>
+        </div>
+      )}
+      
+    {/* Modale Paramètres (Upload Photo inclus) */}
+      {isSettingsOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 animation-fade-in">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsSettingsOpen(false)}></div>
+          <div className="relative w-full max-w-3xl bg-[#11151e] border border-white/10 rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row h-[550px]">
+            <div className="w-full md:w-1/3 bg-black/20 border-r border-white/5 p-4 flex flex-col gap-2">
+              <h3 className="font-bold text-lg px-3 py-3 mb-2 flex items-center gap-2 text-white"><Settings size={20} className="text-emerald-500"/> Paramètres</h3>
+              {[{id:'acc', icon:User, label:'Mon Profil'}, {id:'not', icon:Bell, label:'Notifications'}, {id:'sec', icon:Shield, label:'Sécurité'}, {id:'app', icon:LayoutDashboard, label:'Application'}].map((tab) => {
+                const TabIcon = tab.icon;
+                return (
+                  <button key={tab.id} onClick={() => setSettingsTab(tab.id)} className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition ${settingsTab === tab.id ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'text-zinc-400 hover:bg-white/5 hover:text-white border border-transparent'}`}><TabIcon size={18}/> {tab.label}</button>
+                )
+              })}
+            </div>
+            
+            <div className="flex-1 p-8 overflow-y-auto relative custom-scrollbar">
+              <button onClick={() => setIsSettingsOpen(false)} className="absolute top-6 right-6 p-2 bg-white/5 text-zinc-400 rounded-full hover:text-white hover:bg-white/10 transition z-10"><X size={18}/></button>
+              
+              {settingsTab === 'acc' && (
+                <div className="space-y-6 animation-fade-in">
+                  <h2 className="text-2xl font-bold mb-6 text-white">Profil Étudiant</h2>
+                  <div className="flex items-center gap-6 p-6 bg-black/20 rounded-2xl border border-white/5">
+                    <img src={userProfile.avatar} alt="Profil" className="w-20 h-20 rounded-full border-2 border-emerald-500/50 shadow-[0_0_15px_rgba(16,185,129,0.2)] object-cover" />
+                    <div>
+                      <div className="flex gap-2 mb-2">
+                        <label className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-sm font-medium text-white hover:bg-white/10 transition flex items-center gap-2 cursor-pointer">
+                          <ImagePlus size={14}/> Importer
+                          <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+                        </label>
+                        <button onClick={() => {setUserProfile({...userProfile, avatar: `https://i.pravatar.cc/150?u=${Math.random()}`}); pushNotification("Avatar aléatoire généré.", "settings");}} className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-white/10 transition flex items-center gap-2"><RefreshCw size={14}/></button>
+                      </div>
+                      <p className="text-xs text-zinc-500">JPG, PNG. Max 2MB.</p>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div><label className="block text-xs font-bold uppercase text-zinc-500 mb-1">Prénom</label><input type="text" value={userProfile.firstName} onChange={e=>setUserProfile({...userProfile, firstName: e.target.value})} className="w-full bg-black/30 border border-white/5 rounded-xl px-4 py-3 outline-none text-white focus:border-emerald-500/50 transition-colors" /></div>
+                    <div><label className="block text-xs font-bold uppercase text-zinc-500 mb-1">Nom</label><input type="text" value={userProfile.lastName} onChange={e=>setUserProfile({...userProfile, lastName: e.target.value})} className="w-full bg-black/30 border border-white/5 rounded-xl px-4 py-3 outline-none text-white focus:border-emerald-500/50 transition-colors" /></div>
+                  </div>
+                </div>
+              )}
+              {settingsTab === 'not' && (
+                <div className="space-y-6 animation-fade-in">
+                  <h2 className="text-2xl font-bold mb-6 text-white">Notifications</h2>
+                  <div className="p-5 bg-black/20 rounded-2xl border border-white/5 flex items-center justify-between">
+                     <div className="flex items-center gap-4"><Bell size={20} className="text-emerald-500"/><div><h4 className="font-bold text-white">Alertes Email</h4><p className="text-sm text-zinc-500">Rappels de cours et devoirs.</p></div></div>
+                     <button onClick={() => {setUserProfile({...userProfile, notifsEmail: !userProfile.notifsEmail}); pushNotification(`Alertes email ${!userProfile.notifsEmail ? 'activées' : 'désactivées'}.`, "settings");}} className={`text-3xl transition-colors ${userProfile.notifsEmail ? 'text-emerald-500' : 'text-zinc-600'}`}>{userProfile.notifsEmail ? <ToggleRight/> : <ToggleLeft/>}</button>
+                  </div>
+                </div>
+              )}
+              {settingsTab === 'sec' && (
+                <div className="space-y-6 animation-fade-in">
+                  <h2 className="text-2xl font-bold mb-6 text-white">Sécurité & Accès</h2>
+                  <p className="text-sm text-zinc-400 mb-6">Mettez à jour vos informations de connexion.</p>
+                  
+                  <div className="space-y-4">
+                    <div className="p-5 bg-black/20 rounded-2xl border border-white/5">
+                      <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Adresse Email actuelle</label>
+                      <div className="flex gap-3">
+                        <input type="email" value={localStorage.getItem('au_current_user') || 'etudiant@universite.edu'} disabled className="flex-1 bg-black/30 border border-white/5 rounded-xl px-4 py-2.5 outline-none text-zinc-500 cursor-not-allowed" />
+                        <button className="px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-sm font-medium text-white hover:bg-white/10 transition">Modifier l'email</button>
+                      </div>
+                    </div>
+                    
+                    <div className="p-5 bg-black/20 rounded-2xl border border-white/5">
+                      <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Mot de passe</label>
+                      <div className="flex gap-3 items-center justify-between">
+                        <p className="text-sm text-white font-mono tracking-widest">••••••••••••</p>
+                        <button className="px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-sm font-medium text-white hover:bg-white/10 transition">Changer de mot de passe</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {settingsTab === 'app' && (
+                <div className="space-y-6 animation-fade-in">
+                  <h2 className="text-2xl font-bold mb-6 text-white">Application</h2>
+                  <div className="p-5 bg-black/20 rounded-2xl border border-white/5 flex flex-col gap-2">
+                     <h4 className="font-bold text-white">Tutoriel d'accueil</h4>
+                     <p className="text-sm text-zinc-400 mb-4">Relancez le guide interactif pour revoir toutes les fonctionnalités de la plateforme.</p>
+                     <button onClick={replayTutorial} className="px-4 py-2.5 bg-emerald-500 text-black rounded-xl font-medium text-sm hover:bg-emerald-400 transition w-fit flex items-center gap-2"><Play size={16}/> Relancer le Tutoriel</button>
+                  </div>
+                  <div className="p-5 bg-black/20 rounded-2xl border border-red-500/20 flex items-center justify-between mt-4">
+                     <div><h4 className="font-bold text-red-400">Réinitialiser les données</h4><p className="text-sm text-zinc-500">Efface tous les cours et tâches. Action irréversible.</p></div>
+                     <button onClick={() => { localStorage.clear(); window.location.reload(); }} className="px-4 py-2 bg-red-500/10 text-red-400 rounded-xl font-medium text-sm hover:bg-red-500/20 transition border border-red-500/20">Tout effacer</button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+      
+    {/* Modale Calendrier (Add Event) */}
+      {eventModal.isOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setEventModal({isOpen: false, day: null})}></div>
+          <div className="relative w-full max-w-sm bg-[#11151e] border border-white/10 rounded-2xl p-6 shadow-2xl animation-fade-in">
+            <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2"><CalendarPlus size={18} className="text-emerald-500"/> Événement le {eventModal.day}</h3>
+            <form onSubmit={handleAddEvent} className="space-y-4">
+              <input autoFocus required type="text" placeholder="Titre de l'événement..." value={eventForm.title} onChange={e=>setEventForm({...eventForm, title: e.target.value})} className="w-full bg-black/30 border border-white/5 rounded-lg px-3 py-2 outline-none text-white focus:border-emerald-500/50" />
+              <select value={eventForm.type} onChange={e=>setEventForm({...eventForm, type: e.target.value})} className="w-full bg-black/30 border border-white/5 rounded-lg px-3 py-2 outline-none text-white appearance-none">
+                <option value="study">Session de révision (Bleu)</option><option value="deadline">Date Limite (Vert)</option><option value="exam">Examen Important (Rouge)</option>
+              </select>
+              <div className="flex gap-2 justify-end pt-2">
+                <button type="button" onClick={() => setEventModal({isOpen: false, day: null})} className="px-4 py-2 text-sm text-zinc-400 hover:text-white">Annuler</button>
+                <button type="submit" className="px-4 py-2 text-sm bg-emerald-500 text-black font-semibold rounded-lg hover:bg-emerald-400">Ajouter</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      
+    {/* Modale Tâches (Kanban) */}
+      {taskModal.isOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setTaskModal({ isOpen: false, task: null })}></div>
+          <div className="relative w-full max-w-md bg-[#11151e] border border-white/10 rounded-2xl p-6 shadow-2xl animation-fade-in">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-semibold text-white">{taskModal.task ? 'Modifier la tâche' : 'Nouvelle Tâche'}</h3>
+              <button onClick={() => setTaskModal({ isOpen: false, task: null })} className="text-zinc-500 hover:text-white"><X size={20}/></button>
+            </div>
+            <form onSubmit={saveTask} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-zinc-500 uppercase mb-1">Titre</label>
+                <input required type="text" value={taskForm.title} onChange={e=>setTaskForm({...taskForm, title: e.target.value})} className="w-full bg-black/30 border border-white/5 rounded-lg px-3 py-2 outline-none text-white focus:border-emerald-500/50" />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-zinc-500 uppercase mb-1">Lié au cours</label>
+                  <select value={taskForm.course} onChange={e=>setTaskForm({...taskForm, course: e.target.value})} className="w-full bg-black/30 border border-white/5 rounded-lg px-3 py-2 outline-none text-white appearance-none">
+                    {courses.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
+                    <option value="Général">Général</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-zinc-500 uppercase mb-1">Date</label>
+                  <input required type="date" value={taskForm.date} onChange={e=>setTaskForm({...taskForm, date: e.target.value})} className="w-full bg-black/30 border border-white/5 rounded-lg px-3 py-2 outline-none text-white [color-scheme:dark]" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                 <div>
+                    <label className="block text-xs font-bold text-zinc-500 uppercase mb-1">Priorité</label>
+                    <div className="flex bg-black/30 rounded-lg p-1 border border-white/5">
+                      <button type="button" onClick={()=>setTaskForm({...taskForm, priority: 'medium'})} className={`flex-1 py-1.5 rounded text-sm font-medium transition ${taskForm.priority === 'medium' ? 'bg-white/10 text-white' : 'text-zinc-500'}`}>Normal</button>
+                      <button type="button" onClick={()=>setTaskForm({...taskForm, priority: 'high'})} className={`flex-1 py-1.5 rounded text-sm font-medium transition ${taskForm.priority === 'high' ? 'bg-red-500/20 text-red-400' : 'text-zinc-500'}`}>Urgent</button>
+                    </div>
+                 </div>
+                 <div>
+                    <label className="block text-xs font-bold text-zinc-500 uppercase mb-1">Statut</label>
+                    <select value={taskForm.status} onChange={e=>setTaskForm({...taskForm, status: e.target.value})} className="w-full bg-black/30 border border-white/5 rounded-lg px-3 py-2 outline-none text-white appearance-none">
+                      <option value="todo">Planifié</option><option value="in_progress">En cours</option><option value="done">Terminé</option>
+                    </select>
+                 </div>
+              </div>
+              <div className="flex gap-3 pt-4 border-t border-white/5 mt-6">
+                {taskModal.task && <button type="button" onClick={()=>deleteTask(taskModal.task.id)} className="px-4 py-2 bg-red-500/10 text-red-400 rounded-lg hover:bg-red-500/20 transition"><Trash2 size={18}/></button>}
+                <button type="button" onClick={() => setTaskModal({ isOpen: false, task: null })} className="flex-1 py-2 bg-white/5 text-white rounded-lg hover:bg-white/10 transition">Annuler</button>
+                <button type="submit" className="flex-1 py-2 bg-emerald-500 text-black font-semibold rounded-lg hover:bg-emerald-400 transition">Enregistrer</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      
+    {/* Modale Cours */}
+      {isCourseModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsCourseModalOpen(false)}></div>
+          <div className="relative w-full max-w-md bg-[#11151e] border border-white/10 rounded-2xl p-6 shadow-2xl animation-fade-in">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-semibold text-white">{courseForm.id ? 'Modifier le cours' : 'Nouveau Cours'}</h3>
+              <button onClick={() => setIsCourseModalOpen(false)} className="text-zinc-500 hover:text-white"><X size={20}/></button>
+            </div>
+            <form onSubmit={handleSaveCourse} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-zinc-500 uppercase mb-1">Nom de la matière</label>
+                <input required type="text" value={courseForm.name} onChange={handleCourseNameChange} className="w-full bg-black/30 border border-white/5 rounded-lg px-3 py-2 outline-none text-white focus:border-emerald-500/50" />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div><label className="block text-xs font-bold text-zinc-500 uppercase mb-1">Code (Auto)</label><input required type="text" value={courseForm.code} onChange={e=>setCourseForm({...courseForm, code: e.target.value})} className="w-full bg-black/30 border border-white/5 rounded-lg px-3 py-2 outline-none text-white" /></div>
+                <div><label className="block text-xs font-bold text-zinc-500 uppercase mb-1">Professeur</label><input type="text" value={courseForm.professor} onChange={e=>setCourseForm({...courseForm, professor: e.target.value})} className="w-full bg-black/30 border border-white/5 rounded-lg px-3 py-2 outline-none text-white" /></div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div><label className="block text-xs font-bold text-zinc-500 uppercase mb-1">Moyenne (/20)</label><input type="number" step="0.1" max="20" value={courseForm.grade} onChange={e=>setCourseForm({...courseForm, grade: e.target.value})} className="w-full bg-black/30 border border-white/5 rounded-lg px-3 py-2 outline-none text-white" /></div>
+                <div>
+                  <label className="block text-xs font-bold text-zinc-500 uppercase mb-1">Couleur</label>
+                  <select value={courseForm.color} onChange={e=>setCourseForm({...courseForm, color: e.target.value})} className="w-full bg-black/30 border border-white/5 rounded-lg px-3 py-2 outline-none text-white appearance-none">
+                    {PRESET_COLORS.map(c => <option key={c.class} value={c.class}>{c.name}</option>)}
+                  </select>
+                </div>
+              </div>
+              <button type="submit" className="w-full mt-4 bg-emerald-500 text-black font-semibold py-2.5 rounded-lg hover:bg-emerald-400 transition">Enregistrer</button>
+            </form>
+          </div>
+        </div>
+      )}
+      
+    {/* Modale Ajout Module (Syllabus) */}
+      {isModuleModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 animation-fade-in">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsModuleModalOpen(false)}></div>
+          <div className="relative w-full max-w-sm bg-[#11151e] border border-white/10 rounded-2xl p-6 shadow-2xl">
+            <h3 className="text-lg font-semibold text-white mb-4">Ajouter un chapitre</h3>
+            <form onSubmit={handleSaveModule}>
+              <input autoFocus required type="text" placeholder="Titre du chapitre..." value={moduleForm.title} onChange={e=>setModuleForm({...moduleForm, title: e.target.value})} className="w-full bg-black/30 border border-white/5 rounded-lg px-3 py-3 outline-none text-white mb-4 focus:border-emerald-500/50" />
+              
+              <div className="mb-4 flex items-center justify-between bg-black/20 p-3 rounded-lg border border-white/5">
+                <span className="text-sm text-zinc-400 font-medium">Créer des sous-parties ?</span>
+                <button type="button" onClick={() => setModuleForm({...moduleForm, hasSubparts: !moduleForm.hasSubparts})} className={`text-3xl transition-colors ${moduleForm.hasSubparts ? 'text-emerald-500' : 'text-zinc-600'}`}>
+                  {moduleForm.hasSubparts ? <ToggleRight/> : <ToggleLeft/>}
+                </button>
+              </div>
+ 
+            {moduleForm.hasSubparts && (
+                <div className="space-y-2 mb-6 pl-2 border-l-2 border-white/5">
+                  {moduleForm.subparts.map((sub, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <CornerDownRight size={14} className="text-zinc-600"/>
+                      <input required type="text" placeholder={`Titre sous-partie ${idx + 1}`} value={sub} onChange={e => {
+                         const newSubs = [...moduleForm.subparts];
+                         newSubs[idx] = e.target.value;
+                         setModuleForm({...moduleForm, subparts: newSubs});
+                       }} className="w-full bg-black/30 border border-white/5 rounded-lg px-3 py-2 outline-none text-white text-sm focus:border-emerald-500/50 transition-colors" />
+                      {moduleForm.subparts.length > 1 && (
+                        <button type="button" onClick={() => {
+                           const newSubs = moduleForm.subparts.filter((_, i) => i !== idx);
+                           setModuleForm({...moduleForm, subparts: newSubs});
+                        }} className="text-zinc-500 hover:text-red-500 p-1"><X size={14}/></button>
+                      )}
+                    </div>
+                  ))}
+                  <button type="button" onClick={() => setModuleForm({...moduleForm, subparts: [...moduleForm.subparts, '']})} className="text-xs font-medium text-emerald-500 hover:text-emerald-400 flex items-center gap-1 mt-3 ml-6 transition-colors">
+                    <Plus size={12}/> Ajouter une ligne
+                  </button>
+                </div>
+              )}
+      
+            <div className="flex gap-2 justify-end">
+                <button type="button" onClick={() => setIsModuleModalOpen(false)} className="px-4 py-2 text-sm text-zinc-400 hover:text-white transition">Annuler</button>
+                <button type="submit" className="px-4 py-2 text-sm bg-emerald-500 text-black font-semibold rounded-lg hover:bg-emerald-400 transition shadow-[0_0_15px_rgba(16,185,129,0.2)]">Ajouter</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      
+    {/* Modale Ajout Ressource (Fichiers locaux) */}
+      {isResourceModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 animation-fade-in">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsResourceModalOpen(false)}></div>
+          <div className="relative w-full max-w-md bg-[#11151e] border border-white/10 rounded-2xl p-6 shadow-2xl">
+            <h3 className="text-lg font-semibold text-white mb-4">Ajouter une ressource</h3>
+            
+            {/* Tabs Fichier / Lien */}
+            <div className="flex bg-black/30 rounded-lg p-1 border border-white/5 mb-4">
+              <button onClick={() => setResourceUploadType('file')} className={`flex-1 py-1.5 rounded text-sm font-medium transition ${resourceUploadType === 'file' ? 'bg-white/10 text-white' : 'text-zinc-500 hover:text-zinc-300'}`}>Fichier Local</button>
+              <button onClick={() => setResourceUploadType('link')} className={`flex-1 py-1.5 rounded text-sm font-medium transition ${resourceUploadType === 'link' ? 'bg-white/10 text-white' : 'text-zinc-500 hover:text-zinc-300'}`}>Lien Web</button>
+            </div>
+ 
+          <form onSubmit={handleSaveResource} className="space-y-4">
+              {resourceUploadType === 'file' ? (
+                <div className="border-2 border-dashed border-white/10 rounded-xl p-8 text-center hover:border-emerald-500/50 transition-colors group relative cursor-pointer">
+                  <input type="file" required onChange={(e) => setResourceFile(e.target.files[0])} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="p-3 bg-white/5 rounded-full group-hover:text-emerald-500 transition-colors text-zinc-400">
+                      <DownloadCloud size={24} />
+                    </div>
+                    {resourceFile ? (
+                      <p className="text-sm text-emerald-400 font-medium">{resourceFile.name}</p>
+                    ) : (
+                      <>
+                        <p className="text-sm font-medium text-white">Cliquez pour choisir un fichier</p>
+                        <p className="text-xs text-zinc-500">PDF, Images (Max 3MB pour la démo)</p>
+                      </>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div>
+                    <label className="block text-xs font-bold text-zinc-500 uppercase mb-1">Nom du lien</label>
+                    <input autoFocus required type="text" placeholder="Ex: Playlist Lofi YouTube..." value={resourceForm.name} onChange={e=>setResourceForm({...resourceForm, name: e.target.value})} className="w-full bg-black/30 border border-white/5 rounded-lg px-3 py-2 outline-none text-white focus:border-emerald-500/50" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-zinc-500 uppercase mb-1">URL du lien</label>
+                    <input required type="url" placeholder="https://..." value={resourceForm.url} onChange={e=>setResourceForm({...resourceForm, url: e.target.value})} className="w-full bg-black/30 border border-white/5 rounded-lg px-3 py-2 outline-none text-white focus:border-emerald-500/50" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-zinc-500 uppercase mb-1">Type de contenu</label>
+                    <select value={resourceForm.type} onChange={e=>setResourceForm({...resourceForm, type: e.target.value})} className="w-full bg-black/30 border border-white/5 rounded-lg px-3 py-2 outline-none text-white appearance-none">
+                      <option value="link">Article / Page Web</option>
+                      <option value="video">Lien Vidéo (YouTube...)</option>
+                    </select>
+                  </div>
+                </>
+              )}
+      
+            <div className="flex gap-2 justify-end pt-2">
+                <button type="button" onClick={() => setIsResourceModalOpen(false)} className="px-4 py-2 text-sm text-zinc-400 hover:text-white transition">Annuler</button>
+                <button type="submit" className="px-4 py-2 text-sm bg-emerald-500 text-black font-semibold rounded-lg hover:bg-emerald-400 transition shadow-[0_0_15px_rgba(16,185,129,0.2)]">Ajouter</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      
+    {/* Styles globaux */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animation-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background:#27272a;mso-highlight:#27272a; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background:#3f3f46;mso-highlight:#3f3f46; }
+      `}} />
+    </div>
+  );
+};
+
+export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(() => !!localStorage.getItem('au_current_user'));
+  if (!isAuthenticated) {
+    return <AuthScreen onLogin={() => setIsAuthenticated(true)} />;
+  }
+  
+return <MainApp onLogout={() => {
+    localStorage.removeItem('au_current_user');
+    setIsAuthenticated(false);
+  }} />;
+}
+
+// ==========================================
+// FIN DE VOTRE CODE EXACT
+// INITIALISATION REACT POUR LE NAVIGATEUR :
+// ==========================================
+
+const root = createRoot(document.getElementById('root'));
+root.render(<App />);
+
+    </script>
+</body>
+</html>
