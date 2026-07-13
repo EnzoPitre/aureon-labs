@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { stripe } from "@/lib/stripe";
 
 export async function GET() {
   const { data, error } = await supabaseAdmin
@@ -22,10 +23,33 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Champs manquants" }, { status: 400 });
   }
 
+  const normalizedCode = code.toUpperCase().trim();
+
+  try {
+    const coupon = await stripe.coupons.create(
+      discount_type === "percentage"
+        ? { percent_off: discount_value, duration: "once" }
+        : { amount_off: Math.round(discount_value * 100), currency: "eur", duration: "once" }
+    );
+
+    await stripe.promotionCodes.create({
+      promotion: { type: "coupon", coupon: coupon.id },
+      code: normalizedCode,
+      max_redemptions: max_uses || undefined,
+      expires_at: expires_at ? Math.floor(new Date(expires_at).getTime() / 1000) : undefined,
+    });
+  } catch (error) {
+    console.error("[PROMO CODES] Stripe creation failed:", error);
+    return NextResponse.json(
+      { error: "Ce code n'a pas pu être créé sur Stripe (peut-être déjà utilisé)." },
+      { status: 500 }
+    );
+  }
+
   const { data, error } = await supabaseAdmin
     .from("promo_codes")
     .insert({
-      code: code.toUpperCase().trim(),
+      code: normalizedCode,
       label: label || null,
       discount_type,
       discount_value,

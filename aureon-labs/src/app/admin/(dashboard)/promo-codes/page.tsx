@@ -31,6 +31,8 @@ export default function AdminPromoCodesPage() {
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState(emptyForm);
   const [creating, setCreating] = useState(false);
+  const [syncing, setSyncing] = useState(false);
+  const [syncMessage, setSyncMessage] = useState("");
 
   const load = () => {
     fetch("/api/admin/promo-codes")
@@ -75,9 +77,41 @@ export default function AdminPromoCodesPage() {
     await fetch(`/api/admin/promo-codes/${c.id}`, { method: "DELETE" });
   };
 
+  const handleSync = async () => {
+    setSyncing(true);
+    setSyncMessage("");
+    const res = await fetch("/api/admin/promo-codes/sync-stripe", { method: "POST" });
+    const data = await res.json();
+    setSyncMessage(
+      (data.results ?? [])
+        .map((r: { code: string; status: string }) => `${r.code}: ${r.status}`)
+        .join(" · ")
+    );
+    setSyncing(false);
+  };
+
   return (
     <div>
-      <h1 style={{ fontSize: "1.5rem", fontWeight: 700, marginBottom: "2rem" }}>Codes promo</h1>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem" }}>
+        <h1 style={{ fontSize: "1.5rem", fontWeight: 700, margin: 0 }}>Codes promo</h1>
+        <button
+          onClick={handleSync}
+          disabled={syncing}
+          style={{
+            border: "1px solid #d8cfc0",
+            background: "#f1ede7",
+            padding: "0.5rem 1rem",
+            fontSize: "0.8rem",
+            cursor: "pointer",
+          }}
+        >
+          {syncing ? "Synchronisation..." : "Synchroniser avec Stripe"}
+        </button>
+      </div>
+
+      {syncMessage && (
+        <p style={{ fontSize: "0.8rem", color: "#5c564e", marginBottom: "1rem" }}>{syncMessage}</p>
+      )}
 
       <form
         onSubmit={handleCreate}
