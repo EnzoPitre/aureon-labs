@@ -176,8 +176,8 @@ export default function StorySection() {
             style={{
               marginTop: "2rem",
               padding: "1.25rem",
-              background: "rgba(0,212,255,0.04)",
-              border: "1px solid rgba(0,212,255,0.12)",
+              background: "rgba(201,169,97,0.04)",
+              border: "1px solid rgba(201,169,97,0.12)",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",

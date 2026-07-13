@@ -33,7 +33,7 @@ export default function ContactPage() {
         >
           {/* Info */}
           <div>
-            <p style={{ color: "#00d9ff", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem" }}>
+            <p style={{ color: "#c9a961", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem" }}>
               Contact
             </p>
             <h1 style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", fontWeight: 700, letterSpacing: "-0.02em", marginBottom: "1.5rem", lineHeight: 1.2 }}>
@@ -72,7 +72,7 @@ export default function ContactPage() {
           >
             {sent ? (
               <div style={{ textAlign: "center", padding: "3rem 0" }}>
-                <CheckCircle size={48} style={{ color: "#00d9ff", margin: "0 auto 1.5rem" }} />
+                <CheckCircle size={48} style={{ color: "#c9a961", margin: "0 auto 1.5rem" }} />
                 <h3 style={{ fontWeight: 700, marginBottom: "0.75rem" }}>Message envoyé !</h3>
                 <p style={{ color: "#b3b3b3", fontSize: "0.9rem" }}>
                   On vous répond sous 24h. Merci de nous faire confiance.

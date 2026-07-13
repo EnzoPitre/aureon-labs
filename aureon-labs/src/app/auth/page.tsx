@@ -56,7 +56,7 @@ export default function AuthPage() {
         alignItems: "center",
         justifyContent: "center",
         padding: "88px 1rem 2rem",
-        background: "radial-gradient(ellipse at 50% 50%, rgba(0,217,255,0.05) 0%, transparent 60%), #0a0a0a",
+        background: "radial-gradient(ellipse at 50% 50%, rgba(201,169,97,0.05) 0%, transparent 60%), #0a0a0a",
       }}
     >
       <div style={{ width: "100%", maxWidth: "440px" }}>
@@ -225,7 +225,7 @@ export default function AuthPage() {
                     checked={agreed}
                     onChange={(e) => setAgreed(e.target.checked)}
                     required
-                    style={{ marginTop: "2px", accentColor: "#00d9ff" }}
+                    style={{ marginTop: "2px", accentColor: "#c9a961" }}
                   />
                   J&apos;accepte les conditions générales de vente et la politique de confidentialité.
                 </label>
@@ -248,7 +248,7 @@ export default function AuthPage() {
           {mode === "login" ? "Pas encore de compte ?" : "Déjà un compte ?"}{" "}
           <button
             onClick={() => setMode(mode === "login" ? "register" : "login")}
-            style={{ background: "none", border: "none", cursor: "pointer", color: "#00d9ff", fontSize: "0.8rem" }}
+            style={{ background: "none", border: "none", cursor: "pointer", color: "#c9a961", fontSize: "0.8rem" }}
           >
             {mode === "login" ? "Créer un compte" : "Se connecter"}
           </button>

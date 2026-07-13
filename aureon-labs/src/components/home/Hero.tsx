@@ -2,14 +2,25 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck, RotateCcw, Truck, Star } from "lucide-react";
 import { products } from "@/lib/products";
 
 const TOTAL_REVIEWS = 2847;
 const AVG_RATING = 4.8;
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 16 },
+  show: (i: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] as const },
+  }),
+};
+
 export default function Hero() {
   const heroProducts = products.slice(0, 3);
+  const alpsSession = products.find((p) => p.slug === "alps-session") ?? heroProducts[0];
 
   return (
     <section
@@ -37,15 +48,25 @@ export default function Hero() {
         className="hero-left"
       >
         {/* Social proof pill */}
-        <div style={{ marginBottom: "2rem" }}>
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          custom={0}
+          style={{ marginBottom: "2rem" }}
+        >
           <span className="proof-pill">
             <Star size={11} fill="currentColor" />
             {AVG_RATING}/5 · {TOTAL_REVIEWS.toLocaleString("fr-FR")} avis vérifiés · #1 bracelet WHOOP en France
           </span>
-        </div>
+        </motion.div>
 
         {/* Headline */}
-        <h1
+        <motion.h1
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          custom={1}
           style={{
             fontSize: "clamp(3rem, 6vw, 6rem)",
             fontWeight: 300,
@@ -68,9 +89,13 @@ export default function Hero() {
           >
             Zéro compromis.
           </em>
-        </h1>
+        </motion.h1>
 
-        <p
+        <motion.p
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          custom={2}
           style={{
             color: "#7a7a7a",
             fontSize: "15px",
@@ -81,10 +106,14 @@ export default function Hero() {
         >
           15 designs exclusifs pour athlètes qui refusent le bracelet standard.
           Nylon premium, fermoir déployant, taille universelle.
-        </p>
+        </motion.p>
 
         {/* Price */}
-        <div
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          custom={3}
           style={{
             display: "flex",
             alignItems: "center",
@@ -111,10 +140,16 @@ export default function Hero() {
           >
             · Livraison offerte dès 35€
           </span>
-        </div>
+        </motion.div>
 
         {/* CTAs */}
-        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginBottom: "2.5rem" }}>
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          custom={4}
+          style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginBottom: "2.5rem" }}
+        >
           <Link href="/shop" className="btn-primary">
             Commander maintenant
             <ArrowRight size={12} strokeWidth={2.5} />
@@ -122,10 +157,40 @@ export default function Hero() {
           <Link href="/shop" className="btn-ghost">
             Voir les 15 designs
           </Link>
-        </div>
+        </motion.div>
+
+        {/* Mobile lifestyle image */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          custom={5}
+          className="hero-mobile-image"
+          style={{
+            position: "relative",
+            width: "100%",
+            aspectRatio: "4/3",
+            marginBottom: "2.5rem",
+            overflow: "hidden",
+            border: "1px solid #1e1e1e",
+          }}
+        >
+          <Image
+            src="/lifestyle/alps-session-flatlay.png"
+            alt={alpsSession.name}
+            fill
+            style={{ objectFit: "cover" }}
+            priority
+            sizes="100vw"
+          />
+        </motion.div>
 
         {/* Trust row */}
-        <div
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          custom={5}
           style={{
             display: "flex",
             gap: "1.5rem",
@@ -151,10 +216,14 @@ export default function Hero() {
               {item.text}
             </div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Stats */}
-        <div
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          custom={6}
           style={{
             display: "flex",
             gap: "2.5rem",
@@ -187,10 +256,10 @@ export default function Hero() {
               </div>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
-      {/* Right — Product showcase */}
+      {/* Right — Editorial lifestyle visual */}
       <div
         style={{
           position: "relative",
@@ -207,7 +276,7 @@ export default function Hero() {
             position: "absolute",
             inset: 0,
             background:
-              "radial-gradient(ellipse at 60% 40%, rgba(0,212,255,0.06) 0%, transparent 60%)",
+              "radial-gradient(ellipse at 60% 40%, rgba(201,169,97,0.06) 0%, transparent 60%)",
             pointerEvents: "none",
           }}
         />
@@ -224,74 +293,68 @@ export default function Hero() {
           <span className="badge-hot">🔥 Séries limitées</span>
         </div>
 
-        {/* Product 1 — center, large */}
-        <div
+        {/* Flat-lay — background editorial shot */}
+        <motion.div
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           style={{
             position: "absolute",
-            width: "55%",
-            aspectRatio: "1",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -52%) rotate(-8deg)",
+            width: "78%",
+            aspectRatio: "16/9",
+            top: "10%",
+            right: "-6%",
             filter: "drop-shadow(0 32px 64px rgba(0,0,0,0.6))",
           }}
         >
           <Image
-            src={heroProducts[0].image}
-            alt={heroProducts[0].name}
+            src="/lifestyle/alps-session-flatlay.png"
+            alt={`${alpsSession.name} — vue détaillée`}
             fill
-            style={{ objectFit: "contain" }}
+            style={{ objectFit: "cover" }}
+            sizes="35vw"
             priority
-            sizes="30vw"
           />
-        </div>
+        </motion.div>
 
-        {/* Product 2 — top right */}
-        <div
+        {/* On-wrist shot — floating accent card */}
+        <motion.div
+          initial={{ opacity: 0, y: 24, rotate: -6 }}
+          animate={{
+            opacity: 1,
+            y: [0, -10, 0],
+            rotate: -4,
+          }}
+          transition={{
+            opacity: { duration: 0.9, delay: 0.3 },
+            y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 },
+            rotate: { duration: 0.9, delay: 0.3 },
+          }}
           style={{
             position: "absolute",
-            width: "30%",
+            width: "42%",
             aspectRatio: "1",
-            top: "12%",
-            right: "6%",
-            opacity: 0.45,
-            transform: "rotate(10deg)",
-            filter: "drop-shadow(0 16px 32px rgba(0,0,0,0.4))",
+            bottom: "8%",
+            left: "6%",
+            border: "1px solid #282828",
+            boxShadow: "0 24px 48px rgba(0,0,0,0.5)",
+            overflow: "hidden",
           }}
         >
           <Image
-            src={heroProducts[1].image}
-            alt={heroProducts[1].name}
+            src="/lifestyle/alps-session-wrist.jpg"
+            alt={`${alpsSession.name} — porté au poignet`}
             fill
-            style={{ objectFit: "contain" }}
-            sizes="15vw"
+            style={{ objectFit: "cover" }}
+            sizes="20vw"
           />
-        </div>
-
-        {/* Product 3 — bottom left */}
-        <div
-          style={{
-            position: "absolute",
-            width: "28%",
-            aspectRatio: "1",
-            bottom: "12%",
-            left: "4%",
-            opacity: 0.35,
-            transform: "rotate(-5deg)",
-            filter: "drop-shadow(0 12px 24px rgba(0,0,0,0.3))",
-          }}
-        >
-          <Image
-            src={heroProducts[2].image}
-            alt={heroProducts[2].name}
-            fill
-            style={{ objectFit: "contain" }}
-            sizes="15vw"
-          />
-        </div>
+        </motion.div>
 
         {/* Product info card — bottom right */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
           style={{
             position: "absolute",
             bottom: "1.5rem",
@@ -304,19 +367,19 @@ export default function Hero() {
           }}
         >
           <div className="label" style={{ fontSize: "9px", marginBottom: "0.25rem" }}>
-            {heroProducts[0].name}
+            {alpsSession.name}
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
             <span style={{ fontSize: "14px", fontWeight: 600, color: "#efefef" }}>
               17,99€
             </span>
             <span style={{ fontSize: "10px", color: "var(--amber)" }}>
-              ★ {heroProducts[0].rating}
+              ★ {alpsSession.rating}
             </span>
           </div>
           <div style={{ marginTop: "0.625rem" }}>
             <Link
-              href={`/shop/${heroProducts[0].slug}`}
+              href={`/shop/${alpsSession.slug}`}
               style={{
                 fontSize: "9px",
                 fontWeight: 700,
@@ -332,10 +395,13 @@ export default function Hero() {
               Voir le design <ArrowRight size={9} strokeWidth={2.5} />
             </Link>
           </div>
-        </div>
+        </motion.div>
 
         {/* Live buyers indicator */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
           style={{
             position: "absolute",
             top: "1.5rem",
@@ -349,7 +415,9 @@ export default function Hero() {
             gap: "0.5rem",
           }}
         >
-          <span
+          <motion.span
+            animate={{ opacity: [1, 0.4, 1] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
             style={{
               width: "6px",
               height: "6px",
@@ -362,14 +430,19 @@ export default function Hero() {
           <span style={{ fontSize: "10px", color: "#7a7a7a", fontWeight: 500 }}>
             23 personnes regardent
           </span>
-        </div>
+        </motion.div>
       </div>
 
       <style>{`
+        @media (min-width: 769px) {
+          .hero-mobile-image {
+            display: none !important;
+          }
+        }
         @media (max-width: 768px) {
           .hero-section {
             grid-template-columns: 1fr !important;
-            min-height: 100svh;
+            min-height: auto;
             padding-top: calc(var(--announce-h) + var(--header-h)) !important;
           }
           .hero-right {

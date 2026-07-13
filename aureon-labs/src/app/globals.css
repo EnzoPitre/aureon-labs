@@ -10,9 +10,9 @@
     --text: #efefef;
     --text-2: #7a7a7a;
     --text-3: #3a3a3a;
-    --cyan: #00d4ff;
-    --cyan-dark: #00b8d9;
-    --purple: #9b30ff;
+    --cyan: #c9a961;
+    --cyan-dark: #b08d4a;
+    --purple: #d97757;
     --amber: #f59e0b;
     --green: #10b981;
     --red: #ef4444;
@@ -24,8 +24,8 @@
     --text-primary: #efefef;
     --text-secondary: #7a7a7a;
     --text-tertiary: #3a3a3a;
-    --accent-cyan: #00d4ff;
-    --accent-purple: #9b30ff;
+    --accent-cyan: #c9a961;
+    --accent-purple: #d97757;
     --border-color: #1e1e1e;
 
     --announce-h: 36px;
@@ -52,7 +52,7 @@
   }
 
   ::selection {
-    background: rgba(0, 212, 255, 0.12);
+    background: rgba(201,169,97, 0.12);
     color: var(--text);
   }
 
@@ -224,8 +224,8 @@
     align-items: center;
     gap: 0.3rem;
     padding: 0.25rem 0.625rem;
-    background: rgba(0, 212, 255, 0.1);
-    border: 1px solid rgba(0, 212, 255, 0.25);
+    background: rgba(201,169,97, 0.1);
+    border: 1px solid rgba(201,169,97, 0.25);
     color: var(--cyan);
     font-size: 9px;
     font-weight: 700;

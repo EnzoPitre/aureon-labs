@@ -4,16 +4,27 @@ import FeaturedCollection from "@/components/home/FeaturedCollection";
 import SocialProof from "@/components/home/SocialProof";
 import StorySection from "@/components/home/StorySection";
 import Newsletter from "@/components/home/Newsletter";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <TrustStrip />
-      <FeaturedCollection />
-      <SocialProof />
-      <StorySection />
-      <Newsletter />
+      <ScrollReveal>
+        <TrustStrip />
+      </ScrollReveal>
+      <ScrollReveal>
+        <FeaturedCollection />
+      </ScrollReveal>
+      <ScrollReveal>
+        <SocialProof />
+      </ScrollReveal>
+      <ScrollReveal>
+        <StorySection />
+      </ScrollReveal>
+      <ScrollReveal>
+        <Newsletter />
+      </ScrollReveal>
     </>
   );
 }

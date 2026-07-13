@@ -25,7 +25,7 @@ type Order = {
 
 const statusLabels: Record<string, { label: string; color: string }> = {
   en_preparation: { label: "En préparation", color: "#fbbf24" },
-  expedie: { label: "Expédiée", color: "#00d9ff" },
+  expedie: { label: "Expédiée", color: "#c9a961" },
   livre: { label: "Livrée", color: "#22c55e" },
 };
 
@@ -97,11 +97,11 @@ export default function AccountPage() {
                     alignItems: "center",
                     gap: "0.75rem",
                     padding: "0.75rem 1rem",
-                    background: tab === t.id ? "rgba(0,217,255,0.08)" : "transparent",
-                    border: `1px solid ${tab === t.id ? "rgba(0,217,255,0.2)" : "transparent"}`,
+                    background: tab === t.id ? "rgba(201,169,97,0.08)" : "transparent",
+                    border: `1px solid ${tab === t.id ? "rgba(201,169,97,0.2)" : "transparent"}`,
                     borderRadius: "8px",
                     cursor: "pointer",
-                    color: tab === t.id ? "#00d9ff" : "#b3b3b3",
+                    color: tab === t.id ? "#c9a961" : "#b3b3b3",
                     fontSize: "0.875rem",
                     fontWeight: tab === t.id ? 600 : 400,
                     textAlign: "left",
@@ -267,7 +267,7 @@ export default function AccountPage() {
                       type="checkbox"
                       checked={newsletter}
                       onChange={(e) => setNewsletter(e.target.checked)}
-                      style={{ width: "18px", height: "18px", accentColor: "#00d9ff" }}
+                      style={{ width: "18px", height: "18px", accentColor: "#c9a961" }}
                     />
                   </label>
 

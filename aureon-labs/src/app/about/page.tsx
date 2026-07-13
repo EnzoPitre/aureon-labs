@@ -10,11 +10,11 @@ export default function AboutPage() {
         style={{
           padding: "5rem 0",
           borderBottom: "1px solid #1a1a1a",
-          background: "radial-gradient(ellipse at 50% 0%, rgba(0,217,255,0.06) 0%, transparent 60%)",
+          background: "radial-gradient(ellipse at 50% 0%, rgba(201,169,97,0.06) 0%, transparent 60%)",
         }}
       >
         <div className="container-main" style={{ maxWidth: "720px" }}>
-          <p style={{ color: "#00d9ff", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem" }}>
+          <p style={{ color: "#c9a961", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem" }}>
             À propos
           </p>
           <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: "2rem" }}>

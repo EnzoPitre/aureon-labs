@@ -77,7 +77,7 @@ export default function ShopPage() {
             La collection
           </h1>
           <p style={{ fontSize: "13px", letterSpacing: "0.02em" }}>
-            <span style={{ color: "#00d4ff", fontWeight: 300 }}>{filtered.length}</span>
+            <span style={{ color: "#c9a961", fontWeight: 300 }}>{filtered.length}</span>
             <span style={{ color: "#3a3a3a" }}> bracelet{filtered.length !== 1 ? "s" : ""} disponible{filtered.length !== 1 ? "s" : ""}</span>
           </p>
         </div>
@@ -154,9 +154,9 @@ export default function ShopPage() {
                 onClick={() => setMinRating(minRating === r ? 0 : r)}
                 style={{
                   padding: "0.3rem 0.625rem",
-                  border: `1px solid ${minRating === r ? "#00d4ff" : "#1e1e1e"}`,
-                  background: minRating === r ? "rgba(0,212,255,0.06)" : "transparent",
-                  color: minRating === r ? "#00d4ff" : "#3a3a3a",
+                  border: `1px solid ${minRating === r ? "#c9a961" : "#1e1e1e"}`,
+                  background: minRating === r ? "rgba(201,169,97,0.06)" : "transparent",
+                  color: minRating === r ? "#c9a961" : "#3a3a3a",
                   fontSize: "11px",
                   cursor: "pointer",
                   transition: "all 0.2s",

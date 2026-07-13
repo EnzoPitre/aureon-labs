@@ -171,7 +171,7 @@ export default function ProductDetail({ product, related }: Props) {
                       width: "64px",
                       height: "64px",
                       overflow: "hidden",
-                      border: `1px solid ${activeImage === i ? "#00d4ff" : "#1e1e1e"}`,
+                      border: `1px solid ${activeImage === i ? "#c9a961" : "#1e1e1e"}`,
                       cursor: "pointer",
                       padding: 0,
                       background: "#0a0a0a",
@@ -193,8 +193,8 @@ export default function ProductDetail({ product, related }: Props) {
                 style={{
                   display: "inline-block",
                   marginBottom: "1.25rem",
-                  color: product.badge === "NOUVEAU" ? "#00d4ff" : "#9b30ff",
-                  border: `1px solid ${product.badge === "NOUVEAU" ? "rgba(0,212,255,0.3)" : "rgba(155,48,255,0.3)"}`,
+                  color: product.badge === "NOUVEAU" ? "#c9a961" : "#d97757",
+                  border: `1px solid ${product.badge === "NOUVEAU" ? "rgba(201,169,97,0.3)" : "rgba(217,119,87,0.3)"}`,
                   padding: "0.2rem 0.625rem",
                   fontSize: "10px",
                 }}
@@ -241,7 +241,7 @@ export default function ProductDetail({ product, related }: Props) {
                 fontSize: "2.25rem",
                 fontWeight: 300,
                 letterSpacing: "-0.04em",
-                color: "#00d4ff",
+                color: "#c9a961",
                 marginBottom: "0.625rem",
                 lineHeight: 1,
               }}
@@ -319,10 +319,10 @@ export default function ProductDetail({ product, related }: Props) {
               <button
                 onClick={() => toggle(product.id)}
                 style={{
-                  background: wished ? "rgba(155,48,255,0.08)" : "transparent",
-                  border: `1px solid ${wished ? "#9b30ff" : "#282828"}`,
+                  background: wished ? "rgba(217,119,87,0.08)" : "transparent",
+                  border: `1px solid ${wished ? "#d97757" : "#282828"}`,
                   cursor: "pointer",
-                  color: wished ? "#9b30ff" : "#3a3a3a",
+                  color: wished ? "#d97757" : "#3a3a3a",
                   width: "46px",
                   display: "flex",
                   alignItems: "center",
@@ -333,8 +333,8 @@ export default function ProductDetail({ product, related }: Props) {
                 title={wished ? "Retirer de la wishlist" : "Ajouter à la wishlist"}
                 onMouseEnter={(e) => {
                   if (!wished) {
-                    e.currentTarget.style.borderColor = "#9b30ff";
-                    e.currentTarget.style.color = "#9b30ff";
+                    e.currentTarget.style.borderColor = "#d97757";
+                    e.currentTarget.style.color = "#d97757";
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -344,7 +344,7 @@ export default function ProductDetail({ product, related }: Props) {
                   }
                 }}
               >
-                <Heart size={15} fill={wished ? "#9b30ff" : "none"} strokeWidth={1.5} />
+                <Heart size={15} fill={wished ? "#d97757" : "none"} strokeWidth={1.5} />
               </button>
             </div>
 
@@ -384,7 +384,7 @@ export default function ProductDetail({ product, related }: Props) {
       {/* Story */}
       <div style={{ borderTop: "1px solid #1e1e1e", padding: "5rem 0", background: "#0e0e0e" }}>
         <div className="container-main" style={{ maxWidth: "760px" }}>
-          <div className="label" style={{ marginBottom: "1rem", color: "#00d4ff" }}>
+          <div className="label" style={{ marginBottom: "1rem", color: "#c9a961" }}>
             À propos de ce design
           </div>
           <h2
@@ -487,7 +487,7 @@ export default function ProductDetail({ product, related }: Props) {
             <div className="label" style={{ marginBottom: "1.5rem" }}>Donner un avis</div>
 
             {reviewSubmitted ? (
-              <p style={{ color: "#00d4ff", fontSize: "13px", letterSpacing: "0.02em" }}>
+              <p style={{ color: "#c9a961", fontSize: "13px", letterSpacing: "0.02em" }}>
                 ✓ Merci pour votre avis ! Il sera publié après modération.
               </p>
             ) : (
@@ -584,7 +584,7 @@ export default function ProductDetail({ product, related }: Props) {
                   fontSize: "11px", color: "#3a3a3a", textDecoration: "none",
                   letterSpacing: "0.08em", textTransform: "uppercase", transition: "color 0.2s",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#00d4ff")}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#c9a961")}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "#3a3a3a")}
               >
                 Voir tout
