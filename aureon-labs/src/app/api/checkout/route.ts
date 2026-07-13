@@ -5,17 +5,29 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { items } = body as {
-      items: { priceId: string; quantity: number }[];
+      items: { productId: string; quantity: number }[];
     };
 
     if (!items || items.length === 0) {
       return NextResponse.json({ error: "Panier vide" }, { status: 400 });
     }
 
-    const lineItems = items.map((item) => ({
-      price: item.priceId,
-      quantity: item.quantity,
-    }));
+    const lineItems = await Promise.all(
+      items.map(async (item) => {
+        const prices = await stripe.prices.list({
+          product: item.productId,
+          active: true,
+          limit: 1,
+        });
+
+        const activePrice = prices.data[0];
+        if (!activePrice) {
+          throw new Error(`Aucun prix actif pour le produit ${item.productId}`);
+        }
+
+        return { price: activePrice.id, quantity: item.quantity };
+      })
+    );
 
     const origin = req.headers.get("origin") ?? process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 

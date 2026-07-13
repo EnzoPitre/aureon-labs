@@ -102,7 +102,7 @@ export default function Hero() {
           custom={2}
           style={{ fontSize: "20px", fontWeight: 600, color: "#18181b", marginBottom: "2rem" }}
         >
-          17,99€
+          21,99€
         </motion.div>
 
         <motion.div

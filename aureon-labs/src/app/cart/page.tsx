@@ -25,7 +25,7 @@ export default function CartPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           items: items.map((item) => ({
-            priceId: item.product.stripePriceId,
+            productId: item.product.stripeProductId,
             quantity: item.quantity,
           })),
         }),

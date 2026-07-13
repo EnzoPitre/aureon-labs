@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabase-admin";
-import { getProductByPriceId } from "@/lib/products";
+import { getProductByStripeProductId } from "@/lib/products";
 import Stripe from "stripe";
 
 export async function POST(req: NextRequest) {
@@ -32,15 +32,17 @@ export async function POST(req: NextRequest) {
 
       const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
         limit: 100,
+        expand: ["data.price.product"],
       });
 
       const items = lineItems.data.map((li) => {
-        const priceId = typeof li.price === "string" ? li.price : li.price?.id;
-        const product = priceId ? getProductByPriceId(priceId) : undefined;
+        const stripeProduct = li.price?.product;
+        const productId = typeof stripeProduct === "string" ? stripeProduct : stripeProduct?.id;
+        const product = productId ? getProductByStripeProductId(productId) : undefined;
         return {
           slug: product?.slug ?? null,
           name: product?.name ?? li.description ?? "Article",
-          priceId: priceId ?? null,
+          priceId: li.price?.id ?? null,
           quantity: li.quantity ?? 1,
           unitAmount: li.price?.unit_amount ?? 0,
         };

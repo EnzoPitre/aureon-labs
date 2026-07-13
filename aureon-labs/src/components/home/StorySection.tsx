@@ -188,7 +188,7 @@ export default function StorySection() {
                 À partir de
               </div>
               <div style={{ fontSize: "22px", fontWeight: 700, color: "#18181b", letterSpacing: "-0.02em" }}>
-                17,99€
+                21,99€
               </div>
             </div>
             <div style={{ textAlign: "right" }}>
