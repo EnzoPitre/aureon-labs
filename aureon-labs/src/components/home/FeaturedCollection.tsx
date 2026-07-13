@@ -12,16 +12,8 @@ import { useCartStore } from "@/lib/store";
 import Toast, { useToast } from "@/components/ui/Toast";
 
 const BADGES: Record<string, { label: string; cls: string }> = {
-  "the-crown":    { label: "🔥 Best-seller #1", cls: "badge-hot" },
-  "grand-prix":   { label: "🔥 Best-seller",    cls: "badge-hot" },
-  "heritage-blue":{ label: "🔥 Best-seller",    cls: "badge-hot" },
-  "padel-ace":    { label: "✨ Populaire",       cls: "badge-new" },
-};
-
-const STOCK_LABELS: Record<string, string> = {
-  "the-crown":    "Plus que 4 en stock !",
-  "grand-prix":   "Stock limité",
-  "scuderia":     "Dernières unités",
+  "the-crown": { label: "Best-seller", cls: "badge-hot" },
+  "padel-ace": { label: "Populaire", cls: "badge-new" },
 };
 
 function Stars({ rating }: { rating: number }) {
@@ -160,13 +152,6 @@ export default function FeaturedCollection() {
               </Link>
 
               <div style={{ padding: "1.25rem 1.5rem 1.5rem" }}>
-                {/* Stock indicator */}
-                {STOCK_LABELS[heroProduct.slug] && (
-                  <div style={{ marginBottom: "0.625rem" }}>
-                    <span className="badge-stock">⚡ {STOCK_LABELS[heroProduct.slug]}</span>
-                  </div>
-                )}
-
                 <div
                   style={{
                     display: "flex",
@@ -271,12 +256,6 @@ export default function FeaturedCollection() {
               </Link>
 
               <div style={{ padding: "0.875rem 1rem 1rem" }}>
-                {STOCK_LABELS[product.slug] && (
-                  <div style={{ marginBottom: "0.4rem" }}>
-                    <span className="badge-stock">⚡ {STOCK_LABELS[product.slug]}</span>
-                  </div>
-                )}
-
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.375rem" }}>
                   <Link href={`/shop/${product.slug}`} style={{ textDecoration: "none" }}>
                     <span style={{ fontSize: "13px", fontWeight: 500, color: "#18181b" }}>
