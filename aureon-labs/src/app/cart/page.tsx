@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Trash2, ShoppingBag, ArrowLeft } from "lucide-react";
@@ -11,6 +12,37 @@ export default function CartPage() {
   const total = totalPrice();
   const shipping = items.length > 0 ? 4.99 : 0;
   const grandTotal = total + shipping;
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleCheckout = async () => {
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: items.map((item) => ({
+            priceId: item.product.stripePriceId,
+            quantity: item.quantity,
+          })),
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.url) {
+        throw new Error(data.error || "Erreur lors de la création du checkout");
+      }
+
+      window.location.href = data.url;
+    } catch {
+      setError("Impossible de démarrer le paiement. Réessaie dans un instant.");
+      setLoading(false);
+    }
+  };
 
   return (
     <div style={{ paddingTop: "100px", minHeight: "100vh" }}>
@@ -176,14 +208,30 @@ export default function CartPage() {
                 </span>
               </div>
 
-              <form action="/api/checkout" method="POST">
-                {items.map((item) => (
-                  <input key={item.product.id} type="hidden" name="items" value={JSON.stringify({ priceId: item.product.stripePriceId, quantity: item.quantity })} />
-                ))}
-                <button type="submit" className="btn-primary" style={{ width: "100%", justifyContent: "center", padding: "1rem", fontSize: "1rem" }}>
-                  Passer la commande
-                </button>
-              </form>
+              {error && (
+                <div
+                  style={{
+                    background: "rgba(239,68,68,0.08)",
+                    border: "1px solid rgba(239,68,68,0.25)",
+                    borderRadius: "6px",
+                    padding: "0.625rem 0.875rem",
+                    color: "#ef4444",
+                    fontSize: "0.8rem",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  {error}
+                </div>
+              )}
+
+              <button
+                onClick={handleCheckout}
+                disabled={loading}
+                className="btn-primary"
+                style={{ width: "100%", justifyContent: "center", padding: "1rem", fontSize: "1rem", opacity: loading ? 0.7 : 1 }}
+              >
+                {loading ? "..." : "Passer la commande"}
+              </button>
 
               <p style={{ color: "#71717a", fontSize: "0.75rem", textAlign: "center", marginTop: "1rem" }}>
                 Paiement sécurisé via Stripe. Vos données sont protégées.
