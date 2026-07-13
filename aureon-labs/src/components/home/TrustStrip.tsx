@@ -41,6 +41,7 @@ export default function TrustStrip() {
         {items.map((item, i) => (
           <div
             key={item.title}
+            className="trust-item"
             style={{
               display: "flex",
               alignItems: "center",
@@ -49,8 +50,6 @@ export default function TrustStrip() {
               borderRight: i < items.length - 1 ? "1px solid #1e1e1e" : "none",
               transition: "background 0.2s",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "#111")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
           >
             <span style={{ color: "var(--cyan)", flexShrink: 0 }}>{item.icon}</span>
             <div>
@@ -74,6 +73,9 @@ export default function TrustStrip() {
       </div>
 
       <style>{`
+        .trust-item:hover {
+          background: #111;
+        }
         @media (max-width: 768px) {
           .trust-grid {
             grid-template-columns: 1fr 1fr !important;

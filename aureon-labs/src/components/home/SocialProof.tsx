@@ -144,6 +144,7 @@ export default function SocialProof() {
           {testimonials.map((t) => (
             <div
               key={t.name}
+              className="testimonial-card"
               style={{
                 background: "#080808",
                 padding: "2rem",
@@ -152,8 +153,6 @@ export default function SocialProof() {
                 gap: "1rem",
                 transition: "background 0.2s",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "#0d0d0d")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "#080808")}
             >
               {/* Stars */}
               <div style={{ color: "var(--amber)", fontSize: "14px", letterSpacing: "0.05em" }}>
@@ -217,6 +216,9 @@ export default function SocialProof() {
       </div>
 
       <style>{`
+        .testimonial-card:hover {
+          background: #0d0d0d;
+        }
         @media (max-width: 768px) {
           .testimonials-grid {
             grid-template-columns: 1fr !important;
