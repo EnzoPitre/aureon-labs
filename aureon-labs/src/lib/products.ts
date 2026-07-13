@@ -508,6 +508,10 @@ export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);
 }
 
+export function getProductByPriceId(priceId: string): Product | undefined {
+  return products.find((p) => p.stripePriceId === priceId);
+}
+
 export function getFeaturedProducts(): Product[] {
   return products.slice(0, 6);
 }

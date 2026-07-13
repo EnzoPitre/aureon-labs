@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
+import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getProductByPriceId } from "@/lib/products";
 import Stripe from "stripe";
 
 export async function POST(req: NextRequest) {
@@ -27,7 +29,56 @@ export async function POST(req: NextRequest) {
     case "checkout.session.completed": {
       const session = event.data.object as Stripe.Checkout.Session;
       console.log("[WEBHOOK] Payment completed:", session.id);
-      // TODO: Create order in Supabase, send confirmation email
+
+      const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
+        limit: 100,
+      });
+
+      const items = lineItems.data.map((li) => {
+        const priceId = typeof li.price === "string" ? li.price : li.price?.id;
+        const product = priceId ? getProductByPriceId(priceId) : undefined;
+        return {
+          slug: product?.slug ?? null,
+          name: product?.name ?? li.description ?? "Article",
+          priceId: priceId ?? null,
+          quantity: li.quantity ?? 1,
+          unitAmount: li.price?.unit_amount ?? 0,
+        };
+      });
+
+      const { error: orderError } = await supabaseAdmin.from("orders").upsert(
+        {
+          stripe_session_id: session.id,
+          customer_email: session.customer_details?.email ?? session.customer_email ?? null,
+          amount: session.amount_total ?? 0,
+          currency: session.currency ?? "eur",
+          items,
+          status: session.payment_status === "paid" ? "paid" : "pending",
+        },
+        { onConflict: "stripe_session_id" }
+      );
+
+      if (orderError) {
+        console.error("[WEBHOOK] Failed to create order:", orderError);
+        break;
+      }
+
+      for (const item of items) {
+        if (!item.slug) continue;
+        const { data: stockRow } = await supabaseAdmin
+          .from("product_stock")
+          .select("quantity")
+          .eq("slug", item.slug)
+          .single();
+
+        if (stockRow) {
+          await supabaseAdmin
+            .from("product_stock")
+            .update({ quantity: Math.max(stockRow.quantity - item.quantity, 0) })
+            .eq("slug", item.slug);
+        }
+      }
+
       break;
     }
 

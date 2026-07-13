@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Eye, EyeOff, ArrowRight } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 type Mode = "login" | "register";
 
@@ -27,10 +28,22 @@ export default function AuthPage() {
     }
 
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
 
-    // Supabase auth integration placeholder
-    // In production: supabase.auth.signIn / signUp
+    const { error: authError } =
+      mode === "login"
+        ? await supabase.auth.signInWithPassword({ email, password })
+        : await supabase.auth.signUp({ email, password });
+
+    if (authError) {
+      setError(
+        authError.message === "Invalid login credentials"
+          ? "Email ou mot de passe incorrect."
+          : authError.message
+      );
+      setLoading(false);
+      return;
+    }
+
     setSuccess(true);
     setLoading(false);
   };

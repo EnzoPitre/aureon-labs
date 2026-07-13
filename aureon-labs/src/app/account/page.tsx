@@ -1,26 +1,69 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Package, User, Heart, Settings, LogOut, ChevronRight } from "lucide-react";
+import { Package, User, Heart, Settings, LogOut } from "lucide-react";
+import { supabase } from "@/lib/supabase";
+import type { User as SupabaseUser } from "@supabase/supabase-js";
 
 type Tab = "orders" | "profile" | "wishlist" | "preferences";
 
-const mockOrders = [
-  { id: "ORD-001", date: "2024-11-20", total: 35.98, status: "delivered" as const, items: ["Padel Ace", "Obsidian"] },
-  { id: "ORD-002", date: "2024-10-05", total: 17.99, status: "shipped" as const, items: ["The Crown"] },
-  { id: "ORD-003", date: "2024-09-14", total: 53.97, status: "delivered" as const, items: ["Aurora", "Midnight Wave", "Ghost White"] },
-];
+type OrderItem = { slug: string | null; name: string; quantity: number; unitAmount: number };
 
-const statusLabels = {
-  pending: { label: "En attente", color: "#fbbf24" },
-  shipped: { label: "Expédiée", color: "#00d9ff" },
-  delivered: { label: "Livrée", color: "#22c55e" },
+type Order = {
+  id: string;
+  stripe_session_id: string;
+  amount: number;
+  currency: string;
+  items: OrderItem[];
+  status: "pending" | "paid" | "failed";
+  admin_status: string;
+  tracking_number: string | null;
+  created_at: string;
+};
+
+const statusLabels: Record<string, { label: string; color: string }> = {
+  en_preparation: { label: "En préparation", color: "#fbbf24" },
+  expedie: { label: "Expédiée", color: "#00d9ff" },
+  livre: { label: "Livrée", color: "#22c55e" },
 };
 
 export default function AccountPage() {
+  const router = useRouter();
   const [tab, setTab] = useState<Tab>("orders");
   const [newsletter, setNewsletter] = useState(true);
+  const [user, setUser] = useState<SupabaseUser | null>(null);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [loadingOrders, setLoadingOrders] = useState(true);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (!data.user) {
+        router.replace("/auth");
+        return;
+      }
+      setUser(data.user);
+    });
+  }, [router]);
+
+  useEffect(() => {
+    if (!user?.email) return;
+    supabase
+      .from("orders")
+      .select("*")
+      .eq("customer_email", user.email)
+      .order("created_at", { ascending: false })
+      .then(({ data }) => {
+        setOrders((data as Order[]) ?? []);
+        setLoadingOrders(false);
+      });
+  }, [user]);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.replace("/");
+  };
 
   const tabs = [
     { id: "orders" as Tab, label: "Commandes", icon: <Package size={16} /> },
@@ -29,6 +72,8 @@ export default function AccountPage() {
     { id: "preferences" as Tab, label: "Préférences", icon: <Settings size={16} /> },
   ];
 
+  if (!user) return null;
+
   return (
     <div style={{ paddingTop: "100px", minHeight: "100vh" }}>
       <div className="container-main" style={{ paddingBottom: "4rem" }}>
@@ -36,7 +81,7 @@ export default function AccountPage() {
           <h1 style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, letterSpacing: "-0.02em" }}>
             Mon compte
           </h1>
-          <p style={{ color: "#666666", marginTop: "0.5rem" }}>Bienvenue, Enzo 👋</p>
+          <p style={{ color: "#666666", marginTop: "0.5rem" }}>Bienvenue, {user.email} 👋</p>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "240px 1fr", gap: "3rem" }} className="account-grid">
@@ -70,6 +115,7 @@ export default function AccountPage() {
 
               <div style={{ borderTop: "1px solid #1a1a1a", marginTop: "1rem", paddingTop: "1rem" }}>
                 <button
+                  onClick={handleLogout}
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -96,71 +142,68 @@ export default function AccountPage() {
             {tab === "orders" && (
               <div>
                 <h2 style={{ fontWeight: 700, marginBottom: "1.5rem", fontSize: "1.25rem" }}>Mes commandes</h2>
-                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-                  {mockOrders.map((order) => {
-                    const status = statusLabels[order.status];
-                    return (
-                      <div
-                        key={order.id}
-                        style={{
-                          background: "#111111",
-                          border: "1px solid #1a1a1a",
-                          borderRadius: "10px",
-                          padding: "1.5rem",
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          flexWrap: "wrap",
-                          gap: "1rem",
-                        }}
-                      >
-                        <div>
-                          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
-                            <span style={{ fontWeight: 700, fontSize: "0.875rem" }}>{order.id}</span>
-                            <span
-                              style={{
-                                padding: "0.2rem 0.625rem",
-                                borderRadius: "100px",
-                                fontSize: "0.75rem",
-                                fontWeight: 600,
-                                background: `${status.color}20`,
-                                color: status.color,
-                                border: `1px solid ${status.color}40`,
-                              }}
-                            >
-                              {status.label}
-                            </span>
+                {loadingOrders ? (
+                  <p style={{ color: "#666666" }}>Chargement...</p>
+                ) : orders.length === 0 ? (
+                  <p style={{ color: "#666666" }}>Vous n&apos;avez pas encore de commande.</p>
+                ) : (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                    {orders.map((order) => {
+                      const status = statusLabels[order.admin_status] ?? statusLabels.en_preparation;
+                      return (
+                        <div
+                          key={order.id}
+                          style={{
+                            background: "#111111",
+                            border: "1px solid #1a1a1a",
+                            borderRadius: "10px",
+                            padding: "1.5rem",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            flexWrap: "wrap",
+                            gap: "1rem",
+                          }}
+                        >
+                          <div>
+                            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
+                              <span style={{ fontWeight: 700, fontSize: "0.875rem" }}>
+                                {order.stripe_session_id.slice(-8).toUpperCase()}
+                              </span>
+                              <span
+                                style={{
+                                  padding: "0.2rem 0.625rem",
+                                  borderRadius: "100px",
+                                  fontSize: "0.75rem",
+                                  fontWeight: 600,
+                                  background: `${status.color}20`,
+                                  color: status.color,
+                                  border: `1px solid ${status.color}40`,
+                                }}
+                              >
+                                {status.label}
+                              </span>
+                            </div>
+                            <p style={{ color: "#666666", fontSize: "0.8rem", marginBottom: "0.25rem" }}>
+                              {new Date(order.created_at).toLocaleDateString("fr-FR")}
+                            </p>
+                            <p style={{ color: "#b3b3b3", fontSize: "0.875rem" }}>
+                              {order.items.map((i) => i.name).join(", ")}
+                            </p>
+                            {order.tracking_number && (
+                              <p style={{ color: "#666666", fontSize: "0.75rem", marginTop: "0.25rem" }}>
+                                Suivi : {order.tracking_number}
+                              </p>
+                            )}
                           </div>
-                          <p style={{ color: "#666666", fontSize: "0.8rem", marginBottom: "0.25rem" }}>
-                            {new Date(order.date).toLocaleDateString("fr-FR")}
-                          </p>
-                          <p style={{ color: "#b3b3b3", fontSize: "0.875rem" }}>
-                            {order.items.join(", ")}
-                          </p>
+                          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                            <span style={{ fontWeight: 700 }}>{(order.amount / 100).toFixed(2)} €</span>
+                          </div>
                         </div>
-                        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                          <span style={{ fontWeight: 700 }}>{order.total.toFixed(2)} €</span>
-                          <button
-                            style={{
-                              background: "#1a1a1a",
-                              border: "1px solid #333333",
-                              borderRadius: "6px",
-                              cursor: "pointer",
-                              color: "#b3b3b3",
-                              padding: "0.5rem 1rem",
-                              fontSize: "0.8rem",
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "0.25rem",
-                            }}
-                          >
-                            Détails <ChevronRight size={14} />
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             )}
 
@@ -170,11 +213,11 @@ export default function AccountPage() {
                 <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
                   <div>
                     <label style={{ display: "block", fontSize: "0.875rem", color: "#b3b3b3", marginBottom: "0.5rem" }}>Nom complet</label>
-                    <input defaultValue="Enzo Pitre" className="input-field" />
+                    <input placeholder="Votre nom" className="input-field" />
                   </div>
                   <div>
                     <label style={{ display: "block", fontSize: "0.875rem", color: "#b3b3b3", marginBottom: "0.5rem" }}>Email</label>
-                    <input defaultValue="enzo.pitre33@gmail.com" type="email" className="input-field" />
+                    <input defaultValue={user.email} type="email" className="input-field" disabled />
                   </div>
                   <div>
                     <label style={{ display: "block", fontSize: "0.875rem", color: "#b3b3b3", marginBottom: "0.5rem" }}>Téléphone</label>
