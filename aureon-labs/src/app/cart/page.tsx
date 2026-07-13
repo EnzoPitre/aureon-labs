@@ -7,14 +7,57 @@ import { Trash2, ShoppingBag, ArrowLeft } from "lucide-react";
 import { useCartStore } from "@/lib/store";
 import { formatPrice } from "@/lib/utils";
 
+type AppliedPromo = {
+  code: string;
+  discountAmount: number;
+  stripePromotionCodeId: string;
+};
+
 export default function CartPage() {
   const { items: getItems, removeItem, updateQuantity, totalPrice } = useCartStore();
   const items = getItems();
   const total = totalPrice();
   const shipping = items.length > 0 ? 4.99 : 0;
-  const grandTotal = total + shipping;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const [promoInput, setPromoInput] = useState("");
+  const [appliedPromo, setAppliedPromo] = useState<AppliedPromo | null>(null);
+  const [promoError, setPromoError] = useState("");
+  const [promoLoading, setPromoLoading] = useState(false);
+
+  const discount = appliedPromo?.discountAmount ?? 0;
+  const grandTotal = total - discount + shipping;
+
+  const handleApplyPromo = async () => {
+    if (!promoInput.trim()) return;
+    setPromoLoading(true);
+    setPromoError("");
+
+    try {
+      const res = await fetch("/api/promo-codes/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: promoInput.trim(), subtotal: total }),
+      });
+      const data = await res.json();
+
+      if (!data.valid) {
+        setPromoError(data.error || "Code promo invalide.");
+        setAppliedPromo(null);
+      } else {
+        setAppliedPromo({
+          code: data.code,
+          discountAmount: data.discountAmount,
+          stripePromotionCodeId: data.stripePromotionCodeId,
+        });
+      }
+    } catch {
+      setPromoError("Impossible de vérifier ce code. Réessaie.");
+    } finally {
+      setPromoLoading(false);
+    }
+  };
 
   const handleCheckout = async () => {
     setLoading(true);
@@ -29,6 +72,7 @@ export default function CartPage() {
             productId: item.product.stripeProductId,
             quantity: item.quantity,
           })),
+          promotionCodeId: appliedPromo?.stripePromotionCodeId,
         }),
       });
 
@@ -179,11 +223,83 @@ export default function CartPage() {
                 Récapitulatif
               </h2>
 
+              {/* Promo code */}
+              <div style={{ marginBottom: "1.5rem" }}>
+                {appliedPromo ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      background: "rgba(16,185,129,0.08)",
+                      border: "1px solid rgba(16,185,129,0.25)",
+                      padding: "0.625rem 0.875rem",
+                      fontSize: "0.85rem",
+                    }}
+                  >
+                    <span style={{ color: "#282828" }}>
+                      Code <strong>{appliedPromo.code}</strong> appliqué
+                    </span>
+                    <button
+                      onClick={() => {
+                        setAppliedPromo(null);
+                        setPromoInput("");
+                      }}
+                      style={{ background: "none", border: "none", cursor: "pointer", color: "#6b6459", fontSize: "0.8rem" }}
+                    >
+                      Retirer
+                    </button>
+                  </div>
+                ) : (
+                  <div style={{ display: "flex", gap: "0.5rem" }}>
+                    <input
+                      value={promoInput}
+                      onChange={(e) => setPromoInput(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleApplyPromo()}
+                      placeholder="Code promo"
+                      style={{
+                        flex: 1,
+                        border: "1px solid #c9bfae",
+                        background: "#f1ede7",
+                        padding: "0.625rem 0.75rem",
+                        fontSize: "0.85rem",
+                        fontFamily: "inherit",
+                        outline: "none",
+                      }}
+                    />
+                    <button
+                      onClick={handleApplyPromo}
+                      disabled={promoLoading}
+                      style={{
+                        border: "1px solid #282828",
+                        background: "#f1ede7",
+                        color: "#282828",
+                        padding: "0.625rem 1rem",
+                        fontSize: "0.8rem",
+                        fontWeight: 600,
+                        cursor: "pointer",
+                      }}
+                    >
+                      {promoLoading ? "..." : "Appliquer"}
+                    </button>
+                  </div>
+                )}
+                {promoError && (
+                  <p style={{ color: "#ef4444", fontSize: "0.75rem", marginTop: "0.5rem" }}>{promoError}</p>
+                )}
+              </div>
+
               <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem", marginBottom: "1.5rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <span style={{ color: "#4a4540" }}>Sous-total</span>
                   <span>{formatPrice(total)}</span>
                 </div>
+                {appliedPromo && (
+                  <div style={{ display: "flex", justifyContent: "space-between", color: "#10b981" }}>
+                    <span>Réduction ({appliedPromo.code})</span>
+                    <span>-{formatPrice(discount)}</span>
+                  </div>
+                )}
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <span style={{ color: "#4a4540" }}>Livraison</span>
                   <span>{formatPrice(shipping)}</span>
