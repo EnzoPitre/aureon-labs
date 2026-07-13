@@ -9,18 +9,18 @@ export default function AboutPage() {
       <div
         style={{
           padding: "5rem 0",
-          borderBottom: "1px solid #1a1a1a",
-          background: "radial-gradient(ellipse at 50% 0%, rgba(201,169,97,0.06) 0%, transparent 60%)",
+          borderBottom: "1px solid #ececef",
+          background: "radial-gradient(ellipse at 50% 0%, rgba(37,99,235,0.06) 0%, transparent 60%)",
         }}
       >
         <div className="container-main" style={{ maxWidth: "720px" }}>
-          <p style={{ color: "#c9a961", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem" }}>
+          <p style={{ color: "#2563eb", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem" }}>
             À propos
           </p>
           <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: "2rem" }}>
             Performance Meets Design
           </h1>
-          <p style={{ color: "#b3b3b3", fontSize: "1.1rem", lineHeight: 1.8 }}>
+          <p style={{ color: "#52525b", fontSize: "1.1rem", lineHeight: 1.8 }}>
             Aureon Labs est né d&apos;une conviction : les meilleurs athlètes méritent les
             meilleurs équipements — y compris ceux qu&apos;on voit.
           </p>
@@ -53,7 +53,7 @@ export default function AboutPage() {
                 <h2 style={{ fontSize: "1.3rem", fontWeight: 700, marginBottom: "1rem", letterSpacing: "-0.01em" }}>
                   {section.title}
                 </h2>
-                <p style={{ color: "#b3b3b3", lineHeight: 1.8 }}>{section.body}</p>
+                <p style={{ color: "#52525b", lineHeight: 1.8 }}>{section.body}</p>
               </div>
             ))}
           </div>
@@ -61,7 +61,7 @@ export default function AboutPage() {
       </div>
 
       {/* Values */}
-      <div style={{ padding: "4rem 0", background: "#111111", borderTop: "1px solid #1a1a1a" }}>
+      <div style={{ padding: "4rem 0", background: "#f7f7f8", borderTop: "1px solid #ececef" }}>
         <div className="container-main">
           <h2 style={{ fontSize: "1.75rem", fontWeight: 700, letterSpacing: "-0.02em", marginBottom: "3rem", textAlign: "center" }}>
             Ce qui nous définit
@@ -76,15 +76,15 @@ export default function AboutPage() {
               <div
                 key={value.title}
                 style={{
-                  background: "#1a1a1a",
+                  background: "#ececef",
                   borderRadius: "12px",
-                  border: "1px solid #222222",
+                  border: "1px solid #e0e0e3",
                   padding: "2rem",
                 }}
               >
                 <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>{value.icon}</div>
                 <h3 style={{ fontWeight: 700, marginBottom: "0.75rem", fontSize: "1rem" }}>{value.title}</h3>
-                <p style={{ color: "#666666", fontSize: "0.875rem", lineHeight: 1.6, margin: 0 }}>{value.body}</p>
+                <p style={{ color: "#71717a", fontSize: "0.875rem", lineHeight: 1.6, margin: 0 }}>{value.body}</p>
               </div>
             ))}
           </div>

@@ -2,31 +2,31 @@
 
 @layer base {
   :root {
-    --bg: #080808;
-    --surface: #0e0e0e;
-    --surface-2: #141414;
-    --border: #1e1e1e;
-    --border-2: #282828;
-    --text: #efefef;
-    --text-2: #7a7a7a;
-    --text-3: #3a3a3a;
-    --cyan: #c9a961;
-    --cyan-dark: #b08d4a;
-    --purple: #d97757;
+    --bg: #ffffff;
+    --surface: #fafafa;
+    --surface-2: #f2f2f4;
+    --border: #e4e4e7;
+    --border-2: #d4d4d8;
+    --text: #18181b;
+    --text-2: #64646c;
+    --text-3: #a1a1aa;
+    --cyan: #2563eb;
+    --cyan-dark: #1d4ed8;
+    --purple: #4f46e5;
     --amber: #f59e0b;
     --green: #10b981;
     --red: #ef4444;
 
     /* Legacy aliases — kept for compatibility */
-    --bg-primary: #080808;
-    --bg-secondary: #0e0e0e;
-    --bg-tertiary: #141414;
-    --text-primary: #efefef;
-    --text-secondary: #7a7a7a;
-    --text-tertiary: #3a3a3a;
-    --accent-cyan: #c9a961;
-    --accent-purple: #d97757;
-    --border-color: #1e1e1e;
+    --bg-primary: #ffffff;
+    --bg-secondary: #fafafa;
+    --bg-tertiary: #f2f2f4;
+    --text-primary: #18181b;
+    --text-secondary: #64646c;
+    --text-tertiary: #a1a1aa;
+    --accent-cyan: #2563eb;
+    --accent-purple: #4f46e5;
+    --border-color: #e4e4e7;
 
     --announce-h: 36px;
     --header-h: 52px;
@@ -52,7 +52,7 @@
   }
 
   ::selection {
-    background: rgba(201,169,97, 0.12);
+    background: rgba(37,99,235, 0.12);
     color: var(--text);
   }
 
@@ -106,7 +106,7 @@
     gap: 0.5rem;
     padding: 0.875rem 2rem;
     background: var(--cyan);
-    color: #080808;
+    color: #ffffff;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.1em;
@@ -165,7 +165,7 @@
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    border: 1px solid rgba(239,239,239,0.25);
+    border: 1px solid rgba(10,10,10,0.25);
     cursor: pointer;
     transition: background 0.2s, border-color 0.2s;
     text-decoration: none;
@@ -173,8 +173,8 @@
   }
 
   .btn-ghost:hover {
-    background: rgba(239,239,239,0.06);
-    border-color: rgba(239,239,239,0.5);
+    background: rgba(10,10,10,0.06);
+    border-color: rgba(10,10,10,0.5);
   }
 
   .input-field {
@@ -224,8 +224,8 @@
     align-items: center;
     gap: 0.3rem;
     padding: 0.25rem 0.625rem;
-    background: rgba(201,169,97, 0.1);
-    border: 1px solid rgba(201,169,97, 0.25);
+    background: rgba(37,99,235, 0.1);
+    border: 1px solid rgba(37,99,235, 0.25);
     color: var(--cyan);
     font-size: 9px;
     font-weight: 700;

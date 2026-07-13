@@ -59,7 +59,7 @@ function Stars({ rating, size = 13 }: { rating: number; size?: number }) {
           key={i}
           size={size}
           fill={i < Math.floor(rating) ? "#f59e0b" : "none"}
-          style={{ color: i < Math.floor(rating) ? "#f59e0b" : "#282828" }}
+          style={{ color: i < Math.floor(rating) ? "#f59e0b" : "#d4d4d8" }}
         />
       ))}
     </span>
@@ -104,28 +104,28 @@ export default function ProductDetail({ product, related }: Props) {
       {/* Breadcrumb */}
       <div
         className="container-main"
-        style={{ paddingTop: "1.25rem", paddingBottom: "1.25rem", borderBottom: "1px solid #1e1e1e" }}
+        style={{ paddingTop: "1.25rem", paddingBottom: "1.25rem", borderBottom: "1px solid #e4e4e7" }}
       >
-        <nav style={{ display: "flex", gap: "0.5rem", alignItems: "center", fontSize: "11px", color: "#3a3a3a", letterSpacing: "0.06em" }}>
+        <nav style={{ display: "flex", gap: "0.5rem", alignItems: "center", fontSize: "11px", color: "#a1a1aa", letterSpacing: "0.06em" }}>
           <Link
             href="/"
-            style={{ color: "#3a3a3a", textDecoration: "none", transition: "color 0.2s" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#7a7a7a")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#3a3a3a")}
+            style={{ color: "#a1a1aa", textDecoration: "none", transition: "color 0.2s" }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#64646c")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
           >
             ACCUEIL
           </Link>
           <span>/</span>
           <Link
             href="/shop"
-            style={{ color: "#3a3a3a", textDecoration: "none", transition: "color 0.2s" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#7a7a7a")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#3a3a3a")}
+            style={{ color: "#a1a1aa", textDecoration: "none", transition: "color 0.2s" }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#64646c")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
           >
             COLLECTION
           </Link>
           <span>/</span>
-          <span style={{ color: "#7a7a7a" }}>{product.name.toUpperCase()}</span>
+          <span style={{ color: "#64646c" }}>{product.name.toUpperCase()}</span>
         </nav>
       </div>
 
@@ -142,8 +142,8 @@ export default function ProductDetail({ product, related }: Props) {
                 position: "relative",
                 width: "100%",
                 paddingTop: "100%",
-                background: "#0a0a0a",
-                border: "1px solid #1e1e1e",
+                background: "#ffffff",
+                border: "1px solid #e4e4e7",
                 overflow: "hidden",
               }}
             >
@@ -171,10 +171,10 @@ export default function ProductDetail({ product, related }: Props) {
                       width: "64px",
                       height: "64px",
                       overflow: "hidden",
-                      border: `1px solid ${activeImage === i ? "#c9a961" : "#1e1e1e"}`,
+                      border: `1px solid ${activeImage === i ? "#2563eb" : "#e4e4e7"}`,
                       cursor: "pointer",
                       padding: 0,
-                      background: "#0a0a0a",
+                      background: "#ffffff",
                       transition: "border-color 0.2s",
                     }}
                   >
@@ -193,8 +193,8 @@ export default function ProductDetail({ product, related }: Props) {
                 style={{
                   display: "inline-block",
                   marginBottom: "1.25rem",
-                  color: product.badge === "NOUVEAU" ? "#c9a961" : "#d97757",
-                  border: `1px solid ${product.badge === "NOUVEAU" ? "rgba(201,169,97,0.3)" : "rgba(217,119,87,0.3)"}`,
+                  color: product.badge === "NOUVEAU" ? "#2563eb" : "#4f46e5",
+                  border: `1px solid ${product.badge === "NOUVEAU" ? "rgba(37,99,235,0.3)" : "rgba(79,70,229,0.3)"}`,
                   padding: "0.2rem 0.625rem",
                   fontSize: "10px",
                 }}
@@ -212,7 +212,7 @@ export default function ProductDetail({ product, related }: Props) {
                 letterSpacing: "-0.04em",
                 marginBottom: "1.25rem",
                 lineHeight: 1.05,
-                color: "#efefef",
+                color: "#18181b",
               }}
             >
               {product.name}
@@ -226,11 +226,11 @@ export default function ProductDetail({ product, related }: Props) {
                 gap: "0.625rem",
                 marginBottom: "1.75rem",
                 paddingBottom: "1.75rem",
-                borderBottom: "1px solid #1e1e1e",
+                borderBottom: "1px solid #e4e4e7",
               }}
             >
               <Stars rating={product.rating} size={13} />
-              <span style={{ fontSize: "12px", color: "#5a5a5a", letterSpacing: "0.02em" }}>
+              <span style={{ fontSize: "12px", color: "#8b8b93", letterSpacing: "0.02em" }}>
                 {product.rating} · {product.reviewCount} avis
               </span>
             </div>
@@ -241,7 +241,7 @@ export default function ProductDetail({ product, related }: Props) {
                 fontSize: "2.25rem",
                 fontWeight: 300,
                 letterSpacing: "-0.04em",
-                color: "#c9a961",
+                color: "#2563eb",
                 marginBottom: "0.625rem",
                 lineHeight: 1,
               }}
@@ -266,18 +266,18 @@ export default function ProductDetail({ product, related }: Props) {
               En stock — expédié sous 24h
             </div>
 
-            <p style={{ color: "#5a5a5a", lineHeight: 1.75, marginBottom: "2rem", fontSize: "14px" }}>
+            <p style={{ color: "#8b8b93", lineHeight: 1.75, marginBottom: "2rem", fontSize: "14px" }}>
               {product.description}
             </p>
 
             {/* Quantity */}
             <div style={{ display: "flex", alignItems: "center", gap: "1.25rem", marginBottom: "1.25rem" }}>
               <span className="label" style={{ fontSize: "10px" }}>Quantité</span>
-              <div style={{ display: "flex", alignItems: "center", border: "1px solid #1e1e1e" }}>
+              <div style={{ display: "flex", alignItems: "center", border: "1px solid #e4e4e7" }}>
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   style={{
-                    background: "none", border: "none", cursor: "pointer", color: "#5a5a5a",
+                    background: "none", border: "none", cursor: "pointer", color: "#8b8b93",
                     width: "36px", height: "36px", display: "flex", alignItems: "center",
                     justifyContent: "center", fontSize: "16px", lineHeight: 1, transition: "color 0.2s",
                   }}
@@ -286,8 +286,8 @@ export default function ProductDetail({ product, related }: Props) {
                 </button>
                 <span
                   style={{
-                    fontSize: "13px", color: "#efefef", minWidth: "36px", textAlign: "center",
-                    borderLeft: "1px solid #1e1e1e", borderRight: "1px solid #1e1e1e",
+                    fontSize: "13px", color: "#18181b", minWidth: "36px", textAlign: "center",
+                    borderLeft: "1px solid #e4e4e7", borderRight: "1px solid #e4e4e7",
                     height: "36px", display: "flex", alignItems: "center", justifyContent: "center",
                   }}
                 >
@@ -296,7 +296,7 @@ export default function ProductDetail({ product, related }: Props) {
                 <button
                   onClick={() => setQuantity(quantity + 1)}
                   style={{
-                    background: "none", border: "none", cursor: "pointer", color: "#5a5a5a",
+                    background: "none", border: "none", cursor: "pointer", color: "#8b8b93",
                     width: "36px", height: "36px", display: "flex", alignItems: "center",
                     justifyContent: "center", fontSize: "16px", lineHeight: 1, transition: "color 0.2s",
                   }}
@@ -319,10 +319,10 @@ export default function ProductDetail({ product, related }: Props) {
               <button
                 onClick={() => toggle(product.id)}
                 style={{
-                  background: wished ? "rgba(217,119,87,0.08)" : "transparent",
-                  border: `1px solid ${wished ? "#d97757" : "#282828"}`,
+                  background: wished ? "rgba(79,70,229,0.08)" : "transparent",
+                  border: `1px solid ${wished ? "#4f46e5" : "#d4d4d8"}`,
                   cursor: "pointer",
-                  color: wished ? "#d97757" : "#3a3a3a",
+                  color: wished ? "#4f46e5" : "#a1a1aa",
                   width: "46px",
                   display: "flex",
                   alignItems: "center",
@@ -333,23 +333,23 @@ export default function ProductDetail({ product, related }: Props) {
                 title={wished ? "Retirer de la wishlist" : "Ajouter à la wishlist"}
                 onMouseEnter={(e) => {
                   if (!wished) {
-                    e.currentTarget.style.borderColor = "#d97757";
-                    e.currentTarget.style.color = "#d97757";
+                    e.currentTarget.style.borderColor = "#4f46e5";
+                    e.currentTarget.style.color = "#4f46e5";
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!wished) {
-                    e.currentTarget.style.borderColor = "#282828";
-                    e.currentTarget.style.color = "#3a3a3a";
+                    e.currentTarget.style.borderColor = "#d4d4d8";
+                    e.currentTarget.style.color = "#a1a1aa";
                   }
                 }}
               >
-                <Heart size={15} fill={wished ? "#d97757" : "none"} strokeWidth={1.5} />
+                <Heart size={15} fill={wished ? "#4f46e5" : "none"} strokeWidth={1.5} />
               </button>
             </div>
 
             {/* Specs — flat table */}
-            <div style={{ borderTop: "1px solid #1e1e1e" }}>
+            <div style={{ borderTop: "1px solid #e4e4e7" }}>
               <div className="label" style={{ fontSize: "10px", padding: "1rem 0 0.75rem" }}>
                 Spécifications
               </div>
@@ -361,19 +361,19 @@ export default function ProductDetail({ product, related }: Props) {
                     justifyContent: "space-between",
                     alignItems: "center",
                     padding: "0.5rem 0",
-                    borderBottom: i < specs.length - 1 ? "1px solid #141414" : "none",
+                    borderBottom: i < specs.length - 1 ? "1px solid #f2f2f4" : "none",
                   }}
                 >
                   <span
                     style={{
-                      fontSize: "11px", color: "#3a3a3a", display: "flex",
+                      fontSize: "11px", color: "#a1a1aa", display: "flex",
                       alignItems: "center", gap: "0.375rem", letterSpacing: "0.04em",
                     }}
                   >
                     {spec.icon}
                     {spec.label}
                   </span>
-                  <span style={{ fontSize: "12px", color: "#7a7a7a" }}>{spec.value}</span>
+                  <span style={{ fontSize: "12px", color: "#64646c" }}>{spec.value}</span>
                 </div>
               ))}
             </div>
@@ -382,9 +382,9 @@ export default function ProductDetail({ product, related }: Props) {
       </div>
 
       {/* Story */}
-      <div style={{ borderTop: "1px solid #1e1e1e", padding: "5rem 0", background: "#0e0e0e" }}>
+      <div style={{ borderTop: "1px solid #e4e4e7", padding: "5rem 0", background: "#fafafa" }}>
         <div className="container-main" style={{ maxWidth: "760px" }}>
-          <div className="label" style={{ marginBottom: "1rem", color: "#c9a961" }}>
+          <div className="label" style={{ marginBottom: "1rem", color: "#2563eb" }}>
             À propos de ce design
           </div>
           <h2
@@ -393,16 +393,16 @@ export default function ProductDetail({ product, related }: Props) {
               fontWeight: 300,
               letterSpacing: "-0.03em",
               marginBottom: "2.5rem",
-              color: "#efefef",
+              color: "#18181b",
               lineHeight: 1.1,
             }}
           >
             L&apos;histoire du{" "}
-            <em style={{ fontStyle: "italic", color: "#5a5a5a" }}>{product.name}</em>
+            <em style={{ fontStyle: "italic", color: "#8b8b93" }}>{product.name}</em>
           </h2>
           <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
             {product.story.split("\n\n").map((para, i) => (
-              <p key={i} style={{ color: "#5a5a5a", lineHeight: 1.85, fontSize: "15px" }}>
+              <p key={i} style={{ color: "#8b8b93", lineHeight: 1.85, fontSize: "15px" }}>
                 {para.trim()}
               </p>
             ))}
@@ -411,22 +411,22 @@ export default function ProductDetail({ product, related }: Props) {
       </div>
 
       {/* Reviews */}
-      <div style={{ padding: "5rem 0", borderTop: "1px solid #1e1e1e" }}>
+      <div style={{ padding: "5rem 0", borderTop: "1px solid #e4e4e7" }}>
         <div className="container-main">
           <div
             style={{
               marginBottom: "3rem",
               paddingBottom: "2rem",
-              borderBottom: "1px solid #1e1e1e",
+              borderBottom: "1px solid #e4e4e7",
             }}
           >
             <div className="label" style={{ marginBottom: "0.75rem" }}>Avis clients</div>
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
               <Stars rating={product.rating} size={15} />
-              <span style={{ fontSize: "1.5rem", fontWeight: 300, letterSpacing: "-0.03em", color: "#efefef" }}>
+              <span style={{ fontSize: "1.5rem", fontWeight: 300, letterSpacing: "-0.03em", color: "#18181b" }}>
                 {product.rating}
               </span>
-              <span style={{ fontSize: "12px", color: "#3a3a3a" }}>
+              <span style={{ fontSize: "12px", color: "#a1a1aa" }}>
                 / 5 — {product.reviewCount} avis
               </span>
             </div>
@@ -438,32 +438,32 @@ export default function ProductDetail({ product, related }: Props) {
                 key={review.id}
                 style={{
                   padding: "1.75rem 0",
-                  borderBottom: i < mockReviews.length - 1 ? "1px solid #1e1e1e" : "none",
+                  borderBottom: i < mockReviews.length - 1 ? "1px solid #e4e4e7" : "none",
                 }}
               >
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.75rem" }}>
                   <div>
                     <Stars rating={review.rating} size={12} />
-                    <p style={{ fontSize: "13px", fontWeight: 500, color: "#efefef", marginTop: "0.4rem" }}>
+                    <p style={{ fontSize: "13px", fontWeight: 500, color: "#18181b", marginTop: "0.4rem" }}>
                       {review.userName}
                     </p>
                   </div>
-                  <span style={{ fontSize: "11px", color: "#3a3a3a", letterSpacing: "0.04em" }}>
+                  <span style={{ fontSize: "11px", color: "#a1a1aa", letterSpacing: "0.04em" }}>
                     {new Date(review.createdAt).toLocaleDateString("fr-FR")}
                   </span>
                 </div>
-                <p style={{ fontSize: "13px", fontWeight: 500, color: "#7a7a7a", marginBottom: "0.5rem" }}>
+                <p style={{ fontSize: "13px", fontWeight: 500, color: "#64646c", marginBottom: "0.5rem" }}>
                   {review.title}
                 </p>
-                <p style={{ color: "#3a3a3a", fontSize: "13px", lineHeight: 1.7, margin: 0 }}>
+                <p style={{ color: "#a1a1aa", fontSize: "13px", lineHeight: 1.7, margin: 0 }}>
                   {review.comment}
                 </p>
                 <div style={{ marginTop: "1rem" }}>
                   <button
                     style={{
                       background: "none",
-                      border: "1px solid #1e1e1e",
-                      color: "#3a3a3a",
+                      border: "1px solid #e4e4e7",
+                      color: "#a1a1aa",
                       fontSize: "10px",
                       letterSpacing: "0.06em",
                       textTransform: "uppercase",
@@ -472,8 +472,8 @@ export default function ProductDetail({ product, related }: Props) {
                       fontFamily: "inherit",
                       transition: "border-color 0.2s, color 0.2s",
                     }}
-                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#3a3a3a"; e.currentTarget.style.color = "#7a7a7a"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#1e1e1e"; e.currentTarget.style.color = "#3a3a3a"; }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#a1a1aa"; e.currentTarget.style.color = "#64646c"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#e4e4e7"; e.currentTarget.style.color = "#a1a1aa"; }}
                   >
                     Utile ({review.helpfulCount})
                   </button>
@@ -483,11 +483,11 @@ export default function ProductDetail({ product, related }: Props) {
           </div>
 
           {/* Write a review */}
-          <div style={{ maxWidth: "600px", padding: "2rem", background: "#0e0e0e", border: "1px solid #1e1e1e" }}>
+          <div style={{ maxWidth: "600px", padding: "2rem", background: "#fafafa", border: "1px solid #e4e4e7" }}>
             <div className="label" style={{ marginBottom: "1.5rem" }}>Donner un avis</div>
 
             {reviewSubmitted ? (
-              <p style={{ color: "#c9a961", fontSize: "13px", letterSpacing: "0.02em" }}>
+              <p style={{ color: "#2563eb", fontSize: "13px", letterSpacing: "0.02em" }}>
                 ✓ Merci pour votre avis ! Il sera publié après modération.
               </p>
             ) : (
@@ -505,7 +505,7 @@ export default function ProductDetail({ product, related }: Props) {
                         <Star
                           size={22}
                           fill={n <= reviewRating ? "#f59e0b" : "none"}
-                          style={{ color: n <= reviewRating ? "#f59e0b" : "#282828", transition: "color 0.15s" }}
+                          style={{ color: n <= reviewRating ? "#f59e0b" : "#d4d4d8", transition: "color 0.15s" }}
                         />
                       </button>
                     ))}
@@ -527,7 +527,7 @@ export default function ProductDetail({ product, related }: Props) {
                 <div>
                   <div className="label" style={{ fontSize: "10px", marginBottom: "0.625rem" }}>
                     Commentaire{" "}
-                    <span style={{ color: "#282828" }}>({reviewComment.length}/500)</span>
+                    <span style={{ color: "#d4d4d8" }}>({reviewComment.length}/500)</span>
                   </div>
                   <textarea
                     value={reviewComment}
@@ -551,7 +551,7 @@ export default function ProductDetail({ product, related }: Props) {
 
       {/* Related products */}
       {related.length > 0 && (
-        <div style={{ padding: "4rem 0", borderTop: "1px solid #1e1e1e" }}>
+        <div style={{ padding: "4rem 0", borderTop: "1px solid #e4e4e7" }}>
           <div className="container-main">
             <div
               style={{
@@ -560,7 +560,7 @@ export default function ProductDetail({ product, related }: Props) {
                 alignItems: "flex-end",
                 marginBottom: "3rem",
                 paddingBottom: "2rem",
-                borderBottom: "1px solid #1e1e1e",
+                borderBottom: "1px solid #e4e4e7",
               }}
             >
               <div>
@@ -570,7 +570,7 @@ export default function ProductDetail({ product, related }: Props) {
                     fontSize: "clamp(1.25rem, 2vw, 1.75rem)",
                     fontWeight: 300,
                     letterSpacing: "-0.03em",
-                    color: "#efefef",
+                    color: "#18181b",
                     margin: 0,
                     lineHeight: 1.1,
                   }}
@@ -581,11 +581,11 @@ export default function ProductDetail({ product, related }: Props) {
               <Link
                 href="/shop"
                 style={{
-                  fontSize: "11px", color: "#3a3a3a", textDecoration: "none",
+                  fontSize: "11px", color: "#a1a1aa", textDecoration: "none",
                   letterSpacing: "0.08em", textTransform: "uppercase", transition: "color 0.2s",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#c9a961")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#3a3a3a")}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#2563eb")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
               >
                 Voir tout
               </Link>
@@ -606,9 +606,9 @@ export default function ProductDetail({ product, related }: Props) {
           position: "fixed",
           bottom: 0, left: 0, right: 0,
           padding: "1rem",
-          background: "rgba(8,8,8,0.95)",
+          background: "rgba(255,255,255,0.95)",
           backdropFilter: "blur(20px)",
-          borderTop: "1px solid #1e1e1e",
+          borderTop: "1px solid #e4e4e7",
           zIndex: 50,
           display: "none",
         }}

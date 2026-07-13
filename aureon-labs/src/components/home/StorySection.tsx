@@ -28,8 +28,8 @@ export default function StorySection() {
   return (
     <section
       style={{
-        borderTop: "1px solid #1e1e1e",
-        borderBottom: "1px solid #1e1e1e",
+        borderTop: "1px solid #e4e4e7",
+        borderBottom: "1px solid #e4e4e7",
       }}
     >
       <div
@@ -43,7 +43,7 @@ export default function StorySection() {
         <div
           style={{
             padding: "7rem 5rem 7rem 2.5rem",
-            borderRight: "1px solid #1e1e1e",
+            borderRight: "1px solid #e4e4e7",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -60,7 +60,7 @@ export default function StorySection() {
               fontWeight: 300,
               letterSpacing: "-0.03em",
               lineHeight: 1.1,
-              color: "#efefef",
+              color: "#18181b",
               marginBottom: "2rem",
             }}
           >
@@ -72,12 +72,12 @@ export default function StorySection() {
           </h2>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "2.5rem" }}>
-            <p style={{ color: "#7a7a7a", fontSize: "14px", lineHeight: 1.8, margin: 0 }}>
+            <p style={{ color: "#64646c", fontSize: "14px", lineHeight: 1.8, margin: 0 }}>
               Le bracelet WHOOP par défaut est fonctionnel. Mais il ne dit rien de toi.
               Aureon Labs a créé 15 designs exclusifs pour les athlètes qui comprennent
               que chaque détail compte — y compris celui qu&apos;on voit en premier.
             </p>
-            <p style={{ color: "#7a7a7a", fontSize: "14px", lineHeight: 1.8, margin: 0 }}>
+            <p style={{ color: "#64646c", fontSize: "14px", lineHeight: 1.8, margin: 0 }}>
               Même matériau haute performance. Même compatibilité parfaite.
               Mais une identité qui t&apos;appartient.
             </p>
@@ -90,17 +90,17 @@ export default function StorySection() {
               alignItems: "center",
               gap: "1rem",
               padding: "1rem 1.25rem",
-              background: "#0e0e0e",
-              border: "1px solid #1e1e1e",
+              background: "#fafafa",
+              border: "1px solid #e4e4e7",
               marginBottom: "2.5rem",
             }}
           >
             <div style={{ fontSize: "24px" }}>⭐</div>
             <div>
-              <div style={{ fontSize: "13px", fontWeight: 600, color: "#efefef" }}>
+              <div style={{ fontSize: "13px", fontWeight: 600, color: "#18181b" }}>
                 4.8/5 sur 2 847 avis
               </div>
-              <div style={{ fontSize: "11px", color: "#5a5a5a" }}>
+              <div style={{ fontSize: "11px", color: "#8b8b93" }}>
                 &ldquo;Le meilleur achat pour mon WHOOP&rdquo; — avis moyen client
               </div>
             </div>
@@ -135,7 +135,7 @@ export default function StorySection() {
                   gridTemplateColumns: "48px 1fr",
                   gap: "1.5rem",
                   padding: "1.75rem 0",
-                  borderBottom: i < benefits.length - 1 ? "1px solid #1e1e1e" : "none",
+                  borderBottom: i < benefits.length - 1 ? "1px solid #e4e4e7" : "none",
                   alignItems: "start",
                 }}
               >
@@ -156,14 +156,14 @@ export default function StorySection() {
                     style={{
                       fontSize: "14px",
                       fontWeight: 600,
-                      color: "#efefef",
+                      color: "#18181b",
                       marginBottom: "0.4rem",
                       letterSpacing: "-0.01em",
                     }}
                   >
                     {item.title}
                   </h4>
-                  <p style={{ color: "#5a5a5a", fontSize: "13px", lineHeight: 1.7, margin: 0 }}>
+                  <p style={{ color: "#8b8b93", fontSize: "13px", lineHeight: 1.7, margin: 0 }}>
                     {item.desc}
                   </p>
                 </div>
@@ -176,18 +176,18 @@ export default function StorySection() {
             style={{
               marginTop: "2rem",
               padding: "1.25rem",
-              background: "rgba(201,169,97,0.04)",
-              border: "1px solid rgba(201,169,97,0.12)",
+              background: "rgba(37,99,235,0.04)",
+              border: "1px solid rgba(37,99,235,0.12)",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
             }}
           >
             <div>
-              <div style={{ fontSize: "11px", color: "#5a5a5a", marginBottom: "0.2rem" }}>
+              <div style={{ fontSize: "11px", color: "#8b8b93", marginBottom: "0.2rem" }}>
                 À partir de
               </div>
-              <div style={{ fontSize: "22px", fontWeight: 700, color: "#efefef", letterSpacing: "-0.02em" }}>
+              <div style={{ fontSize: "22px", fontWeight: 700, color: "#18181b", letterSpacing: "-0.02em" }}>
                 17,99€
               </div>
             </div>
@@ -195,7 +195,7 @@ export default function StorySection() {
               <div style={{ fontSize: "11px", color: "var(--green)", marginBottom: "0.2rem" }}>
                 ✓ Livraison offerte dès 35€
               </div>
-              <div style={{ fontSize: "11px", color: "#5a5a5a" }}>
+              <div style={{ fontSize: "11px", color: "#8b8b93" }}>
                 ↩ Retours gratuits 30 jours
               </div>
             </div>
@@ -211,7 +211,7 @@ export default function StorySection() {
           .story-left {
             padding: 4rem 1.25rem !important;
             border-right: none !important;
-            border-bottom: 1px solid #1e1e1e !important;
+            border-bottom: 1px solid #e4e4e7 !important;
           }
           .story-right {
             padding: 4rem 1.25rem !important;

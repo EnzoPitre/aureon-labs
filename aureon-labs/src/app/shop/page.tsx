@@ -57,7 +57,7 @@ export default function ShopPage() {
       <div
         style={{
           padding: "4rem 0 3rem",
-          borderBottom: "1px solid #1e1e1e",
+          borderBottom: "1px solid #e4e4e7",
         }}
       >
         <div className="container-main">
@@ -71,14 +71,14 @@ export default function ShopPage() {
               letterSpacing: "-0.04em",
               margin: "0 0 0.75rem",
               lineHeight: 1,
-              color: "#efefef",
+              color: "#18181b",
             }}
           >
             La collection
           </h1>
           <p style={{ fontSize: "13px", letterSpacing: "0.02em" }}>
-            <span style={{ color: "#c9a961", fontWeight: 300 }}>{filtered.length}</span>
-            <span style={{ color: "#3a3a3a" }}> bracelet{filtered.length !== 1 ? "s" : ""} disponible{filtered.length !== 1 ? "s" : ""}</span>
+            <span style={{ color: "#2563eb", fontWeight: 300 }}>{filtered.length}</span>
+            <span style={{ color: "#a1a1aa" }}> bracelet{filtered.length !== 1 ? "s" : ""} disponible{filtered.length !== 1 ? "s" : ""}</span>
           </p>
         </div>
       </div>
@@ -89,9 +89,9 @@ export default function ShopPage() {
           position: "sticky",
           top: "88px",
           zIndex: 50,
-          background: "rgba(8,8,8,0.95)",
+          background: "rgba(255,255,255,0.95)",
           backdropFilter: "blur(24px)",
-          borderBottom: "1px solid #1e1e1e",
+          borderBottom: "1px solid #e4e4e7",
           padding: "0.875rem 0",
         }}
       >
@@ -114,7 +114,7 @@ export default function ShopPage() {
                 left: "0",
                 top: "50%",
                 transform: "translateY(-50%)",
-                color: "#3a3a3a",
+                color: "#a1a1aa",
                 pointerEvents: "none",
               }}
             />
@@ -127,21 +127,21 @@ export default function ShopPage() {
                 width: "100%",
                 background: "transparent",
                 border: "none",
-                borderBottom: "1px solid #1e1e1e",
+                borderBottom: "1px solid #e4e4e7",
                 padding: "0.375rem 0 0.375rem 1.25rem",
-                color: "#efefef",
+                color: "#18181b",
                 fontSize: "12px",
                 outline: "none",
                 fontFamily: "inherit",
                 transition: "border-color 0.2s",
               }}
-              onFocus={(e) => (e.currentTarget.style.borderColor = "#3a3a3a")}
-              onBlur={(e) => (e.currentTarget.style.borderColor = "#1e1e1e")}
+              onFocus={(e) => (e.currentTarget.style.borderColor = "#a1a1aa")}
+              onBlur={(e) => (e.currentTarget.style.borderColor = "#e4e4e7")}
             />
           </div>
 
           {/* Separator */}
-          <div style={{ width: "1px", height: "20px", background: "#1e1e1e", flexShrink: 0 }} />
+          <div style={{ width: "1px", height: "20px", background: "#e4e4e7", flexShrink: 0 }} />
 
           {/* Rating filters */}
           <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
@@ -154,9 +154,9 @@ export default function ShopPage() {
                 onClick={() => setMinRating(minRating === r ? 0 : r)}
                 style={{
                   padding: "0.3rem 0.625rem",
-                  border: `1px solid ${minRating === r ? "#c9a961" : "#1e1e1e"}`,
-                  background: minRating === r ? "rgba(201,169,97,0.06)" : "transparent",
-                  color: minRating === r ? "#c9a961" : "#3a3a3a",
+                  border: `1px solid ${minRating === r ? "#2563eb" : "#e4e4e7"}`,
+                  background: minRating === r ? "rgba(37,99,235,0.06)" : "transparent",
+                  color: minRating === r ? "#2563eb" : "#a1a1aa",
                   fontSize: "11px",
                   cursor: "pointer",
                   transition: "all 0.2s",
@@ -175,8 +175,8 @@ export default function ShopPage() {
             onChange={(e) => setSort(e.target.value as SortOption)}
             style={{
               background: "transparent",
-              border: "1px solid #1e1e1e",
-              color: "#7a7a7a",
+              border: "1px solid #e4e4e7",
+              color: "#64646c",
               padding: "0.375rem 0.625rem",
               fontSize: "11px",
               cursor: "pointer",
@@ -186,13 +186,13 @@ export default function ShopPage() {
               letterSpacing: "0.04em",
               transition: "border-color 0.2s",
             }}
-            onFocus={(e) => (e.currentTarget.style.borderColor = "#3a3a3a")}
-            onBlur={(e) => (e.currentTarget.style.borderColor = "#1e1e1e")}
+            onFocus={(e) => (e.currentTarget.style.borderColor = "#a1a1aa")}
+            onBlur={(e) => (e.currentTarget.style.borderColor = "#e4e4e7")}
           >
-            <option value="relevance" style={{ background: "#080808" }}>Pertinence</option>
-            <option value="price-asc" style={{ background: "#080808" }}>Prix croissant</option>
-            <option value="price-desc" style={{ background: "#080808" }}>Prix décroissant</option>
-            <option value="rating" style={{ background: "#080808" }}>Mieux notés</option>
+            <option value="relevance" style={{ background: "#ffffff" }}>Pertinence</option>
+            <option value="price-asc" style={{ background: "#ffffff" }}>Prix croissant</option>
+            <option value="price-desc" style={{ background: "#ffffff" }}>Prix décroissant</option>
+            <option value="rating" style={{ background: "#ffffff" }}>Mieux notés</option>
           </select>
 
           {/* Clear */}
@@ -203,7 +203,7 @@ export default function ShopPage() {
                 background: "none",
                 border: "none",
                 cursor: "pointer",
-                color: "#3a3a3a",
+                color: "#a1a1aa",
                 display: "flex",
                 alignItems: "center",
                 gap: "0.3rem",
@@ -214,8 +214,8 @@ export default function ShopPage() {
                 transition: "color 0.2s",
                 padding: 0,
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#7a7a7a")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#3a3a3a")}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#64646c")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
             >
               <X size={11} strokeWidth={1.5} />
               Effacer
@@ -231,10 +231,10 @@ export default function ShopPage() {
             style={{
               textAlign: "center",
               padding: "8rem 0",
-              color: "#3a3a3a",
+              color: "#a1a1aa",
             }}
           >
-            <p style={{ fontSize: "14px", marginBottom: "0.5rem", color: "#5a5a5a" }}>
+            <p style={{ fontSize: "14px", marginBottom: "0.5rem", color: "#8b8b93" }}>
               Aucun bracelet trouvé
             </p>
             <p style={{ fontSize: "12px" }}>Modifiez vos filtres</p>

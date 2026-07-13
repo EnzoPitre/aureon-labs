@@ -53,7 +53,7 @@ export default function FeaturedCollection() {
             alignItems: "flex-end",
             marginBottom: "3rem",
             paddingBottom: "1.75rem",
-            borderBottom: "1px solid #1e1e1e",
+            borderBottom: "1px solid #e4e4e7",
           }}
         >
           <div>
@@ -65,7 +65,7 @@ export default function FeaturedCollection() {
                 fontSize: "clamp(1.75rem, 3.5vw, 3rem)",
                 fontWeight: 300,
                 letterSpacing: "-0.03em",
-                color: "#efefef",
+                color: "#18181b",
                 margin: 0,
                 lineHeight: 1.1,
               }}
@@ -77,7 +77,7 @@ export default function FeaturedCollection() {
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.5rem" }}>
             <div style={{ fontSize: "12px", color: "var(--amber)" }}>
               ★★★★★{" "}
-              <span style={{ color: "#7a7a7a" }}>2 847 avis · 4.8/5</span>
+              <span style={{ color: "#64646c" }}>2 847 avis · 4.8/5</span>
             </div>
             <Link
               href="/shop"
@@ -85,7 +85,7 @@ export default function FeaturedCollection() {
                 display: "flex",
                 alignItems: "center",
                 gap: "0.5rem",
-                color: "#3a3a3a",
+                color: "#a1a1aa",
                 textDecoration: "none",
                 fontSize: "11px",
                 fontWeight: 500,
@@ -93,8 +93,8 @@ export default function FeaturedCollection() {
                 textTransform: "uppercase",
                 transition: "color 0.2s",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#efefef")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#3a3a3a")}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#18181b")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
             >
               Voir les 15 designs <ArrowRight size={11} strokeWidth={2} />
             </Link>
@@ -107,7 +107,7 @@ export default function FeaturedCollection() {
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
             gap: "1px",
-            background: "#1e1e1e",
+            background: "#e4e4e7",
           }}
           className="featured-grid"
         >
@@ -115,7 +115,7 @@ export default function FeaturedCollection() {
           {heroProduct && (
             <div
               style={{
-                background: "#080808",
+                background: "#ffffff",
                 position: "relative",
                 overflow: "hidden",
                 gridRow: "span 2",
@@ -138,7 +138,7 @@ export default function FeaturedCollection() {
                     position: "relative",
                     width: "100%",
                     paddingTop: "110%",
-                    background: "#0a0a0a",
+                    background: "#ffffff",
                     overflow: "hidden",
                   }}
                 >
@@ -181,7 +181,7 @@ export default function FeaturedCollection() {
                         style={{
                           fontSize: "16px",
                           fontWeight: 500,
-                          color: "#efefef",
+                          color: "#18181b",
                           marginBottom: "0.25rem",
                           letterSpacing: "-0.01em",
                         }}
@@ -191,12 +191,12 @@ export default function FeaturedCollection() {
                     </Link>
                     <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                       <Stars rating={heroProduct.rating} />
-                      <span style={{ fontSize: "11px", color: "#5a5a5a" }}>
+                      <span style={{ fontSize: "11px", color: "#8b8b93" }}>
                         ({heroProduct.reviewCount} avis)
                       </span>
                     </div>
                   </div>
-                  <span style={{ fontSize: "18px", fontWeight: 600, color: "#efefef" }}>
+                  <span style={{ fontSize: "18px", fontWeight: 600, color: "#18181b" }}>
                     {formatPrice(heroProduct.price)}
                   </span>
                 </div>
@@ -226,7 +226,7 @@ export default function FeaturedCollection() {
           {gridProducts.map((product) => (
             <div
               key={product.id}
-              style={{ background: "#080808", position: "relative" }}
+              style={{ background: "#ffffff", position: "relative" }}
             >
               {/* Badge */}
               {BADGES[product.slug] && (
@@ -243,7 +243,7 @@ export default function FeaturedCollection() {
                     position: "relative",
                     width: "100%",
                     paddingTop: "80%",
-                    background: "#0a0a0a",
+                    background: "#ffffff",
                     overflow: "hidden",
                   }}
                   onMouseEnter={(e) => {
@@ -279,11 +279,11 @@ export default function FeaturedCollection() {
 
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.375rem" }}>
                   <Link href={`/shop/${product.slug}`} style={{ textDecoration: "none" }}>
-                    <span style={{ fontSize: "13px", fontWeight: 500, color: "#efefef" }}>
+                    <span style={{ fontSize: "13px", fontWeight: 500, color: "#18181b" }}>
                       {product.name}
                     </span>
                   </Link>
-                  <span style={{ fontSize: "13px", fontWeight: 600, color: "#efefef" }}>
+                  <span style={{ fontSize: "13px", fontWeight: 600, color: "#18181b" }}>
                     {formatPrice(product.price)}
                   </span>
                 </div>
@@ -291,7 +291,7 @@ export default function FeaturedCollection() {
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.375rem" }}>
                     <Stars rating={product.rating} />
-                    <span style={{ fontSize: "10px", color: "#5a5a5a" }}>({product.reviewCount})</span>
+                    <span style={{ fontSize: "10px", color: "#8b8b93" }}>({product.reviewCount})</span>
                   </div>
                   <button
                     onClick={() => {
@@ -302,7 +302,7 @@ export default function FeaturedCollection() {
                       background: "var(--cyan)",
                       border: "none",
                       cursor: "pointer",
-                      color: "#080808",
+                      color: "#ffffff",
                       width: "30px",
                       height: "30px",
                       display: "flex",
@@ -329,7 +329,7 @@ export default function FeaturedCollection() {
             Voir les 15 designs exclusifs
             <ArrowRight size={13} strokeWidth={2.5} />
           </Link>
-          <p style={{ marginTop: "0.875rem", fontSize: "12px", color: "#5a5a5a" }}>
+          <p style={{ marginTop: "0.875rem", fontSize: "12px", color: "#8b8b93" }}>
             Livraison gratuite dès 35€ · Retours 30 jours
           </p>
         </div>

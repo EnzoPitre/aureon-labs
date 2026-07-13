@@ -34,8 +34,8 @@ export default function CartDrawer() {
           right: 0,
           bottom: 0,
           width: "min(400px, 100vw)",
-          background: "#080808",
-          borderLeft: "1px solid #1e1e1e",
+          background: "#ffffff",
+          borderLeft: "1px solid #e4e4e7",
           zIndex: 201,
           display: "flex",
           flexDirection: "column",
@@ -45,7 +45,7 @@ export default function CartDrawer() {
         <div
           style={{
             padding: "1.25rem 1.5rem",
-            borderBottom: "1px solid #1e1e1e",
+            borderBottom: "1px solid #e4e4e7",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
@@ -57,7 +57,7 @@ export default function CartDrawer() {
               fontWeight: 600,
               letterSpacing: "0.12em",
               textTransform: "uppercase",
-              color: "#efefef",
+              color: "#18181b",
             }}
           >
             Panier ({items.length})
@@ -68,13 +68,13 @@ export default function CartDrawer() {
               background: "none",
               border: "none",
               cursor: "pointer",
-              color: "#5a5a5a",
+              color: "#8b8b93",
               display: "flex",
               padding: 0,
               transition: "color 0.2s",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#efefef")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#5a5a5a")}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#18181b")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#8b8b93")}
           >
             <X size={16} strokeWidth={1.5} />
           </button>
@@ -98,11 +98,11 @@ export default function CartDrawer() {
                 style={{
                   width: "48px",
                   height: "48px",
-                  border: "1px solid #1e1e1e",
+                  border: "1px solid #e4e4e7",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  color: "#2a2a2a",
+                  color: "#d1d1d6",
                 }}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -114,7 +114,7 @@ export default function CartDrawer() {
               <div>
                 <p
                   style={{
-                    color: "#3a3a3a",
+                    color: "#a1a1aa",
                     fontSize: "13px",
                     marginBottom: "1.25rem",
                     letterSpacing: "0.02em",
@@ -141,7 +141,7 @@ export default function CartDrawer() {
                     display: "flex",
                     gap: "1rem",
                     padding: "1.25rem 0",
-                    borderBottom: i < items.length - 1 ? "1px solid #1e1e1e" : "none",
+                    borderBottom: i < items.length - 1 ? "1px solid #e4e4e7" : "none",
                   }}
                 >
                   {/* Image */}
@@ -151,8 +151,8 @@ export default function CartDrawer() {
                       width: 64,
                       height: 64,
                       flexShrink: 0,
-                      background: "#0e0e0e",
-                      border: "1px solid #1e1e1e",
+                      background: "#fafafa",
+                      border: "1px solid #e4e4e7",
                     }}
                   >
                     <Image
@@ -176,7 +176,7 @@ export default function CartDrawer() {
                         style={{
                           fontWeight: 500,
                           fontSize: "13px",
-                          color: "#efefef",
+                          color: "#18181b",
                           overflow: "hidden",
                           textOverflow: "ellipsis",
                           whiteSpace: "nowrap",
@@ -191,14 +191,14 @@ export default function CartDrawer() {
                           background: "none",
                           border: "none",
                           cursor: "pointer",
-                          color: "#2a2a2a",
+                          color: "#d1d1d6",
                           padding: 0,
                           flexShrink: 0,
                           marginLeft: "0.5rem",
                           transition: "color 0.2s",
                         }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = "#5a5a5a")}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = "#2a2a2a")}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = "#8b8b93")}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = "#d1d1d6")}
                         title="Retirer"
                       >
                         <Trash2 size={13} strokeWidth={1.5} />
@@ -218,7 +218,7 @@ export default function CartDrawer() {
                           display: "flex",
                           alignItems: "center",
                           gap: "0",
-                          border: "1px solid #1e1e1e",
+                          border: "1px solid #e4e4e7",
                         }}
                       >
                         <button
@@ -227,7 +227,7 @@ export default function CartDrawer() {
                             background: "none",
                             border: "none",
                             cursor: "pointer",
-                            color: "#5a5a5a",
+                            color: "#8b8b93",
                             width: "26px",
                             height: "26px",
                             display: "flex",
@@ -243,11 +243,11 @@ export default function CartDrawer() {
                         <span
                           style={{
                             fontSize: "12px",
-                            color: "#efefef",
+                            color: "#18181b",
                             minWidth: "24px",
                             textAlign: "center",
-                            borderLeft: "1px solid #1e1e1e",
-                            borderRight: "1px solid #1e1e1e",
+                            borderLeft: "1px solid #e4e4e7",
+                            borderRight: "1px solid #e4e4e7",
                             height: "26px",
                             display: "flex",
                             alignItems: "center",
@@ -262,7 +262,7 @@ export default function CartDrawer() {
                             background: "none",
                             border: "none",
                             cursor: "pointer",
-                            color: "#5a5a5a",
+                            color: "#8b8b93",
                             width: "26px",
                             height: "26px",
                             display: "flex",
@@ -277,7 +277,7 @@ export default function CartDrawer() {
                         </button>
                       </div>
 
-                      <span style={{ fontSize: "13px", color: "#7a7a7a", fontWeight: 300 }}>
+                      <span style={{ fontSize: "13px", color: "#64646c", fontWeight: 300 }}>
                         {formatPrice(item.product.price * item.quantity)}
                       </span>
                     </div>
@@ -290,7 +290,7 @@ export default function CartDrawer() {
 
         {/* Footer */}
         {items.length > 0 && (
-          <div style={{ padding: "1.5rem", borderTop: "1px solid #1e1e1e" }}>
+          <div style={{ padding: "1.5rem", borderTop: "1px solid #e4e4e7" }}>
             <div
               style={{
                 display: "flex",
@@ -298,10 +298,10 @@ export default function CartDrawer() {
                 marginBottom: "0.375rem",
               }}
             >
-              <span style={{ fontSize: "11px", color: "#5a5a5a", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+              <span style={{ fontSize: "11px", color: "#8b8b93", letterSpacing: "0.08em", textTransform: "uppercase" }}>
                 Sous-total
               </span>
-              <span style={{ fontSize: "14px", fontWeight: 300, color: "#efefef" }}>
+              <span style={{ fontSize: "14px", fontWeight: 300, color: "#18181b" }}>
                 {formatPrice(total)}
               </span>
             </div>
@@ -312,10 +312,10 @@ export default function CartDrawer() {
                 marginBottom: "1.5rem",
               }}
             >
-              <span style={{ fontSize: "11px", color: "#3a3a3a", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+              <span style={{ fontSize: "11px", color: "#a1a1aa", letterSpacing: "0.08em", textTransform: "uppercase" }}>
                 Livraison
               </span>
-              <span style={{ fontSize: "11px", color: "#3a3a3a" }}>
+              <span style={{ fontSize: "11px", color: "#a1a1aa" }}>
                 Calculée au checkout
               </span>
             </div>

@@ -48,7 +48,7 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
               position: "relative",
               width: "100%",
               paddingTop: "100%",
-              background: "#0a0a0a",
+              background: "#ffffff",
               overflow: "hidden",
             }}
           >
@@ -73,10 +73,10 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
                 position: "absolute",
                 top: "0.875rem",
                 right: "0.875rem",
-                background: "rgba(8,8,8,0.7)",
-                border: "1px solid #282828",
+                background: "rgba(255,255,255,0.7)",
+                border: "1px solid #d4d4d8",
                 cursor: "pointer",
-                color: wished ? "#efefef" : "#3a3a3a",
+                color: wished ? "#18181b" : "#a1a1aa",
                 width: "28px",
                 height: "28px",
                 display: "flex",
@@ -88,7 +88,7 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
               }}
               title={wished ? "Retirer de la wishlist" : "Ajouter à la wishlist"}
             >
-              <Heart size={11} fill={wished ? "#efefef" : "none"} strokeWidth={1.5} />
+              <Heart size={11} fill={wished ? "#18181b" : "none"} strokeWidth={1.5} />
             </button>
 
             {/* Badge */}
@@ -98,9 +98,9 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
                   position: "absolute",
                   top: "0.875rem",
                   left: "0.875rem",
-                  background: "rgba(8,8,8,0.8)",
-                  border: "1px solid #282828",
-                  color: "#7a7a7a",
+                  background: "rgba(255,255,255,0.8)",
+                  border: "1px solid #d4d4d8",
+                  color: "#64646c",
                   fontSize: "9px",
                   fontWeight: 600,
                   letterSpacing: "0.1em",
@@ -120,9 +120,9 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
                 bottom: 0,
                 left: 0,
                 right: 0,
-                background: "rgba(8,8,8,0.92)",
+                background: "rgba(255,255,255,0.92)",
                 backdropFilter: "blur(12px)",
-                borderTop: "1px solid #1e1e1e",
+                borderTop: "1px solid #e4e4e7",
                 padding: "0.625rem 1rem",
                 display: "flex",
                 alignItems: "center",
@@ -137,7 +137,7 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
                   background: "none",
                   border: "none",
                   cursor: "pointer",
-                  color: "#efefef",
+                  color: "#18181b",
                   fontSize: "10px",
                   fontWeight: 600,
                   letterSpacing: "0.1em",
@@ -162,7 +162,7 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
                     background: "none",
                     border: "none",
                     cursor: "pointer",
-                    color: "#3a3a3a",
+                    color: "#a1a1aa",
                     fontSize: "10px",
                     fontWeight: 500,
                     letterSpacing: "0.08em",
@@ -171,8 +171,8 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
                     fontFamily: "inherit",
                     transition: "color 0.2s",
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "#7a7a7a")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "#3a3a3a")}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "#64646c")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
                 >
                   Aperçu
                 </button>
@@ -196,7 +196,7 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
                 style={{
                   fontSize: "13px",
                   fontWeight: 500,
-                  color: "#efefef",
+                  color: "#18181b",
                   letterSpacing: "0",
                   overflow: "hidden",
                   textOverflow: "ellipsis",
@@ -211,7 +211,7 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
               style={{
                 fontSize: "13px",
                 fontWeight: 300,
-                color: "#efefef",
+                color: "#18181b",
                 flexShrink: 0,
                 letterSpacing: "-0.01em",
               }}
@@ -223,7 +223,7 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
             style={{
               marginTop: "0.2rem",
               fontSize: "11px",
-              color: "#2a2a2a",
+              color: "#d1d1d6",
               letterSpacing: "0.02em",
             }}
           >

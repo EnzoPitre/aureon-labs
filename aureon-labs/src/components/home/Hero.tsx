@@ -30,7 +30,7 @@ export default function Hero() {
         gridTemplateColumns: "1fr 1fr",
         position: "relative",
         overflow: "hidden",
-        borderBottom: "1px solid #1e1e1e",
+        borderBottom: "1px solid #e4e4e7",
         paddingTop: "calc(var(--announce-h) + var(--header-h))",
       }}
       className="hero-section"
@@ -72,7 +72,7 @@ export default function Hero() {
             fontWeight: 300,
             lineHeight: 0.95,
             letterSpacing: "-0.04em",
-            color: "#efefef",
+            color: "#18181b",
             marginBottom: "1.75rem",
           }}
         >
@@ -97,7 +97,7 @@ export default function Hero() {
           animate="show"
           custom={2}
           style={{
-            color: "#7a7a7a",
+            color: "#64646c",
             fontSize: "15px",
             lineHeight: 1.75,
             maxWidth: "400px",
@@ -125,7 +125,7 @@ export default function Hero() {
             style={{
               fontSize: "22px",
               fontWeight: 600,
-              color: "#efefef",
+              color: "#18181b",
               letterSpacing: "-0.02em",
             }}
           >
@@ -172,7 +172,7 @@ export default function Hero() {
             aspectRatio: "4/3",
             marginBottom: "2.5rem",
             overflow: "hidden",
-            border: "1px solid #1e1e1e",
+            border: "1px solid #e4e4e7",
           }}
         >
           <Image
@@ -208,11 +208,11 @@ export default function Hero() {
                 display: "flex",
                 alignItems: "center",
                 gap: "0.4rem",
-                color: "#5a5a5a",
+                color: "#8b8b93",
                 fontSize: "12px",
               }}
             >
-              <span style={{ color: "#3a3a3a" }}>{item.icon}</span>
+              <span style={{ color: "#a1a1aa" }}>{item.icon}</span>
               {item.text}
             </div>
           ))}
@@ -229,7 +229,7 @@ export default function Hero() {
             gap: "2.5rem",
             marginTop: "3rem",
             paddingTop: "2rem",
-            borderTop: "1px solid #1e1e1e",
+            borderTop: "1px solid #e4e4e7",
             flexWrap: "wrap",
           }}
         >
@@ -263,8 +263,8 @@ export default function Hero() {
       <div
         style={{
           position: "relative",
-          borderLeft: "1px solid #1e1e1e",
-          background: "#0a0a0a",
+          borderLeft: "1px solid #e4e4e7",
+          background: "#ffffff",
           overflow: "hidden",
         }}
         className="hero-right"
@@ -276,7 +276,7 @@ export default function Hero() {
             position: "absolute",
             inset: 0,
             background:
-              "radial-gradient(ellipse at 60% 40%, rgba(201,169,97,0.06) 0%, transparent 60%)",
+              "radial-gradient(ellipse at 60% 40%, rgba(37,99,235,0.06) 0%, transparent 60%)",
             pointerEvents: "none",
           }}
         />
@@ -336,7 +336,7 @@ export default function Hero() {
             aspectRatio: "1",
             bottom: "8%",
             left: "6%",
-            border: "1px solid #282828",
+            border: "1px solid #d4d4d8",
             boxShadow: "0 24px 48px rgba(0,0,0,0.5)",
             overflow: "hidden",
           }}
@@ -359,8 +359,8 @@ export default function Hero() {
             position: "absolute",
             bottom: "1.5rem",
             right: "1.5rem",
-            background: "rgba(8,8,8,0.9)",
-            border: "1px solid #282828",
+            background: "rgba(255,255,255,0.9)",
+            border: "1px solid #d4d4d8",
             backdropFilter: "blur(16px)",
             padding: "0.875rem 1.25rem",
             maxWidth: "200px",
@@ -370,7 +370,7 @@ export default function Hero() {
             {alpsSession.name}
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <span style={{ fontSize: "14px", fontWeight: 600, color: "#efefef" }}>
+            <span style={{ fontSize: "14px", fontWeight: 600, color: "#18181b" }}>
               17,99€
             </span>
             <span style={{ fontSize: "10px", color: "var(--amber)" }}>
@@ -406,8 +406,8 @@ export default function Hero() {
             position: "absolute",
             top: "1.5rem",
             right: "1.5rem",
-            background: "rgba(8,8,8,0.85)",
-            border: "1px solid #282828",
+            background: "rgba(255,255,255,0.85)",
+            border: "1px solid #d4d4d8",
             backdropFilter: "blur(12px)",
             padding: "0.5rem 0.875rem",
             display: "flex",
@@ -427,7 +427,7 @@ export default function Hero() {
               boxShadow: "0 0 6px var(--green)",
             }}
           />
-          <span style={{ fontSize: "10px", color: "#7a7a7a", fontWeight: 500 }}>
+          <span style={{ fontSize: "10px", color: "#64646c", fontWeight: 500 }}>
             23 personnes regardent
           </span>
         </motion.div>

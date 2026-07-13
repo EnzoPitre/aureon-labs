@@ -25,7 +25,7 @@ type Order = {
 
 const statusLabels: Record<string, { label: string; color: string }> = {
   en_preparation: { label: "En préparation", color: "#fbbf24" },
-  expedie: { label: "Expédiée", color: "#c9a961" },
+  expedie: { label: "Expédiée", color: "#2563eb" },
   livre: { label: "Livrée", color: "#22c55e" },
 };
 
@@ -81,7 +81,7 @@ export default function AccountPage() {
           <h1 style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, letterSpacing: "-0.02em" }}>
             Mon compte
           </h1>
-          <p style={{ color: "#666666", marginTop: "0.5rem" }}>Bienvenue, {user.email} 👋</p>
+          <p style={{ color: "#71717a", marginTop: "0.5rem" }}>Bienvenue, {user.email} 👋</p>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "240px 1fr", gap: "3rem" }} className="account-grid">
@@ -97,11 +97,11 @@ export default function AccountPage() {
                     alignItems: "center",
                     gap: "0.75rem",
                     padding: "0.75rem 1rem",
-                    background: tab === t.id ? "rgba(201,169,97,0.08)" : "transparent",
-                    border: `1px solid ${tab === t.id ? "rgba(201,169,97,0.2)" : "transparent"}`,
+                    background: tab === t.id ? "rgba(37,99,235,0.08)" : "transparent",
+                    border: `1px solid ${tab === t.id ? "rgba(37,99,235,0.2)" : "transparent"}`,
                     borderRadius: "8px",
                     cursor: "pointer",
-                    color: tab === t.id ? "#c9a961" : "#b3b3b3",
+                    color: tab === t.id ? "#2563eb" : "#52525b",
                     fontSize: "0.875rem",
                     fontWeight: tab === t.id ? 600 : 400,
                     textAlign: "left",
@@ -113,7 +113,7 @@ export default function AccountPage() {
                 </button>
               ))}
 
-              <div style={{ borderTop: "1px solid #1a1a1a", marginTop: "1rem", paddingTop: "1rem" }}>
+              <div style={{ borderTop: "1px solid #ececef", marginTop: "1rem", paddingTop: "1rem" }}>
                 <button
                   onClick={handleLogout}
                   style={{
@@ -143,9 +143,9 @@ export default function AccountPage() {
               <div>
                 <h2 style={{ fontWeight: 700, marginBottom: "1.5rem", fontSize: "1.25rem" }}>Mes commandes</h2>
                 {loadingOrders ? (
-                  <p style={{ color: "#666666" }}>Chargement...</p>
+                  <p style={{ color: "#71717a" }}>Chargement...</p>
                 ) : orders.length === 0 ? (
-                  <p style={{ color: "#666666" }}>Vous n&apos;avez pas encore de commande.</p>
+                  <p style={{ color: "#71717a" }}>Vous n&apos;avez pas encore de commande.</p>
                 ) : (
                   <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                     {orders.map((order) => {
@@ -154,8 +154,8 @@ export default function AccountPage() {
                         <div
                           key={order.id}
                           style={{
-                            background: "#111111",
-                            border: "1px solid #1a1a1a",
+                            background: "#f7f7f8",
+                            border: "1px solid #ececef",
                             borderRadius: "10px",
                             padding: "1.5rem",
                             display: "flex",
@@ -184,14 +184,14 @@ export default function AccountPage() {
                                 {status.label}
                               </span>
                             </div>
-                            <p style={{ color: "#666666", fontSize: "0.8rem", marginBottom: "0.25rem" }}>
+                            <p style={{ color: "#71717a", fontSize: "0.8rem", marginBottom: "0.25rem" }}>
                               {new Date(order.created_at).toLocaleDateString("fr-FR")}
                             </p>
-                            <p style={{ color: "#b3b3b3", fontSize: "0.875rem" }}>
+                            <p style={{ color: "#52525b", fontSize: "0.875rem" }}>
                               {order.items.map((i) => i.name).join(", ")}
                             </p>
                             {order.tracking_number && (
-                              <p style={{ color: "#666666", fontSize: "0.75rem", marginTop: "0.25rem" }}>
+                              <p style={{ color: "#71717a", fontSize: "0.75rem", marginTop: "0.25rem" }}>
                                 Suivi : {order.tracking_number}
                               </p>
                             )}
@@ -212,15 +212,15 @@ export default function AccountPage() {
                 <h2 style={{ fontWeight: 700, marginBottom: "1.5rem", fontSize: "1.25rem" }}>Mon profil</h2>
                 <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.875rem", color: "#b3b3b3", marginBottom: "0.5rem" }}>Nom complet</label>
+                    <label style={{ display: "block", fontSize: "0.875rem", color: "#52525b", marginBottom: "0.5rem" }}>Nom complet</label>
                     <input placeholder="Votre nom" className="input-field" />
                   </div>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.875rem", color: "#b3b3b3", marginBottom: "0.5rem" }}>Email</label>
+                    <label style={{ display: "block", fontSize: "0.875rem", color: "#52525b", marginBottom: "0.5rem" }}>Email</label>
                     <input defaultValue={user.email} type="email" className="input-field" disabled />
                   </div>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.875rem", color: "#b3b3b3", marginBottom: "0.5rem" }}>Téléphone</label>
+                    <label style={{ display: "block", fontSize: "0.875rem", color: "#52525b", marginBottom: "0.5rem" }}>Téléphone</label>
                     <input placeholder="+33 6 00 00 00 00" className="input-field" />
                   </div>
                   <div style={{ display: "flex", gap: "0.75rem", paddingTop: "0.5rem" }}>
@@ -234,7 +234,7 @@ export default function AccountPage() {
             {tab === "wishlist" && (
               <div>
                 <h2 style={{ fontWeight: 700, marginBottom: "1.5rem", fontSize: "1.25rem" }}>Ma wishlist</h2>
-                <p style={{ color: "#666666" }}>
+                <p style={{ color: "#71717a" }}>
                   Vos bracelets favoris apparaîtront ici. Ajoutez-les depuis la boutique en cliquant sur ❤.
                 </p>
                 <Link href="/shop" className="btn-primary" style={{ display: "inline-flex", marginTop: "1.5rem" }}>
@@ -253,21 +253,21 @@ export default function AccountPage() {
                       alignItems: "center",
                       justifyContent: "space-between",
                       padding: "1rem 1.25rem",
-                      background: "#111111",
-                      border: "1px solid #1a1a1a",
+                      background: "#f7f7f8",
+                      border: "1px solid #ececef",
                       borderRadius: "10px",
                       cursor: "pointer",
                     }}
                   >
                     <div>
                       <p style={{ fontWeight: 600, marginBottom: "0.25rem", fontSize: "0.9rem" }}>Newsletter</p>
-                      <p style={{ color: "#666666", fontSize: "0.8rem" }}>Nouveaux drops, conseils et offres exclusives</p>
+                      <p style={{ color: "#71717a", fontSize: "0.8rem" }}>Nouveaux drops, conseils et offres exclusives</p>
                     </div>
                     <input
                       type="checkbox"
                       checked={newsletter}
                       onChange={(e) => setNewsletter(e.target.checked)}
-                      style={{ width: "18px", height: "18px", accentColor: "#c9a961" }}
+                      style={{ width: "18px", height: "18px", accentColor: "#2563eb" }}
                     />
                   </label>
 

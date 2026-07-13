@@ -47,8 +47,8 @@ export default function QuickView({ product, onClose }: QuickViewProps) {
           transform: "translate(-50%, -50%)",
           zIndex: 301,
           width: "min(720px, 94vw)",
-          background: "#080808",
-          border: "1px solid #1e1e1e",
+          background: "#ffffff",
+          border: "1px solid #e4e4e7",
           overflow: "hidden",
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
@@ -61,8 +61,8 @@ export default function QuickView({ product, onClose }: QuickViewProps) {
           style={{
             position: "relative",
             minHeight: "380px",
-            background: "#0a0a0a",
-            borderRight: "1px solid #1e1e1e",
+            background: "#ffffff",
+            borderRight: "1px solid #e4e4e7",
           }}
         >
           <Image
@@ -93,13 +93,13 @@ export default function QuickView({ product, onClose }: QuickViewProps) {
               background: "none",
               border: "none",
               cursor: "pointer",
-              color: "#3a3a3a",
+              color: "#a1a1aa",
               padding: 0,
               marginBottom: "1.5rem",
               transition: "color 0.2s",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#efefef")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#3a3a3a")}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#18181b")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
           >
             <X size={16} strokeWidth={1.5} />
           </button>
@@ -113,7 +113,7 @@ export default function QuickView({ product, onClose }: QuickViewProps) {
               fontSize: "1.5rem",
               fontWeight: 300,
               letterSpacing: "-0.03em",
-              color: "#efefef",
+              color: "#18181b",
               marginBottom: "0.75rem",
               lineHeight: 1.1,
             }}
@@ -124,7 +124,7 @@ export default function QuickView({ product, onClose }: QuickViewProps) {
           <div
             style={{
               fontSize: "11px",
-              color: "#3a3a3a",
+              color: "#a1a1aa",
               letterSpacing: "0.04em",
               marginBottom: "1.25rem",
             }}
@@ -134,7 +134,7 @@ export default function QuickView({ product, onClose }: QuickViewProps) {
 
           <p
             style={{
-              color: "#5a5a5a",
+              color: "#8b8b93",
               fontSize: "13px",
               lineHeight: 1.75,
               marginBottom: "2rem",
@@ -151,7 +151,7 @@ export default function QuickView({ product, onClose }: QuickViewProps) {
               justifyContent: "space-between",
               marginBottom: "2rem",
               paddingBottom: "1.5rem",
-              borderBottom: "1px solid #1e1e1e",
+              borderBottom: "1px solid #e4e4e7",
             }}
           >
             <span
@@ -159,7 +159,7 @@ export default function QuickView({ product, onClose }: QuickViewProps) {
                 fontSize: "1.5rem",
                 fontWeight: 300,
                 letterSpacing: "-0.03em",
-                color: "#efefef",
+                color: "#18181b",
               }}
             >
               {formatPrice(product.price)}
@@ -170,7 +170,7 @@ export default function QuickView({ product, onClose }: QuickViewProps) {
                 alignItems: "center",
                 gap: "0.5rem",
                 fontSize: "11px",
-                color: "#3a3a3a",
+                color: "#a1a1aa",
                 letterSpacing: "0.06em",
                 textTransform: "uppercase",
               }}
