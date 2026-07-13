@@ -63,20 +63,16 @@ export default function SocialProof() {
               Avis clients
             </div>
             <h2
-              className="font-serif"
               style={{
-                fontSize: "clamp(1.75rem, 3.5vw, 3rem)",
-                fontWeight: 500,
-                fontStyle: "italic",
-                letterSpacing: "0",
+                fontSize: "clamp(1.375rem, 2.5vw, 1.75rem)",
+                fontWeight: 700,
+                letterSpacing: "-0.01em",
                 color: "#282828",
                 margin: 0,
-                lineHeight: 1.1,
+                lineHeight: 1.2,
               }}
             >
-              Ils ont fait le choix
-              <br />
-              Aureon Labs.
+              Ils ont fait le choix Aureon Labs.
             </h2>
           </div>
 
@@ -84,10 +80,10 @@ export default function SocialProof() {
           <div style={{ textAlign: "right" }}>
             <div
               style={{
-                fontSize: "clamp(2.5rem, 5vw, 4rem)",
+                fontSize: "1.75rem",
                 fontWeight: 700,
                 color: "#282828",
-                letterSpacing: "-0.04em",
+                letterSpacing: "-0.01em",
                 lineHeight: 1,
               }}
             >

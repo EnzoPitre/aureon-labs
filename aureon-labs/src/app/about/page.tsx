@@ -17,7 +17,7 @@ export default function AboutPage() {
           <p style={{ color: "#282828", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem" }}>
             À propos
           </p>
-          <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: "2rem" }}>
+          <h1 style={{ fontSize: "clamp(1.75rem, 3vw, 2.25rem)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.2, marginBottom: "1.25rem" }}>
             Performance Meets Design
           </h1>
           <p style={{ color: "#4a4540", fontSize: "1.1rem", lineHeight: 1.8 }}>

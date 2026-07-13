@@ -60,17 +60,15 @@ export default function Newsletter() {
 
             <h2
               style={{
-                fontSize: "clamp(2rem, 4vw, 3.5rem)",
+                fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
                 fontWeight: 700,
-                letterSpacing: "-0.04em",
+                letterSpacing: "-0.01em",
                 color: "#282828",
-                lineHeight: 1.05,
-                margin: "0 0 1rem",
+                lineHeight: 1.2,
+                margin: "0 0 0.75rem",
               }}
             >
-              <span style={{ color: "var(--cyan)" }}>-10%</span> sur ta
-              <br />
-              première commande.
+              <span style={{ color: "var(--cyan)" }}>-10%</span> sur ta première commande.
             </h2>
 
             <p style={{ color: "#5c564e", fontSize: "14px", lineHeight: 1.75, marginBottom: "1.5rem" }}>

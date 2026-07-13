@@ -39,33 +39,9 @@ export default function Footer() {
     <footer
       style={{
         borderTop: "1px solid #d8cfc0",
-        marginTop: "8rem",
+        marginTop: "4rem",
       }}
     >
-      {/* Brand strip */}
-      <div
-        style={{
-          padding: "4rem 0 3rem",
-          borderBottom: "1px solid #d8cfc0",
-          overflow: "hidden",
-        }}
-      >
-        <div className="container-main">
-          <div
-            style={{
-              fontSize: "clamp(3.5rem, 10vw, 8rem)",
-              fontWeight: 300,
-              letterSpacing: "-0.04em",
-              lineHeight: 1,
-              color: "#e3dccd",
-              userSelect: "none",
-              whiteSpace: "nowrap",
-            }}
-          >
-            AUREON LABS
-          </div>
-        </div>
-      </div>
 
       {/* Links grid */}
       <div className="container-main" style={{ padding: "3rem 2.5rem" }}>

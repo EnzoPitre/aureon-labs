@@ -53,15 +53,13 @@ export default function FeaturedCollection() {
               Collection phare
             </div>
             <h2
-              className="font-serif"
               style={{
-                fontSize: "clamp(1.75rem, 3.5vw, 3rem)",
-                fontWeight: 500,
-                fontStyle: "italic",
-                letterSpacing: "0",
+                fontSize: "clamp(1.375rem, 2.5vw, 1.75rem)",
+                fontWeight: 700,
+                letterSpacing: "-0.01em",
                 color: "#282828",
                 margin: 0,
-                lineHeight: 1.1,
+                lineHeight: 1.2,
               }}
             >
               Nos best-sellers

@@ -65,14 +65,12 @@ export default function ShopPage() {
             Boutique
           </div>
           <h1
-            className="font-serif"
             style={{
-              fontSize: "clamp(2.5rem, 5vw, 4.5rem)",
-              fontWeight: 500,
-              fontStyle: "italic",
-              letterSpacing: "0",
-              margin: "0 0 0.75rem",
-              lineHeight: 1,
+              fontSize: "clamp(1.75rem, 3vw, 2.25rem)",
+              fontWeight: 700,
+              letterSpacing: "-0.01em",
+              margin: "0 0 0.5rem",
+              lineHeight: 1.2,
               color: "#282828",
             }}
           >

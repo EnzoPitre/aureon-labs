@@ -8,7 +8,8 @@ import { useCartStore } from "@/lib/store";
 import { formatPrice } from "@/lib/utils";
 
 export default function CartPage() {
-  const { items, removeItem, updateQuantity, totalPrice } = useCartStore();
+  const { items: getItems, removeItem, updateQuantity, totalPrice } = useCartStore();
+  const items = getItems();
   const total = totalPrice();
   const shipping = items.length > 0 ? 4.99 : 0;
   const grandTotal = total + shipping;

@@ -56,12 +56,12 @@ export default function StorySection() {
 
           <h2
             style={{
-              fontSize: "clamp(2rem, 3.5vw, 3.25rem)",
-              fontWeight: 300,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.1,
+              fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
+              fontWeight: 700,
+              letterSpacing: "-0.01em",
+              lineHeight: 1.25,
               color: "#282828",
-              marginBottom: "2rem",
+              marginBottom: "1.25rem",
             }}
           >
             Le bracelet WHOOP

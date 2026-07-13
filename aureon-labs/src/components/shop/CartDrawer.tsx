@@ -7,7 +7,8 @@ import { useCartStore } from "@/lib/store";
 import { formatPrice } from "@/lib/utils";
 
 export default function CartDrawer() {
-  const { items, isOpen, closeCart, removeItem, updateQuantity, totalPrice } = useCartStore();
+  const { items: getItems, isOpen, closeCart, removeItem, updateQuantity, totalPrice } = useCartStore();
+  const items = getItems();
   const total = totalPrice();
 
   if (!isOpen) return null;

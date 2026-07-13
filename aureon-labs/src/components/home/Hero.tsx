@@ -10,11 +10,11 @@ const TOTAL_REVIEWS = 2847;
 const AVG_RATING = 4.8;
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 12 },
+  hidden: { opacity: 0, y: 10 },
   show: (i: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { duration: 0.4, delay: i * 0.06, ease: "easeOut" as const },
   }),
 };
 
@@ -24,11 +24,9 @@ export default function Hero() {
   return (
     <section
       style={{
-        minHeight: "100vh",
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
         position: "relative",
-        overflow: "hidden",
         borderBottom: "1px solid #d8cfc0",
         paddingTop: "calc(var(--announce-h) + var(--header-h))",
       }}
@@ -40,19 +38,11 @@ export default function Hero() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          padding: "4rem 3rem 4rem 3rem",
-          position: "relative",
-          zIndex: 2,
+          padding: "3rem 3rem",
         }}
         className="hero-left"
       >
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          custom={0}
-          style={{ marginBottom: "1.5rem" }}
-        >
+        <motion.div variants={fadeUp} initial="hidden" animate="show" custom={0} style={{ marginBottom: "1rem" }}>
           <span className="proof-pill">
             <Star size={11} fill="currentColor" />
             {AVG_RATING}/5 · {TOTAL_REVIEWS.toLocaleString("fr-FR")} avis vérifiés
@@ -64,20 +54,16 @@ export default function Hero() {
           initial="hidden"
           animate="show"
           custom={1}
-          className="font-serif"
           style={{
-            fontSize: "clamp(3rem, 6vw, 5.5rem)",
-            fontWeight: 500,
-            fontStyle: "italic",
-            lineHeight: 1.05,
-            letterSpacing: "-0.01em",
+            fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
+            fontWeight: 700,
+            lineHeight: 1.15,
+            letterSpacing: "-0.02em",
             color: "#282828",
-            marginBottom: "1.5rem",
+            marginBottom: "0.875rem",
           }}
         >
-          Ton WHOOP.
-          <br />
-          Ton style.
+          Ton WHOOP. Ton style.
         </motion.h1>
 
         <motion.p
@@ -87,10 +73,10 @@ export default function Hero() {
           custom={2}
           style={{
             color: "#5c564e",
-            fontSize: "16px",
-            lineHeight: 1.7,
+            fontSize: "15px",
+            lineHeight: 1.6,
             maxWidth: "400px",
-            marginBottom: "2rem",
+            marginBottom: "1.25rem",
           }}
         >
           15 designs exclusifs pour athlètes qui refusent le bracelet standard.
@@ -102,7 +88,7 @@ export default function Hero() {
           initial="hidden"
           animate="show"
           custom={2}
-          style={{ fontSize: "20px", fontWeight: 600, color: "#282828", marginBottom: "2rem" }}
+          style={{ fontSize: "18px", fontWeight: 700, color: "#282828", marginBottom: "1.5rem" }}
         >
           21,99€
         </motion.div>
@@ -112,7 +98,7 @@ export default function Hero() {
           initial="hidden"
           animate="show"
           custom={3}
-          style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginBottom: "3rem" }}
+          style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginBottom: "2rem" }}
         >
           <Link href="/shop" className="btn-primary">
             Commander maintenant
@@ -134,7 +120,7 @@ export default function Hero() {
             position: "relative",
             width: "100%",
             aspectRatio: "4/3",
-            marginBottom: "3rem",
+            marginBottom: "2rem",
             overflow: "hidden",
             border: "1px solid #d8cfc0",
             borderRadius: "8px",
@@ -155,11 +141,7 @@ export default function Hero() {
           initial="hidden"
           animate="show"
           custom={4}
-          style={{
-            display: "flex",
-            gap: "2rem",
-            flexWrap: "wrap",
-          }}
+          style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}
         >
           {[
             { icon: <Truck size={13} strokeWidth={1.5} />, text: "Livraison 3–5j" },
@@ -168,13 +150,7 @@ export default function Hero() {
           ].map((item) => (
             <div
               key={item.text}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.4rem",
-                color: "#83796b",
-                fontSize: "12px",
-              }}
+              style={{ display: "flex", alignItems: "center", gap: "0.4rem", color: "#83796b", fontSize: "12px" }}
             >
               <span style={{ color: "#a39a8a" }}>{item.icon}</span>
               {item.text}
@@ -183,15 +159,13 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Right — single clean product shot */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
+      {/* Right — product photo */}
+      <div
         style={{
           position: "relative",
           borderLeft: "1px solid #d8cfc0",
           background: "#ece6dc",
+          minHeight: "420px",
         }}
         className="hero-right"
       >
@@ -203,7 +177,7 @@ export default function Hero() {
           sizes="50vw"
           priority
         />
-      </motion.div>
+      </div>
 
       <style>{`
         @media (min-width: 769px) {
@@ -214,14 +188,12 @@ export default function Hero() {
         @media (max-width: 768px) {
           .hero-section {
             grid-template-columns: 1fr !important;
-            min-height: auto;
-            padding-top: calc(var(--announce-h) + var(--header-h)) !important;
           }
           .hero-right {
             display: none !important;
           }
           .hero-left {
-            padding: 3rem 1.25rem 3rem !important;
+            padding: 2rem 1.25rem !important;
           }
         }
       `}</style>
