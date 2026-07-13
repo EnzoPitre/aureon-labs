@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { ShoppingBag, User, Menu, X } from "lucide-react";
 import { useCartStore } from "@/lib/store";
 import CartDrawer from "@/components/shop/CartDrawer";
@@ -13,6 +14,7 @@ const announcements = [
 ];
 
 export default function Header() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [announceIdx, setAnnounceIdx] = useState(0);
@@ -42,6 +44,8 @@ export default function Header() {
     { href: "/about", label: "À propos" },
     { href: "/contact", label: "Contact" },
   ];
+
+  if (pathname?.startsWith("/admin")) return null;
 
   return (
     <>
