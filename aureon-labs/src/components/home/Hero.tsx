@@ -1,22 +1,6 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ArrowRight, ShieldCheck, RotateCcw, Truck, Star } from "lucide-react";
 import { products } from "@/lib/products";
-
-const TOTAL_REVIEWS = 2847;
-const AVG_RATING = 4.8;
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 10 },
-  show: (i: number = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, delay: i * 0.06, ease: "easeOut" as const },
-  }),
-};
 
 export default function Hero() {
   const alpsSession = products.find((p) => p.slug === "alps-session") ?? products[0];
@@ -24,179 +8,70 @@ export default function Hero() {
   return (
     <section
       style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
         position: "relative",
         borderBottom: "1px solid #d8cfc0",
-        paddingTop: "calc(var(--announce-h) + var(--header-h))",
       }}
-      className="hero-section"
     >
-      {/* Left — Text */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          padding: "3rem 3rem",
-        }}
-        className="hero-left"
-      >
-        <motion.div variants={fadeUp} initial="hidden" animate="show" custom={0} style={{ marginBottom: "1rem" }}>
-          <span className="proof-pill">
-            <Star size={11} fill="currentColor" />
-            {AVG_RATING}/5 · {TOTAL_REVIEWS.toLocaleString("fr-FR")} avis vérifiés
-          </span>
-        </motion.div>
-
-        <motion.h1
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          custom={1}
-          style={{
-            fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
-            fontWeight: 700,
-            lineHeight: 1.15,
-            letterSpacing: "-0.02em",
-            color: "#282828",
-            marginBottom: "0.875rem",
-          }}
-        >
-          Ton WHOOP. Ton style.
-        </motion.h1>
-
-        <motion.p
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          custom={2}
-          style={{
-            color: "#5c564e",
-            fontSize: "15px",
-            lineHeight: 1.6,
-            maxWidth: "400px",
-            marginBottom: "1.25rem",
-          }}
-        >
-          15 designs exclusifs pour athlètes qui refusent le bracelet standard.
-          Nylon premium, fermoir déployant, taille universelle.
-        </motion.p>
-
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          custom={2}
-          style={{ fontSize: "18px", fontWeight: 700, color: "#282828", marginBottom: "1.5rem" }}
-        >
-          21,99€
-        </motion.div>
-
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          custom={3}
-          style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginBottom: "2rem" }}
-        >
-          <Link href="/shop" className="btn-primary">
-            Commander maintenant
-            <ArrowRight size={12} strokeWidth={2.5} />
-          </Link>
-          <Link href="/shop" className="btn-ghost">
-            Voir la collection
-          </Link>
-        </motion.div>
-
-        {/* Mobile image */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          custom={4}
-          className="hero-mobile-image"
-          style={{
-            position: "relative",
-            width: "100%",
-            aspectRatio: "4/3",
-            marginBottom: "2rem",
-            overflow: "hidden",
-            border: "1px solid #d8cfc0",
-            borderRadius: "8px",
-          }}
-        >
-          <Image
-            src="/lifestyle/alps-session-flatlay.png"
-            alt={alpsSession.name}
-            fill
-            style={{ objectFit: "cover" }}
-            priority
-            sizes="100vw"
-          />
-        </motion.div>
-
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          custom={4}
-          style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}
-        >
-          {[
-            { icon: <Truck size={13} strokeWidth={1.5} />, text: "Livraison 3–5j" },
-            { icon: <RotateCcw size={13} strokeWidth={1.5} />, text: "Retours 30j" },
-            { icon: <ShieldCheck size={13} strokeWidth={1.5} />, text: "Paiement sécurisé" },
-          ].map((item) => (
-            <div
-              key={item.text}
-              style={{ display: "flex", alignItems: "center", gap: "0.4rem", color: "#83796b", fontSize: "12px" }}
-            >
-              <span style={{ color: "#a39a8a" }}>{item.icon}</span>
-              {item.text}
-            </div>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* Right — product photo */}
       <div
         style={{
           position: "relative",
-          borderLeft: "1px solid #d8cfc0",
-          background: "#ece6dc",
-          minHeight: "420px",
+          width: "100%",
+          height: "380px",
         }}
-        className="hero-right"
       >
         <Image
           src="/lifestyle/alps-session-flatlay.png"
           alt={alpsSession.name}
           fill
           style={{ objectFit: "cover" }}
-          sizes="50vw"
           priority
+          sizes="100vw"
         />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "rgba(40,40,40,0.35)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            padding: "1.5rem",
+          }}
+        >
+          <h1
+            style={{
+              fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
+              fontWeight: 700,
+              letterSpacing: "-0.01em",
+              color: "#f1ede7",
+              marginBottom: "0.75rem",
+            }}
+          >
+            Ton WHOOP. Ton style.
+          </h1>
+          <p
+            style={{
+              color: "#f1ede7",
+              fontSize: "15px",
+              maxWidth: "480px",
+              marginBottom: "1.5rem",
+            }}
+          >
+            15 designs exclusifs de bracelets premium à partir de 21,99€.
+          </p>
+          <Link href="/shop" className="btn-primary">
+            Découvrir la collection
+          </Link>
+        </div>
       </div>
-
-      <style>{`
-        @media (min-width: 769px) {
-          .hero-mobile-image {
-            display: none !important;
-          }
-        }
-        @media (max-width: 768px) {
-          .hero-section {
-            grid-template-columns: 1fr !important;
-          }
-          .hero-right {
-            display: none !important;
-          }
-          .hero-left {
-            padding: 2rem 1.25rem !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }

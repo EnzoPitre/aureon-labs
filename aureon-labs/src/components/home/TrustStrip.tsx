@@ -1,94 +1,38 @@
 import { Truck, RotateCcw, Star, ShieldCheck } from "lucide-react";
 
 const items = [
-  {
-    icon: <Truck size={22} strokeWidth={1.25} />,
-    title: "Livraison rapide",
-    sub: "Expédié sous 24–48h · Suivi inclus",
-  },
-  {
-    icon: <RotateCcw size={22} strokeWidth={1.25} />,
-    title: "Retours 30 jours",
-    sub: "Gratuits, sans question",
-  },
-  {
-    icon: <Star size={22} strokeWidth={1.25} />,
-    title: "Qualité premium",
-    sub: "Nylon respirant · Fermoir déployant",
-  },
-  {
-    icon: <ShieldCheck size={22} strokeWidth={1.25} />,
-    title: "Paiement sécurisé",
-    sub: "SSL · 3D Secure · Stripe",
-  },
+  { icon: <Truck size={20} strokeWidth={1.5} />, title: "Livraison rapide", sub: "Expédié sous 24–48h" },
+  { icon: <RotateCcw size={20} strokeWidth={1.5} />, title: "Retours 30 jours", sub: "Gratuits, sans question" },
+  { icon: <Star size={20} strokeWidth={1.5} />, title: "Qualité premium", sub: "Nylon respirant" },
+  { icon: <ShieldCheck size={20} strokeWidth={1.5} />, title: "Paiement sécurisé", sub: "SSL · Stripe" },
 ];
 
 export default function TrustStrip() {
   return (
-    <section
-      style={{
-        borderBottom: "1px solid #d8cfc0",
-        background: "#f1ede7",
-      }}
-    >
+    <section style={{ borderBottom: "1px solid #d8cfc0", background: "#ece6dc" }}>
       <div
+        className="container-main trust-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
+          padding: "1.5rem 0",
         }}
-        className="trust-grid"
       >
-        {items.map((item, i) => (
-          <div
-            key={item.title}
-            className="trust-item"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "1rem",
-              padding: "1.75rem 2rem",
-              borderRight: i < items.length - 1 ? "1px solid #d8cfc0" : "none",
-              transition: "background 0.2s",
-            }}
-          >
-            <span style={{ color: "var(--cyan)", flexShrink: 0 }}>{item.icon}</span>
+        {items.map((item) => (
+          <div key={item.title} style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.5rem 1rem" }}>
+            <span style={{ color: "#282828" }}>{item.icon}</span>
             <div>
-              <div
-                style={{
-                  fontSize: "12px",
-                  fontWeight: 600,
-                  color: "#282828",
-                  letterSpacing: "-0.01em",
-                  marginBottom: "0.2rem",
-                }}
-              >
-                {item.title}
-              </div>
-              <div style={{ fontSize: "11px", color: "#83796b", lineHeight: 1.4 }}>
-                {item.sub}
-              </div>
+              <div style={{ fontSize: "13px", fontWeight: 600, color: "#282828" }}>{item.title}</div>
+              <div style={{ fontSize: "12px", color: "#6b6459" }}>{item.sub}</div>
             </div>
           </div>
         ))}
       </div>
 
       <style>{`
-        .trust-item:hover {
-          background: #111;
-        }
         @media (max-width: 768px) {
           .trust-grid {
             grid-template-columns: 1fr 1fr !important;
-          }
-          .trust-grid > *:nth-child(2) {
-            border-right: none !important;
-          }
-          .trust-grid > *:nth-child(1),
-          .trust-grid > *:nth-child(2) {
-            border-bottom: 1px solid #d8cfc0;
-          }
-          .trust-grid > *:nth-child(3) {
-            border-right: 1px solid #d8cfc0 !important;
           }
         }
       `}</style>

@@ -1,43 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { ShoppingBag, User, Menu, X } from "lucide-react";
 import { useCartStore } from "@/lib/store";
 import CartDrawer from "@/components/shop/CartDrawer";
 
-const announcements = [
-  "🎁 Livraison gratuite dès 35€ · Code WELCOME10 pour -10% sur ta 1ère commande",
-  "⚡ Expédition sous 24h · Retours gratuits 30 jours",
-  "🔥 Séries limitées — Il reste peu de stock sur certains designs",
-];
-
 export default function Header() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [announceIdx, setAnnounceIdx] = useState(0);
-  const [announceVisible, setAnnounceVisible] = useState(true);
   const { totalItems, toggleCart } = useCartStore();
   const count = totalItems();
-
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setAnnounceVisible(false);
-      setTimeout(() => {
-        setAnnounceIdx((i) => (i + 1) % announcements.length);
-        setAnnounceVisible(true);
-      }, 300);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
 
   const navLinks = [
     { href: "/shop", label: "Collection" },
@@ -63,24 +37,13 @@ export default function Header() {
           alignItems: "center",
           justifyContent: "center",
           zIndex: 101,
-          fontSize: "11px",
+          fontSize: "12px",
           fontWeight: 600,
-          letterSpacing: "0.08em",
           textAlign: "center",
           padding: "0 1rem",
-          overflow: "hidden",
         }}
       >
-        <span
-          style={{
-            transition: "opacity 0.3s, transform 0.3s",
-            opacity: announceVisible ? 1 : 0,
-            transform: announceVisible ? "translateY(0)" : "translateY(-6px)",
-            display: "block",
-          }}
-        >
-          {announcements[announceIdx]}
-        </span>
+        Livraison gratuite dès 35€ · Code WELCOME10 pour -10% sur ta 1ère commande
       </div>
 
       {/* Main header */}
@@ -94,10 +57,8 @@ export default function Header() {
           height: "var(--header-h)",
           display: "flex",
           alignItems: "center",
-          transition: "background 0.4s ease, border-color 0.4s ease",
-          background: scrolled ? "rgba(241,237,231,0.95)" : "transparent",
-          backdropFilter: scrolled ? "blur(24px)" : "none",
-          borderBottom: `1px solid ${scrolled ? "#d8cfc0" : "transparent"}`,
+          background: "#f1ede7",
+          borderBottom: "1px solid #d8cfc0",
         }}
       >
         <div
@@ -110,51 +71,17 @@ export default function Header() {
           }}
         >
           {/* Logo */}
-          <Link
-            href="/"
-            style={{ textDecoration: "none", display: "flex", alignItems: "baseline", gap: "3px" }}
-          >
-            <span
-              style={{
-                fontSize: "12px",
-                fontWeight: 700,
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: "#282828",
-              }}
-            >
-              Aureon
-            </span>
-            <span
-              style={{
-                fontSize: "12px",
-                fontWeight: 400,
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: "#c4b9a6",
-              }}
-            >
-              Labs
-            </span>
+          <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "baseline", gap: "3px" }}>
+            <span style={{ fontSize: "16px", fontWeight: 700, color: "#282828" }}>Aureon Labs</span>
           </Link>
 
           {/* Desktop Nav */}
-          <nav style={{ display: "flex", gap: "2.5rem", alignItems: "center" }} className="hidden-mobile">
+          <nav style={{ display: "flex", gap: "2rem", alignItems: "center" }} className="hidden-mobile">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                style={{
-                  color: "#83796b",
-                  textDecoration: "none",
-                  fontSize: "11px",
-                  fontWeight: 500,
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  transition: "color 0.2s",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#282828")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#83796b")}
+                style={{ color: "#4a4540", textDecoration: "none", fontSize: "14px", fontWeight: 500 }}
               >
                 {link.label}
               </Link>
@@ -163,23 +90,8 @@ export default function Header() {
 
           {/* Actions */}
           <div style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}>
-            {/* Shop CTA — desktop */}
-            <Link
-              href="/shop"
-              className="btn-primary hidden-mobile"
-              style={{ padding: "0.5rem 1.25rem", fontSize: "10px" }}
-            >
-              Commander
-            </Link>
-
-            <Link
-              href="/auth"
-              style={{ color: "#83796b", display: "flex", alignItems: "center", transition: "color 0.2s" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#282828")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#83796b")}
-              title="Mon compte"
-            >
-              <User size={16} strokeWidth={1.5} />
+            <Link href="/auth" style={{ color: "#282828", display: "flex", alignItems: "center" }} title="Mon compte">
+              <User size={18} strokeWidth={1.5} />
             </Link>
 
             <button
@@ -196,24 +108,23 @@ export default function Header() {
               }}
               title="Panier"
             >
-              <ShoppingBag size={16} strokeWidth={1.5} />
+              <ShoppingBag size={18} strokeWidth={1.5} />
               {count > 0 && (
                 <span
                   style={{
                     position: "absolute",
-                    top: "-5px",
-                    right: "-6px",
+                    top: "-6px",
+                    right: "-8px",
                     background: "var(--cyan)",
                     color: "#f1ede7",
-                    fontSize: "9px",
+                    fontSize: "10px",
                     fontWeight: 700,
-                    width: "14px",
-                    height: "14px",
+                    width: "16px",
+                    height: "16px",
                     borderRadius: "50%",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    letterSpacing: 0,
                   }}
                 >
                   {count}
@@ -223,17 +134,10 @@ export default function Header() {
 
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              style={{
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                color: "#282828",
-                display: "none",
-                padding: 0,
-              }}
+              style={{ background: "none", border: "none", cursor: "pointer", color: "#282828", display: "none", padding: 0 }}
               className="show-mobile"
             >
-              {menuOpen ? <X size={18} strokeWidth={1.5} /> : <Menu size={18} strokeWidth={1.5} />}
+              {menuOpen ? <X size={20} strokeWidth={1.5} /> : <Menu size={20} strokeWidth={1.5} />}
             </button>
           </div>
         </div>
@@ -243,12 +147,13 @@ export default function Header() {
           <div
             style={{
               position: "absolute",
-              top: "52px",
+              top: "88px",
               left: 0,
               right: 0,
               background: "#f1ede7",
               borderBottom: "1px solid #d8cfc0",
               padding: "1.5rem 1.25rem",
+              zIndex: 50,
             }}
           >
             {navLinks.map((link) => (
@@ -258,39 +163,17 @@ export default function Header() {
                 onClick={() => setMenuOpen(false)}
                 style={{
                   display: "block",
-                  color: "#83796b",
+                  color: "#4a4540",
                   textDecoration: "none",
                   padding: "0.875rem 0",
-                  fontSize: "11px",
+                  fontSize: "14px",
                   fontWeight: 500,
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
                   borderBottom: "1px solid #d8cfc0",
-                  transition: "color 0.2s",
                 }}
               >
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/shop"
-              onClick={() => setMenuOpen(false)}
-              style={{
-                display: "block",
-                marginTop: "1rem",
-                textAlign: "center",
-                color: "#f1ede7",
-                textDecoration: "none",
-                padding: "0.875rem",
-                fontSize: "11px",
-                fontWeight: 700,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                background: "var(--cyan)",
-              }}
-            >
-              Commander maintenant
-            </Link>
           </div>
         )}
       </header>
