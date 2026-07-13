@@ -58,7 +58,7 @@ export default function Header() {
           right: 0,
           height: "var(--announce-h)",
           background: "var(--cyan)",
-          color: "#ffffff",
+          color: "#f1ede7",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -95,9 +95,9 @@ export default function Header() {
           display: "flex",
           alignItems: "center",
           transition: "background 0.4s ease, border-color 0.4s ease",
-          background: scrolled ? "rgba(255,255,255,0.95)" : "transparent",
+          background: scrolled ? "rgba(241,237,231,0.95)" : "transparent",
           backdropFilter: scrolled ? "blur(24px)" : "none",
-          borderBottom: `1px solid ${scrolled ? "#e4e4e7" : "transparent"}`,
+          borderBottom: `1px solid ${scrolled ? "#d8cfc0" : "transparent"}`,
         }}
       >
         <div
@@ -120,7 +120,7 @@ export default function Header() {
                 fontWeight: 700,
                 letterSpacing: "0.16em",
                 textTransform: "uppercase",
-                color: "#18181b",
+                color: "#282828",
               }}
             >
               Aureon
@@ -131,7 +131,7 @@ export default function Header() {
                 fontWeight: 400,
                 letterSpacing: "0.16em",
                 textTransform: "uppercase",
-                color: "#d1d1d6",
+                color: "#c4b9a6",
               }}
             >
               Labs
@@ -145,7 +145,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 style={{
-                  color: "#8b8b93",
+                  color: "#83796b",
                   textDecoration: "none",
                   fontSize: "11px",
                   fontWeight: 500,
@@ -153,8 +153,8 @@ export default function Header() {
                   textTransform: "uppercase",
                   transition: "color 0.2s",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#18181b")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#8b8b93")}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#282828")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#83796b")}
               >
                 {link.label}
               </Link>
@@ -174,9 +174,9 @@ export default function Header() {
 
             <Link
               href="/auth"
-              style={{ color: "#8b8b93", display: "flex", alignItems: "center", transition: "color 0.2s" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#18181b")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#8b8b93")}
+              style={{ color: "#83796b", display: "flex", alignItems: "center", transition: "color 0.2s" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#282828")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "#83796b")}
               title="Mon compte"
             >
               <User size={16} strokeWidth={1.5} />
@@ -189,7 +189,7 @@ export default function Header() {
                 background: "none",
                 border: "none",
                 cursor: "pointer",
-                color: "#18181b",
+                color: "#282828",
                 display: "flex",
                 alignItems: "center",
                 padding: 0,
@@ -204,7 +204,7 @@ export default function Header() {
                     top: "-5px",
                     right: "-6px",
                     background: "var(--cyan)",
-                    color: "#ffffff",
+                    color: "#f1ede7",
                     fontSize: "9px",
                     fontWeight: 700,
                     width: "14px",
@@ -227,7 +227,7 @@ export default function Header() {
                 background: "none",
                 border: "none",
                 cursor: "pointer",
-                color: "#18181b",
+                color: "#282828",
                 display: "none",
                 padding: 0,
               }}
@@ -246,8 +246,8 @@ export default function Header() {
               top: "52px",
               left: 0,
               right: 0,
-              background: "#ffffff",
-              borderBottom: "1px solid #e4e4e7",
+              background: "#f1ede7",
+              borderBottom: "1px solid #d8cfc0",
               padding: "1.5rem 1.25rem",
             }}
           >
@@ -258,14 +258,14 @@ export default function Header() {
                 onClick={() => setMenuOpen(false)}
                 style={{
                   display: "block",
-                  color: "#8b8b93",
+                  color: "#83796b",
                   textDecoration: "none",
                   padding: "0.875rem 0",
                   fontSize: "11px",
                   fontWeight: 500,
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
-                  borderBottom: "1px solid #e4e4e7",
+                  borderBottom: "1px solid #d8cfc0",
                   transition: "color 0.2s",
                 }}
               >
@@ -279,7 +279,7 @@ export default function Header() {
                 display: "block",
                 marginTop: "1rem",
                 textAlign: "center",
-                color: "#ffffff",
+                color: "#f1ede7",
                 textDecoration: "none",
                 padding: "0.875rem",
                 fontSize: "11px",

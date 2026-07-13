@@ -25,8 +25,8 @@ export default function Toast({ message, visible, onClose }: ToastProps) {
         position: "fixed",
         bottom: "1.75rem",
         right: "1.75rem",
-        background: "#fafafa",
-        border: "1px solid #d4d4d8",
+        background: "#ece6dc",
+        border: "1px solid #c9bfae",
         padding: "0.875rem 1.125rem",
         display: "flex",
         alignItems: "center",
@@ -42,17 +42,17 @@ export default function Toast({ message, visible, onClose }: ToastProps) {
         style={{
           width: "18px",
           height: "18px",
-          border: "1px solid #d4d4d8",
+          border: "1px solid #c9bfae",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           flexShrink: 0,
-          color: "#18181b",
+          color: "#282828",
         }}
       >
         <Check size={10} strokeWidth={2.5} />
       </span>
-      <span style={{ fontSize: "12px", color: "#18181b", flex: 1, letterSpacing: "0.01em" }}>
+      <span style={{ fontSize: "12px", color: "#282828", flex: 1, letterSpacing: "0.01em" }}>
         {message}
       </span>
       <button
@@ -61,13 +61,13 @@ export default function Toast({ message, visible, onClose }: ToastProps) {
           background: "none",
           border: "none",
           cursor: "pointer",
-          color: "#a1a1aa",
+          color: "#a39a8a",
           padding: 0,
           display: "flex",
           transition: "color 0.2s",
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = "#64646c")}
-        onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
+        onMouseEnter={(e) => (e.currentTarget.style.color = "#5c564e")}
+        onMouseLeave={(e) => (e.currentTarget.style.color = "#a39a8a")}
       >
         <X size={13} strokeWidth={1.5} />
       </button>

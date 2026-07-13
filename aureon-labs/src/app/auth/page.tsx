@@ -56,7 +56,7 @@ export default function AuthPage() {
         alignItems: "center",
         justifyContent: "center",
         padding: "88px 1rem 2rem",
-        background: "radial-gradient(ellipse at 50% 50%, rgba(37,99,235,0.05) 0%, transparent 60%), #ffffff",
+        background: "radial-gradient(ellipse at 50% 50%, rgba(40,40,40,0.05) 0%, transparent 60%), #f1ede7",
       }}
     >
       <div style={{ width: "100%", maxWidth: "440px" }}>
@@ -65,7 +65,7 @@ export default function AuthPage() {
           <Link href="/" style={{ textDecoration: "none" }}>
             <span style={{ fontSize: "1.5rem", fontWeight: 700, letterSpacing: "-0.02em" }}>
               <span className="gradient-text">Aureon</span>
-              <span style={{ color: "#52525b" }}> Labs</span>
+              <span style={{ color: "#4a4540" }}> Labs</span>
             </span>
           </Link>
         </div>
@@ -73,8 +73,8 @@ export default function AuthPage() {
         {/* Card */}
         <div
           style={{
-            background: "#f7f7f8",
-            border: "1px solid #ececef",
+            background: "#e8e1d5",
+            border: "1px solid #ddd5c7",
             borderRadius: "16px",
             padding: "2.5rem",
           }}
@@ -83,7 +83,7 @@ export default function AuthPage() {
           <div
             style={{
               display: "flex",
-              background: "#ececef",
+              background: "#ddd5c7",
               borderRadius: "8px",
               padding: "4px",
               marginBottom: "2rem",
@@ -101,8 +101,8 @@ export default function AuthPage() {
                   cursor: "pointer",
                   fontSize: "0.875rem",
                   fontWeight: 600,
-                  background: mode === m ? "#ffffff" : "transparent",
-                  color: mode === m ? "#ffffff" : "#71717a",
+                  background: mode === m ? "#f1ede7" : "transparent",
+                  color: mode === m ? "#f1ede7" : "#6b6459",
                   transition: "all 0.2s",
                 }}
               >
@@ -117,7 +117,7 @@ export default function AuthPage() {
               <h3 style={{ fontWeight: 600, marginBottom: "0.5rem" }}>
                 {mode === "login" ? "Connecté !" : "Compte créé !"}
               </h3>
-              <p style={{ color: "#52525b", fontSize: "0.875rem", marginBottom: "1.5rem" }}>
+              <p style={{ color: "#4a4540", fontSize: "0.875rem", marginBottom: "1.5rem" }}>
                 {mode === "register"
                   ? "Un email de confirmation a été envoyé."
                   : "Bienvenue de retour."}
@@ -144,7 +144,7 @@ export default function AuthPage() {
               )}
 
               <div>
-                <label style={{ display: "block", fontSize: "0.875rem", color: "#52525b", marginBottom: "0.5rem" }}>
+                <label style={{ display: "block", fontSize: "0.875rem", color: "#4a4540", marginBottom: "0.5rem" }}>
                   Email
                 </label>
                 <input
@@ -158,7 +158,7 @@ export default function AuthPage() {
               </div>
 
               <div>
-                <label style={{ display: "block", fontSize: "0.875rem", color: "#52525b", marginBottom: "0.5rem" }}>
+                <label style={{ display: "block", fontSize: "0.875rem", color: "#4a4540", marginBottom: "0.5rem" }}>
                   Mot de passe
                 </label>
                 <div style={{ position: "relative" }}>
@@ -183,7 +183,7 @@ export default function AuthPage() {
                       background: "none",
                       border: "none",
                       cursor: "pointer",
-                      color: "#71717a",
+                      color: "#6b6459",
                     }}
                   >
                     {showPwd ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -193,7 +193,7 @@ export default function AuthPage() {
 
               {mode === "register" && (
                 <div>
-                  <label style={{ display: "block", fontSize: "0.875rem", color: "#52525b", marginBottom: "0.5rem" }}>
+                  <label style={{ display: "block", fontSize: "0.875rem", color: "#4a4540", marginBottom: "0.5rem" }}>
                     Confirmer le mot de passe
                   </label>
                   <input
@@ -211,7 +211,7 @@ export default function AuthPage() {
                 <div style={{ textAlign: "right" }}>
                   <button
                     type="button"
-                    style={{ background: "none", border: "none", cursor: "pointer", color: "#71717a", fontSize: "0.8rem" }}
+                    style={{ background: "none", border: "none", cursor: "pointer", color: "#6b6459", fontSize: "0.8rem" }}
                   >
                     Mot de passe oublié ?
                   </button>
@@ -219,13 +219,13 @@ export default function AuthPage() {
               )}
 
               {mode === "register" && (
-                <label style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", cursor: "pointer", fontSize: "0.8rem", color: "#52525b" }}>
+                <label style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", cursor: "pointer", fontSize: "0.8rem", color: "#4a4540" }}>
                   <input
                     type="checkbox"
                     checked={agreed}
                     onChange={(e) => setAgreed(e.target.checked)}
                     required
-                    style={{ marginTop: "2px", accentColor: "#2563eb" }}
+                    style={{ marginTop: "2px", accentColor: "#282828" }}
                   />
                   J&apos;accepte les conditions générales de vente et la politique de confidentialité.
                 </label>
@@ -244,11 +244,11 @@ export default function AuthPage() {
           )}
         </div>
 
-        <p style={{ textAlign: "center", marginTop: "1.5rem", color: "#71717a", fontSize: "0.8rem" }}>
+        <p style={{ textAlign: "center", marginTop: "1.5rem", color: "#6b6459", fontSize: "0.8rem" }}>
           {mode === "login" ? "Pas encore de compte ?" : "Déjà un compte ?"}{" "}
           <button
             onClick={() => setMode(mode === "login" ? "register" : "login")}
-            style={{ background: "none", border: "none", cursor: "pointer", color: "#2563eb", fontSize: "0.8rem" }}
+            style={{ background: "none", border: "none", cursor: "pointer", color: "#282828", fontSize: "0.8rem" }}
           >
             {mode === "login" ? "Créer un compte" : "Se connecter"}
           </button>

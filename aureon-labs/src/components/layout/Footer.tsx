@@ -38,7 +38,7 @@ export default function Footer() {
   return (
     <footer
       style={{
-        borderTop: "1px solid #e4e4e7",
+        borderTop: "1px solid #d8cfc0",
         marginTop: "8rem",
       }}
     >
@@ -46,7 +46,7 @@ export default function Footer() {
       <div
         style={{
           padding: "4rem 0 3rem",
-          borderBottom: "1px solid #e4e4e7",
+          borderBottom: "1px solid #d8cfc0",
           overflow: "hidden",
         }}
       >
@@ -57,7 +57,7 @@ export default function Footer() {
               fontWeight: 300,
               letterSpacing: "-0.04em",
               lineHeight: 1,
-              color: "#f2f2f4",
+              color: "#e3dccd",
               userSelect: "none",
               whiteSpace: "nowrap",
             }}
@@ -86,7 +86,7 @@ export default function Footer() {
                 fontWeight: 600,
                 letterSpacing: "0.16em",
                 textTransform: "uppercase",
-                color: "#18181b",
+                color: "#282828",
                 marginBottom: "1rem",
               }}
             >
@@ -94,7 +94,7 @@ export default function Footer() {
             </div>
             <p
               style={{
-                color: "#a1a1aa",
+                color: "#a39a8a",
                 fontSize: "13px",
                 lineHeight: 1.7,
                 maxWidth: "260px",
@@ -113,7 +113,7 @@ export default function Footer() {
                   fontWeight: 500,
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
-                  color: "#a1a1aa",
+                  color: "#a39a8a",
                   marginBottom: "1.25rem",
                 }}
               >
@@ -125,13 +125,13 @@ export default function Footer() {
                     key={link.label}
                     href={link.href}
                     style={{
-                      color: "#8b8b93",
+                      color: "#83796b",
                       fontSize: "13px",
                       textDecoration: "none",
                       transition: "color 0.2s",
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "#18181b")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "#8b8b93")}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#282828")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "#83796b")}
                   >
                     {link.label}
                   </Link>
@@ -145,7 +145,7 @@ export default function Footer() {
         <div
           style={{
             paddingTop: "2rem",
-            borderTop: "1px solid #e4e4e7",
+            borderTop: "1px solid #d8cfc0",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
@@ -153,7 +153,7 @@ export default function Footer() {
             gap: "1rem",
           }}
         >
-          <p style={{ color: "#d1d1d6", fontSize: "12px", letterSpacing: "0.04em" }}>
+          <p style={{ color: "#c4b9a6", fontSize: "12px", letterSpacing: "0.04em" }}>
             © {year} Aureon Labs. Tous droits réservés.
           </p>
           <div style={{ display: "flex", gap: "2rem" }}>
@@ -161,15 +161,15 @@ export default function Footer() {
               <span
                 key={social}
                 style={{
-                  color: "#d1d1d6",
+                  color: "#c4b9a6",
                   fontSize: "11px",
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
                   cursor: "pointer",
                   transition: "color 0.2s",
                 }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#8b8b93")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "#d1d1d6")}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#83796b")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "#c4b9a6")}
               >
                 {social}
               </span>

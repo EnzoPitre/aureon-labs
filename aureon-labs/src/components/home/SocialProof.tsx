@@ -41,9 +41,9 @@ export default function SocialProof() {
     <section
       style={{
         padding: "7rem 0",
-        borderTop: "1px solid #e4e4e7",
-        borderBottom: "1px solid #e4e4e7",
-        background: "#ffffff",
+        borderTop: "1px solid #d8cfc0",
+        borderBottom: "1px solid #d8cfc0",
+        background: "#f1ede7",
       }}
     >
       <div className="container-main">
@@ -63,18 +63,20 @@ export default function SocialProof() {
               Avis clients
             </div>
             <h2
+              className="font-serif"
               style={{
                 fontSize: "clamp(1.75rem, 3.5vw, 3rem)",
-                fontWeight: 300,
-                letterSpacing: "-0.03em",
-                color: "#18181b",
+                fontWeight: 500,
+                fontStyle: "italic",
+                letterSpacing: "0",
+                color: "#282828",
                 margin: 0,
                 lineHeight: 1.1,
               }}
             >
               Ils ont fait le choix
               <br />
-              <em style={{ fontStyle: "italic", color: "var(--cyan)" }}>Aureon Labs.</em>
+              Aureon Labs.
             </h2>
           </div>
 
@@ -84,7 +86,7 @@ export default function SocialProof() {
               style={{
                 fontSize: "clamp(2.5rem, 5vw, 4rem)",
                 fontWeight: 700,
-                color: "#18181b",
+                color: "#282828",
                 letterSpacing: "-0.04em",
                 lineHeight: 1,
               }}
@@ -94,7 +96,7 @@ export default function SocialProof() {
             <div style={{ color: "var(--amber)", fontSize: "18px", marginBottom: "0.25rem" }}>
               ★★★★★
             </div>
-            <div style={{ fontSize: "12px", color: "#8b8b93" }}>
+            <div style={{ fontSize: "12px", color: "#83796b" }}>
               sur 2 847 avis vérifiés
             </div>
 
@@ -102,12 +104,12 @@ export default function SocialProof() {
             <div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "0.3rem", alignItems: "flex-end" }}>
               {RATING_BREAKDOWN.map((row) => (
                 <div key={row.stars} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                  <span style={{ fontSize: "10px", color: "#8b8b93", width: "10px" }}>{row.stars}</span>
+                  <span style={{ fontSize: "10px", color: "#83796b", width: "10px" }}>{row.stars}</span>
                   <div
                     style={{
                       width: "80px",
                       height: "4px",
-                      background: "#e4e4e7",
+                      background: "#d8cfc0",
                       borderRadius: "2px",
                       overflow: "hidden",
                     }}
@@ -116,12 +118,12 @@ export default function SocialProof() {
                       style={{
                         width: `${row.pct}%`,
                         height: "100%",
-                        background: row.stars >= 4 ? "var(--amber)" : "#a1a1aa",
+                        background: row.stars >= 4 ? "var(--amber)" : "#a39a8a",
                         borderRadius: "2px",
                       }}
                     />
                   </div>
-                  <span style={{ fontSize: "10px", color: "#a1a1aa", width: "28px", textAlign: "right" }}>
+                  <span style={{ fontSize: "10px", color: "#a39a8a", width: "28px", textAlign: "right" }}>
                     {row.pct}%
                   </span>
                 </div>
@@ -136,7 +138,7 @@ export default function SocialProof() {
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
             gap: "1px",
-            background: "#e4e4e7",
+            background: "#d8cfc0",
             marginBottom: "3rem",
           }}
           className="testimonials-grid"
@@ -146,7 +148,7 @@ export default function SocialProof() {
               key={t.name}
               className="testimonial-card"
               style={{
-                background: "#ffffff",
+                background: "#f1ede7",
                 padding: "2rem",
                 display: "flex",
                 flexDirection: "column",
@@ -162,7 +164,7 @@ export default function SocialProof() {
               {/* Quote */}
               <p
                 style={{
-                  color: "#52525b",
+                  color: "#4a4540",
                   fontSize: "14px",
                   lineHeight: 1.75,
                   margin: 0,
@@ -177,17 +179,17 @@ export default function SocialProof() {
               <div
                 style={{
                   paddingTop: "1rem",
-                  borderTop: "1px solid #e4e4e7",
+                  borderTop: "1px solid #d8cfc0",
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "flex-end",
                 }}
               >
                 <div>
-                  <div style={{ fontSize: "13px", fontWeight: 600, color: "#18181b" }}>
+                  <div style={{ fontSize: "13px", fontWeight: 600, color: "#282828" }}>
                     {t.name}
                   </div>
-                  <div style={{ fontSize: "11px", color: "#8b8b93", marginTop: "0.15rem" }}>
+                  <div style={{ fontSize: "11px", color: "#83796b", marginTop: "0.15rem" }}>
                     {t.sport}
                   </div>
                 </div>
@@ -197,7 +199,7 @@ export default function SocialProof() {
                       ✓ Achat vérifié
                     </div>
                   )}
-                  <div style={{ fontSize: "10px", color: "#a1a1aa" }}>
+                  <div style={{ fontSize: "10px", color: "#a39a8a" }}>
                     Design: {t.design}
                   </div>
                 </div>
@@ -217,7 +219,7 @@ export default function SocialProof() {
 
       <style>{`
         .testimonial-card:hover {
-          background: #fafafa;
+          background: #ece6dc;
         }
         @media (max-width: 768px) {
           .testimonials-grid {

@@ -24,14 +24,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div style={{ minHeight: "100vh", display: "grid", gridTemplateColumns: "220px 1fr" }}>
       <aside
         style={{
-          borderRight: "1px solid #e4e4e7",
+          borderRight: "1px solid #d8cfc0",
           padding: "1.5rem 1rem",
           display: "flex",
           flexDirection: "column",
         }}
       >
         <div style={{ fontWeight: 700, fontSize: "0.9rem", padding: "0.5rem 0.75rem", marginBottom: "1.5rem" }}>
-          Aureon Labs <span style={{ color: "#64646c", fontWeight: 400 }}>Admin</span>
+          Aureon Labs <span style={{ color: "#5c564e", fontWeight: 400 }}>Admin</span>
         </div>
 
         <nav style={{ display: "flex", flexDirection: "column", gap: "0.25rem", flex: 1 }}>
@@ -50,8 +50,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   borderRadius: "8px",
                   fontSize: "0.85rem",
                   fontWeight: active ? 600 : 400,
-                  color: active ? "#2563eb" : "#3f3f46",
-                  background: active ? "rgba(37,99,235,0.08)" : "transparent",
+                  color: active ? "#282828" : "#3a3632",
+                  background: active ? "rgba(40,40,40,0.08)" : "transparent",
                   textDecoration: "none",
                 }}
               >

@@ -58,17 +58,17 @@ export default function AdminOrdersPage() {
       <h1 style={{ fontSize: "1.5rem", fontWeight: 700, marginBottom: "2rem" }}>Commandes</h1>
 
       {loading ? (
-        <p style={{ color: "#64646c" }}>Chargement...</p>
+        <p style={{ color: "#5c564e" }}>Chargement...</p>
       ) : orders.length === 0 ? (
-        <p style={{ color: "#64646c" }}>Aucune commande.</p>
+        <p style={{ color: "#5c564e" }}>Aucune commande.</p>
       ) : (
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem" }}>
             <thead>
-              <tr style={{ borderBottom: "1px solid #e4e4e7", textAlign: "left" }}>
+              <tr style={{ borderBottom: "1px solid #d8cfc0", textAlign: "left" }}>
                 {["Commande", "Client", "Articles", "Montant", "Paiement", "Statut", "Suivi", "Date"].map(
                   (h) => (
-                    <th key={h} style={{ padding: "0.75rem 0.5rem", color: "#64646c", fontWeight: 500 }}>
+                    <th key={h} style={{ padding: "0.75rem 0.5rem", color: "#5c564e", fontWeight: 500 }}>
                       {h}
                     </th>
                   )
@@ -77,7 +77,7 @@ export default function AdminOrdersPage() {
             </thead>
             <tbody>
               {orders.map((o) => (
-                <tr key={o.id} style={{ borderBottom: "1px solid #f2f2f4", opacity: savingId === o.id ? 0.6 : 1 }}>
+                <tr key={o.id} style={{ borderBottom: "1px solid #e3dccd", opacity: savingId === o.id ? 0.6 : 1 }}>
                   <td style={{ padding: "0.75rem 0.5rem", fontWeight: 600 }}>
                     {o.stripe_session_id.slice(-8).toUpperCase()}
                   </td>
@@ -92,7 +92,7 @@ export default function AdminOrdersPage() {
                       value={o.admin_status}
                       onChange={(e) => updateOrder(o.id, { admin_status: e.target.value })}
                       style={{
-                        border: "1px solid #e4e4e7",
+                        border: "1px solid #d8cfc0",
                         borderRadius: "6px",
                         padding: "0.35rem 0.5rem",
                         fontSize: "0.8rem",
@@ -116,7 +116,7 @@ export default function AdminOrdersPage() {
                         }
                       }}
                       style={{
-                        border: "1px solid #e4e4e7",
+                        border: "1px solid #d8cfc0",
                         borderRadius: "6px",
                         padding: "0.35rem 0.5rem",
                         fontSize: "0.8rem",
@@ -124,7 +124,7 @@ export default function AdminOrdersPage() {
                       }}
                     />
                   </td>
-                  <td style={{ padding: "0.75rem 0.5rem", color: "#64646c" }}>
+                  <td style={{ padding: "0.75rem 0.5rem", color: "#5c564e" }}>
                     {new Date(o.created_at).toLocaleDateString("fr-FR")}
                   </td>
                 </tr>

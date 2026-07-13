@@ -2,31 +2,31 @@
 
 @layer base {
   :root {
-    --bg: #ffffff;
-    --surface: #fafafa;
-    --surface-2: #f2f2f4;
-    --border: #e4e4e7;
-    --border-2: #d4d4d8;
-    --text: #18181b;
-    --text-2: #64646c;
-    --text-3: #a1a1aa;
-    --cyan: #2563eb;
-    --cyan-dark: #1d4ed8;
-    --purple: #4f46e5;
+    --bg: #f1ede7;
+    --surface: #ece6dc;
+    --surface-2: #e3dccd;
+    --border: #d8cfc0;
+    --border-2: #c9bfae;
+    --text: #282828;
+    --text-2: #5c564e;
+    --text-3: #a39a8a;
+    --cyan: #282828;
+    --cyan-dark: #000000;
+    --purple: #282828;
     --amber: #f59e0b;
     --green: #10b981;
     --red: #ef4444;
 
     /* Legacy aliases — kept for compatibility */
-    --bg-primary: #ffffff;
-    --bg-secondary: #fafafa;
-    --bg-tertiary: #f2f2f4;
-    --text-primary: #18181b;
-    --text-secondary: #64646c;
-    --text-tertiary: #a1a1aa;
-    --accent-cyan: #2563eb;
-    --accent-purple: #4f46e5;
-    --border-color: #e4e4e7;
+    --bg-primary: #f1ede7;
+    --bg-secondary: #ece6dc;
+    --bg-tertiary: #e3dccd;
+    --text-primary: #282828;
+    --text-secondary: #5c564e;
+    --text-tertiary: #a39a8a;
+    --accent-cyan: #282828;
+    --accent-purple: #282828;
+    --border-color: #d8cfc0;
 
     --announce-h: 36px;
     --header-h: 52px;
@@ -52,7 +52,7 @@
   }
 
   ::selection {
-    background: rgba(37,99,235, 0.12);
+    background: rgba(40,40,40, 0.12);
     color: var(--text);
   }
 
@@ -84,10 +84,11 @@
   }
 
   .gradient-text {
-    background: linear-gradient(135deg, var(--cyan), var(--purple));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text);
+  }
+
+  .font-serif {
+    font-family: var(--font-serif), "Times New Roman", serif;
   }
 
   .label {
@@ -106,7 +107,7 @@
     gap: 0.5rem;
     padding: 0.875rem 2rem;
     background: var(--cyan);
-    color: #ffffff;
+    color: #f1ede7;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.1em;
@@ -165,7 +166,7 @@
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    border: 1px solid rgba(10,10,10,0.25);
+    border: 1px solid rgba(40,40,40,0.25);
     cursor: pointer;
     transition: background 0.2s, border-color 0.2s;
     text-decoration: none;
@@ -173,8 +174,8 @@
   }
 
   .btn-ghost:hover {
-    background: rgba(10,10,10,0.06);
-    border-color: rgba(10,10,10,0.5);
+    background: rgba(40,40,40,0.06);
+    border-color: rgba(40,40,40,0.5);
   }
 
   .input-field {
@@ -204,18 +205,18 @@
     animation: shimmer 1.5s infinite linear;
   }
 
-  /* Badges */
+  /* Badges — thin outline, no fill */
   .badge-hot {
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
     padding: 0.25rem 0.625rem;
-    background: rgba(245, 158, 11, 0.15);
-    border: 1px solid rgba(245, 158, 11, 0.3);
-    color: var(--amber);
+    background: transparent;
+    border: 1px solid var(--border-2);
+    color: var(--text-2);
     font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
+    font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
@@ -224,12 +225,12 @@
     align-items: center;
     gap: 0.3rem;
     padding: 0.25rem 0.625rem;
-    background: rgba(37,99,235, 0.1);
-    border: 1px solid rgba(37,99,235, 0.25);
-    color: var(--cyan);
+    background: transparent;
+    border: 1px solid var(--border-2);
+    color: var(--text-2);
     font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
+    font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
@@ -238,9 +239,9 @@
     align-items: center;
     gap: 0.3rem;
     padding: 0.2rem 0.5rem;
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.25);
-    color: var(--red);
+    background: transparent;
+    border: 1px solid var(--border-2);
+    color: var(--text-2);
     font-size: 9px;
     font-weight: 600;
     letter-spacing: 0.08em;
@@ -252,12 +253,12 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.4rem 0.875rem;
-    background: rgba(16, 185, 129, 0.08);
-    border: 1px solid rgba(16, 185, 129, 0.2);
+    background: transparent;
+    border: 1px solid var(--border-2);
     border-radius: 999px;
     font-size: 11px;
     font-weight: 500;
-    color: var(--green);
+    color: var(--text-2);
     letter-spacing: 0.04em;
   }
 }

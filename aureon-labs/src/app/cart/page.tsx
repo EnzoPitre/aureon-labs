@@ -53,11 +53,11 @@ export default function CartPage() {
 
         {items.length === 0 ? (
           <div style={{ textAlign: "center", padding: "6rem 0" }}>
-            <ShoppingBag size={64} style={{ margin: "0 auto 1.5rem", color: "#c7c7cc" }} />
-            <h2 style={{ fontWeight: 600, marginBottom: "0.75rem", color: "#52525b" }}>
+            <ShoppingBag size={64} style={{ margin: "0 auto 1.5rem", color: "#b8ac97" }} />
+            <h2 style={{ fontWeight: 600, marginBottom: "0.75rem", color: "#4a4540" }}>
               Votre panier est vide
             </h2>
-            <p style={{ color: "#71717a", marginBottom: "2rem" }}>
+            <p style={{ color: "#6b6459", marginBottom: "2rem" }}>
               Découvrez notre collection de bracelets premium.
             </p>
             <Link href="/shop" className="btn-primary">
@@ -84,14 +84,14 @@ export default function CartPage() {
                       display: "flex",
                       gap: "1.5rem",
                       padding: "1.5rem",
-                      background: "#f7f7f8",
+                      background: "#e8e1d5",
                       borderRadius: "10px",
-                      border: "1px solid #ececef",
+                      border: "1px solid #ddd5c7",
                       alignItems: "center",
                     }}
                   >
                     {/* Image */}
-                    <div style={{ position: "relative", width: 88, height: 88, flexShrink: 0, borderRadius: "8px", overflow: "hidden", background: "#ececef" }}>
+                    <div style={{ position: "relative", width: 88, height: 88, flexShrink: 0, borderRadius: "8px", overflow: "hidden", background: "#ddd5c7" }}>
                       <Image src={item.product.image} alt={item.product.name} fill style={{ objectFit: "cover" }} />
                     </div>
 
@@ -100,19 +100,19 @@ export default function CartPage() {
                       <Link href={`/shop/${item.product.slug}`} style={{ textDecoration: "none" }}>
                         <h3 style={{ fontWeight: 600, marginBottom: "0.25rem", fontSize: "1rem" }}>{item.product.name}</h3>
                       </Link>
-                      <p style={{ color: "#71717a", fontSize: "0.875rem", marginBottom: "0.75rem" }}>
+                      <p style={{ color: "#6b6459", fontSize: "0.875rem", marginBottom: "0.75rem" }}>
                         {item.product.tagline || item.product.description}
                       </p>
-                      <span style={{ color: "#52525b", fontSize: "0.875rem" }}>
+                      <span style={{ color: "#4a4540", fontSize: "0.875rem" }}>
                         {formatPrice(item.product.price)} / pièce
                       </span>
                     </div>
 
                     {/* Qty */}
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", background: "#ececef", borderRadius: "8px", padding: "0.375rem 0.5rem" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", background: "#ddd5c7", borderRadius: "8px", padding: "0.375rem 0.5rem" }}>
                       <button
                         onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                        style={{ background: "none", border: "none", cursor: "pointer", color: "#52525b", width: "28px", height: "28px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.1rem" }}
+                        style={{ background: "none", border: "none", cursor: "pointer", color: "#4a4540", width: "28px", height: "28px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.1rem" }}
                       >
                         −
                       </button>
@@ -121,7 +121,7 @@ export default function CartPage() {
                       </span>
                       <button
                         onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                        style={{ background: "none", border: "none", cursor: "pointer", color: "#52525b", width: "28px", height: "28px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.1rem" }}
+                        style={{ background: "none", border: "none", cursor: "pointer", color: "#4a4540", width: "28px", height: "28px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.1rem" }}
                       >
                         +
                       </button>
@@ -137,7 +137,7 @@ export default function CartPage() {
                     {/* Remove */}
                     <button
                       onClick={() => removeItem(item.product.id)}
-                      style={{ background: "none", border: "none", cursor: "pointer", color: "#71717a", padding: "0.25rem", flexShrink: 0 }}
+                      style={{ background: "none", border: "none", cursor: "pointer", color: "#6b6459", padding: "0.25rem", flexShrink: 0 }}
                       title="Retirer"
                     >
                       <Trash2 size={16} />
@@ -153,7 +153,7 @@ export default function CartPage() {
                   alignItems: "center",
                   gap: "0.5rem",
                   marginTop: "2rem",
-                  color: "#52525b",
+                  color: "#4a4540",
                   textDecoration: "none",
                   fontSize: "0.875rem",
                 }}
@@ -166,9 +166,9 @@ export default function CartPage() {
             {/* Summary */}
             <div
               style={{
-                background: "#f7f7f8",
+                background: "#e8e1d5",
                 borderRadius: "12px",
-                border: "1px solid #ececef",
+                border: "1px solid #ddd5c7",
                 padding: "1.75rem",
                 position: "sticky",
                 top: "88px",
@@ -180,22 +180,22 @@ export default function CartPage() {
 
               <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem", marginBottom: "1.5rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
-                  <span style={{ color: "#52525b" }}>Sous-total</span>
+                  <span style={{ color: "#4a4540" }}>Sous-total</span>
                   <span>{formatPrice(total)}</span>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
-                  <span style={{ color: "#52525b" }}>Livraison</span>
+                  <span style={{ color: "#4a4540" }}>Livraison</span>
                   <span>{formatPrice(shipping)}</span>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
-                  <span style={{ color: "#71717a", fontSize: "0.8rem" }}>TVA (20%)</span>
-                  <span style={{ color: "#71717a", fontSize: "0.8rem" }}>Incluse</span>
+                  <span style={{ color: "#6b6459", fontSize: "0.8rem" }}>TVA (20%)</span>
+                  <span style={{ color: "#6b6459", fontSize: "0.8rem" }}>Incluse</span>
                 </div>
               </div>
 
               <div
                 style={{
-                  borderTop: "1px solid #ececef",
+                  borderTop: "1px solid #ddd5c7",
                   paddingTop: "1rem",
                   display: "flex",
                   justifyContent: "space-between",
@@ -233,7 +233,7 @@ export default function CartPage() {
                 {loading ? "..." : "Passer la commande"}
               </button>
 
-              <p style={{ color: "#71717a", fontSize: "0.75rem", textAlign: "center", marginTop: "1rem" }}>
+              <p style={{ color: "#6b6459", fontSize: "0.75rem", textAlign: "center", marginTop: "1rem" }}>
                 Paiement sécurisé via Stripe. Vos données sont protégées.
               </p>
             </div>

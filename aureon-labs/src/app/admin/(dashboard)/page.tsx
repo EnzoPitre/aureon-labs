@@ -40,7 +40,7 @@ export default function AdminDashboardPage() {
       </h1>
 
       {!stats ? (
-        <p style={{ color: "#64646c" }}>Chargement...</p>
+        <p style={{ color: "#5c564e" }}>Chargement...</p>
       ) : (
         <div
           style={{
@@ -53,16 +53,16 @@ export default function AdminDashboardPage() {
             <div
               key={c.label}
               style={{
-                border: "1px solid #e4e4e7",
+                border: "1px solid #d8cfc0",
                 borderRadius: "10px",
                 padding: "1.25rem 1.5rem",
-                background: "#fafafa",
+                background: "#ece6dc",
               }}
             >
-              <div style={{ fontSize: "0.75rem", color: "#64646c", marginBottom: "0.5rem" }}>
+              <div style={{ fontSize: "0.75rem", color: "#5c564e", marginBottom: "0.5rem" }}>
                 {c.label}
               </div>
-              <div style={{ fontSize: "1.5rem", fontWeight: 700, color: "#18181b" }}>
+              <div style={{ fontSize: "1.5rem", fontWeight: 700, color: "#282828" }}>
                 {c.value}
               </div>
             </div>

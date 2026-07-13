@@ -20,8 +20,8 @@ export default function Newsletter() {
   return (
     <section
       style={{
-        background: "linear-gradient(180deg, #ffffff 0%, #ffffff 100%)",
-        borderTop: "1px solid #e4e4e7",
+        background: "linear-gradient(180deg, #f1ede7 0%, #f1ede7 100%)",
+        borderTop: "1px solid #d8cfc0",
       }}
     >
       <div className="container-main">
@@ -63,7 +63,7 @@ export default function Newsletter() {
                 fontSize: "clamp(2rem, 4vw, 3.5rem)",
                 fontWeight: 700,
                 letterSpacing: "-0.04em",
-                color: "#18181b",
+                color: "#282828",
                 lineHeight: 1.05,
                 margin: "0 0 1rem",
               }}
@@ -73,7 +73,7 @@ export default function Newsletter() {
               première commande.
             </h2>
 
-            <p style={{ color: "#64646c", fontSize: "14px", lineHeight: 1.75, marginBottom: "1.5rem" }}>
+            <p style={{ color: "#5c564e", fontSize: "14px", lineHeight: 1.75, marginBottom: "1.5rem" }}>
               Rejoins 2 000+ athlètes qui performent avec style.
               <br />
               Accès en avant-première aux nouveaux drops. Zéro spam.
@@ -93,7 +93,7 @@ export default function Newsletter() {
                     alignItems: "center",
                     gap: "0.625rem",
                     fontSize: "13px",
-                    color: "#64646c",
+                    color: "#5c564e",
                   }}
                 >
                   <span
@@ -121,8 +121,8 @@ export default function Newsletter() {
           <div>
             <div
               style={{
-                background: "#fafafa",
-                border: "1px solid #e4e4e7",
+                background: "#ece6dc",
+                border: "1px solid #d8cfc0",
                 padding: "2.5rem",
               }}
             >
@@ -147,14 +147,14 @@ export default function Newsletter() {
                     style={{
                       fontSize: "18px",
                       fontWeight: 600,
-                      color: "#18181b",
+                      color: "#282828",
                       letterSpacing: "-0.02em",
                       marginBottom: "0.5rem",
                     }}
                   >
                     Ton code arrive !
                   </h3>
-                  <p style={{ color: "#64646c", fontSize: "13px", lineHeight: 1.7 }}>
+                  <p style={{ color: "#5c564e", fontSize: "13px", lineHeight: 1.7 }}>
                     Vérifie ta boîte mail — ton code{" "}
                     <strong style={{ color: "var(--cyan)" }}>WELCOME10</strong> t&apos;attend.
                     <br />
@@ -168,14 +168,14 @@ export default function Newsletter() {
                       style={{
                         fontSize: "16px",
                         fontWeight: 600,
-                        color: "#18181b",
+                        color: "#282828",
                         letterSpacing: "-0.02em",
                         marginBottom: "0.4rem",
                       }}
                     >
                       Obtenir mon code -10%
                     </div>
-                    <div style={{ fontSize: "12px", color: "#8b8b93" }}>
+                    <div style={{ fontSize: "12px", color: "#83796b" }}>
                       Valable sur ta première commande · Sans minimum d&apos;achat
                     </div>
                   </div>
@@ -189,17 +189,17 @@ export default function Newsletter() {
                       required
                       style={{
                         width: "100%",
-                        background: "#ffffff",
-                        border: "1px solid #d4d4d8",
+                        background: "#f1ede7",
+                        border: "1px solid #c9bfae",
                         padding: "0.875rem 1rem",
-                        color: "#18181b",
+                        color: "#282828",
                         fontSize: "14px",
                         outline: "none",
                         transition: "border-color 0.2s",
                         fontFamily: "inherit",
                       }}
                       onFocus={(e) => (e.currentTarget.style.borderColor = "var(--cyan)")}
-                      onBlur={(e) => (e.currentTarget.style.borderColor = "#d4d4d8")}
+                      onBlur={(e) => (e.currentTarget.style.borderColor = "#c9bfae")}
                     />
                     <button
                       type="submit"
@@ -222,7 +222,7 @@ export default function Newsletter() {
                     </button>
                   </form>
 
-                  <p style={{ marginTop: "1rem", fontSize: "11px", color: "#a1a1aa", textAlign: "center" }}>
+                  <p style={{ marginTop: "1rem", fontSize: "11px", color: "#a39a8a", textAlign: "center" }}>
                     Pas de spam · Résiliable à tout moment · Données protégées
                   </p>
                 </>
@@ -237,7 +237,7 @@ export default function Newsletter() {
                 justifyContent: "center",
                 gap: "2rem",
                 fontSize: "11px",
-                color: "#a1a1aa",
+                color: "#a39a8a",
               }}
             >
               <span>🔒 Email sécurisé</span>

@@ -33,13 +33,13 @@ export default function ContactPage() {
         >
           {/* Info */}
           <div>
-            <p style={{ color: "#2563eb", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem" }}>
+            <p style={{ color: "#282828", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem" }}>
               Contact
             </p>
             <h1 style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", fontWeight: 700, letterSpacing: "-0.02em", marginBottom: "1.5rem", lineHeight: 1.2 }}>
               On est là pour vous.
             </h1>
-            <p style={{ color: "#52525b", lineHeight: 1.8, marginBottom: "3rem" }}>
+            <p style={{ color: "#4a4540", lineHeight: 1.8, marginBottom: "3rem" }}>
               Une question sur votre commande, un problème avec votre bracelet, ou juste
               envie de nous dire bonjour — on vous répond sous 24h.
             </p>
@@ -53,7 +53,7 @@ export default function ContactPage() {
                 <div key={item.label} style={{ display: "flex", alignItems: "flex-start", gap: "1rem" }}>
                   <span style={{ fontSize: "1.25rem" }}>{item.icon}</span>
                   <div>
-                    <p style={{ color: "#71717a", fontSize: "0.8rem", marginBottom: "0.25rem" }}>{item.label}</p>
+                    <p style={{ color: "#6b6459", fontSize: "0.8rem", marginBottom: "0.25rem" }}>{item.label}</p>
                     <p style={{ fontWeight: 500 }}>{item.value}</p>
                   </div>
                 </div>
@@ -64,17 +64,17 @@ export default function ContactPage() {
           {/* Form */}
           <div
             style={{
-              background: "#f7f7f8",
-              border: "1px solid #ececef",
+              background: "#e8e1d5",
+              border: "1px solid #ddd5c7",
               borderRadius: "16px",
               padding: "2.5rem",
             }}
           >
             {sent ? (
               <div style={{ textAlign: "center", padding: "3rem 0" }}>
-                <CheckCircle size={48} style={{ color: "#2563eb", margin: "0 auto 1.5rem" }} />
+                <CheckCircle size={48} style={{ color: "#282828", margin: "0 auto 1.5rem" }} />
                 <h3 style={{ fontWeight: 700, marginBottom: "0.75rem" }}>Message envoyé !</h3>
-                <p style={{ color: "#52525b", fontSize: "0.9rem" }}>
+                <p style={{ color: "#4a4540", fontSize: "0.9rem" }}>
                   On vous répond sous 24h. Merci de nous faire confiance.
                 </p>
               </div>
@@ -83,7 +83,7 @@ export default function ContactPage() {
                 <h2 style={{ fontWeight: 700, marginBottom: "0.5rem" }}>Nous écrire</h2>
 
                 <div>
-                  <label style={{ display: "block", fontSize: "0.875rem", color: "#52525b", marginBottom: "0.5rem" }}>Nom</label>
+                  <label style={{ display: "block", fontSize: "0.875rem", color: "#4a4540", marginBottom: "0.5rem" }}>Nom</label>
                   <input
                     type="text"
                     value={name}
@@ -95,7 +95,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label style={{ display: "block", fontSize: "0.875rem", color: "#52525b", marginBottom: "0.5rem" }}>Email</label>
+                  <label style={{ display: "block", fontSize: "0.875rem", color: "#4a4540", marginBottom: "0.5rem" }}>Email</label>
                   <input
                     type="email"
                     value={email}
@@ -107,9 +107,9 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label style={{ display: "block", fontSize: "0.875rem", color: "#52525b", marginBottom: "0.5rem" }}>
+                  <label style={{ display: "block", fontSize: "0.875rem", color: "#4a4540", marginBottom: "0.5rem" }}>
                     Message
-                    <span style={{ color: "#71717a", marginLeft: "0.5rem" }}>({message.length}/1000)</span>
+                    <span style={{ color: "#6b6459", marginLeft: "0.5rem" }}>({message.length}/1000)</span>
                   </label>
                   <textarea
                     value={message}

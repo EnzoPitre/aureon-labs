@@ -27,8 +27,8 @@ export default function TrustStrip() {
   return (
     <section
       style={{
-        borderBottom: "1px solid #e4e4e7",
-        background: "#ffffff",
+        borderBottom: "1px solid #d8cfc0",
+        background: "#f1ede7",
       }}
     >
       <div
@@ -47,7 +47,7 @@ export default function TrustStrip() {
               alignItems: "center",
               gap: "1rem",
               padding: "1.75rem 2rem",
-              borderRight: i < items.length - 1 ? "1px solid #e4e4e7" : "none",
+              borderRight: i < items.length - 1 ? "1px solid #d8cfc0" : "none",
               transition: "background 0.2s",
             }}
           >
@@ -57,14 +57,14 @@ export default function TrustStrip() {
                 style={{
                   fontSize: "12px",
                   fontWeight: 600,
-                  color: "#18181b",
+                  color: "#282828",
                   letterSpacing: "-0.01em",
                   marginBottom: "0.2rem",
                 }}
               >
                 {item.title}
               </div>
-              <div style={{ fontSize: "11px", color: "#8b8b93", lineHeight: 1.4 }}>
+              <div style={{ fontSize: "11px", color: "#83796b", lineHeight: 1.4 }}>
                 {item.sub}
               </div>
             </div>
@@ -85,10 +85,10 @@ export default function TrustStrip() {
           }
           .trust-grid > *:nth-child(1),
           .trust-grid > *:nth-child(2) {
-            border-bottom: 1px solid #e4e4e7;
+            border-bottom: 1px solid #d8cfc0;
           }
           .trust-grid > *:nth-child(3) {
-            border-right: 1px solid #e4e4e7 !important;
+            border-right: 1px solid #d8cfc0 !important;
           }
         }
       `}</style>

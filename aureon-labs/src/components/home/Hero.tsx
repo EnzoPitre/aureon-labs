@@ -29,7 +29,7 @@ export default function Hero() {
         gridTemplateColumns: "1fr 1fr",
         position: "relative",
         overflow: "hidden",
-        borderBottom: "1px solid #e4e4e7",
+        borderBottom: "1px solid #d8cfc0",
         paddingTop: "calc(var(--announce-h) + var(--header-h))",
       }}
       className="hero-section"
@@ -64,12 +64,14 @@ export default function Hero() {
           initial="hidden"
           animate="show"
           custom={1}
+          className="font-serif"
           style={{
-            fontSize: "clamp(2.75rem, 5.5vw, 5rem)",
-            fontWeight: 300,
-            lineHeight: 1.02,
-            letterSpacing: "-0.03em",
-            color: "#18181b",
+            fontSize: "clamp(3rem, 6vw, 5.5rem)",
+            fontWeight: 500,
+            fontStyle: "italic",
+            lineHeight: 1.05,
+            letterSpacing: "-0.01em",
+            color: "#282828",
             marginBottom: "1.5rem",
           }}
         >
@@ -84,7 +86,7 @@ export default function Hero() {
           animate="show"
           custom={2}
           style={{
-            color: "#64646c",
+            color: "#5c564e",
             fontSize: "16px",
             lineHeight: 1.7,
             maxWidth: "400px",
@@ -100,7 +102,7 @@ export default function Hero() {
           initial="hidden"
           animate="show"
           custom={2}
-          style={{ fontSize: "20px", fontWeight: 600, color: "#18181b", marginBottom: "2rem" }}
+          style={{ fontSize: "20px", fontWeight: 600, color: "#282828", marginBottom: "2rem" }}
         >
           21,99€
         </motion.div>
@@ -134,7 +136,7 @@ export default function Hero() {
             aspectRatio: "4/3",
             marginBottom: "3rem",
             overflow: "hidden",
-            border: "1px solid #e4e4e7",
+            border: "1px solid #d8cfc0",
             borderRadius: "8px",
           }}
         >
@@ -170,11 +172,11 @@ export default function Hero() {
                 display: "flex",
                 alignItems: "center",
                 gap: "0.4rem",
-                color: "#8b8b93",
+                color: "#83796b",
                 fontSize: "12px",
               }}
             >
-              <span style={{ color: "#a1a1aa" }}>{item.icon}</span>
+              <span style={{ color: "#a39a8a" }}>{item.icon}</span>
               {item.text}
             </div>
           ))}
@@ -188,8 +190,8 @@ export default function Hero() {
         transition={{ duration: 0.8, delay: 0.2 }}
         style={{
           position: "relative",
-          borderLeft: "1px solid #e4e4e7",
-          background: "#fafafa",
+          borderLeft: "1px solid #d8cfc0",
+          background: "#ece6dc",
         }}
         className="hero-right"
       >

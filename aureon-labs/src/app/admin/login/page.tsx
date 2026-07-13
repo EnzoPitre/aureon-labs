@@ -45,8 +45,8 @@ export default function AdminLoginPage() {
         style={{
           width: "100%",
           maxWidth: "360px",
-          background: "#fafafa",
-          border: "1px solid #e4e4e7",
+          background: "#ece6dc",
+          border: "1px solid #d8cfc0",
           borderRadius: "12px",
           padding: "2.5rem",
         }}
@@ -54,7 +54,7 @@ export default function AdminLoginPage() {
         <h1 style={{ fontSize: "1.25rem", fontWeight: 700, marginBottom: "0.5rem" }}>
           Admin — Aureon Labs
         </h1>
-        <p style={{ color: "#64646c", fontSize: "0.875rem", marginBottom: "1.75rem" }}>
+        <p style={{ color: "#5c564e", fontSize: "0.875rem", marginBottom: "1.75rem" }}>
           Accès réservé.
         </p>
 
